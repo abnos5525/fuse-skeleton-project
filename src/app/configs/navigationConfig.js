@@ -7,65 +7,63 @@ i18next.addResourceBundle('ar', 'navigation', ar);
 
 const navigationConfig = [
       {
-        id: 'pages.authentication',
+        id: 'pages.information',
         title: 'اطلاعات پایه',
         type: 'collapse',
         children: [
           {
-            id: 'pages.authentication.sign-in',
+            id: 'pages.information.tree',
             title: 'تعریف درختواره سازمانی',
             type: 'item',
             
           },
           {
-            id: 'pages.authentication.sign-up',
+            id: 'pages.information.system',
             title: 'تعریف سامانه',
             type: 'item',
             url: '/pages/system',
           },
           {
-            id: 'pages.authentication.sign-out',
+            id: 'pages.information.log',
             title: 'تعریف لاگ',
             type: 'item',
 
           },
           {
-            id: 'pages.authentication.forgot-password',
+            id: 'pages.information.acception',
             title: 'تعریف / تایید عامل',
             type: 'item',
           },
 
         ],
       },
+
       {
-        id: 'pages.coming-soon',
+        id: 'pages.operation',
         title: 'عملیات اصلی',
         type: 'collapse',
-        url: '/pages/coming-soon',
         children: [
           {
-            id: 'pages.coming-soon.classic',
+            id: 'pages.operation.test',
             title: 'تست',
             type: 'item',
-            url: '',
           },
-
         ],
       },
+
       {
-        id: 'pages.error',
+        id: 'pages.settings',
         title: 'تنظیمات',
         type: 'collapse',
         children: [
           {
-            id: 'pages.error.404',
+            id: 'pages.settings.test',
             title: 'تست',
             type: 'item',
-            url: '',
           },
-
         ],
       },
+     
    
 ];
 

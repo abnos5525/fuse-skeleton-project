@@ -1,17 +1,22 @@
 import { Formik,Form,Field, ErrorMessage } from "formik";
+import Button from '@mui/material/Button';
 
+import { Paper } from "@mui/material";
 import {Pagination} from 'react-bootstrap'
 import { getallSystemData } from "./data"; 
 import SystemItems from "./SystemItems";
 
 import FormValidation from './FormValidation'
 
+
 const System = () =>{
     const systemData = getallSystemData();
     return(
         <>
             <div className="container">
-                <div className="info-form p-3">
+            <Paper className="w-full sm:w-auto min-h-full h-50 sm:min-h-auto rounded-0 py-32 px-16 sm:p-48 sm:rounded-2xl sm:shadow">
+                {/* <div className="info-form p-3"> */}
+                
                 <Formik initialValues={{
                     systemName: '',
                     systemLatinName: '',
@@ -23,9 +28,11 @@ const System = () =>{
 
                 {({ touched, errors, isValid }) => (
                     <Form>
+                        
                         <Field name="systemName" placeHolder="نام سامانه"
                         className={`form-control info-form-input vazir fs-5 
                         ${touched.systemName && !errors.systemName ? 'valid-input' : ''}`} type="text" />
+                       
                         <ErrorMessage name="systemName" 
                         render={msg => <p className="text-danger position-absolute">{msg}</p>}/>
 
@@ -34,28 +41,43 @@ const System = () =>{
                         ${touched.systemLatinName && !errors.systemLatinName ? 'valid-input' : ''}`} type="text" />
                         <ErrorMessage name="systemLatinName" 
                         render={msg => <p className="text-danger position-absolute" 
-                        style={{right:'33%'}}>{msg}</p>}/>
+                        style={{right:'35%'}}>{msg}</p>}/>
 
                         <Field name="systemNumber" placeHolder="شماره سامانه"
                         className={`form-control info-form-input vazir fs-5 
                         ${touched.systemNumber && !errors.systemNumber ? 'valid-input' : ''}`}  type="text"  />
                         <ErrorMessage name="systemNumber" 
                         render={msg => <p className="text-danger position-absolute" 
-                        style={{right:'64%'}}>{msg}</p>}/>
+                        style={{right:'62%'}}>{msg}</p>}/>
 
                         <Field  name="systemPort" placeHolder="شماره پورت"
                         className={`form-control info-form-input vazir fs-5 
                         ${touched.systemPort && !errors.systemPort ? 'valid-input' : ''}`}  type="text"  />
                         <ErrorMessage name="systemPort" 
                         render={msg => <p className="text-danger position-absolute" 
-                        style={{top:'37%'}}>{msg}</p>}/>
+                        style={{top:'16%'}}>{msg}</p>}/>
 
-                        <input disabled={!isValid || Object.keys(touched).length === 0} id="info-form-btn" type="submit" className="btn btn-primary" value='ذخیره'/>
+                        {/* <input disabled={!isValid || Object.keys(touched).length === 0} id="info-form-btn" type="submit" className="btn btn-primary" value='ذخیره'/> */}
+
+                        <Button
+                        variant="contained"
+                        color="secondary"
+                        className="float-start"
+                        aria-label="Register"
+                        disabled={!isValid || Object.keys(touched).length === 0}
+                        type="submit"
+                        size="small"
+                        style={{marginTop:'6vw',width: '120px'}}
+                        >
+                            ذخیره
+                        </Button>
 
                     </Form>
                     )}
                 </Formik>
-                </div>
+                
+                
+                </Paper>
 
                 <div className="container info-info pt-2">
                     <div className="grid">

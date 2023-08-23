@@ -46,10 +46,8 @@ body{
     width: 120px;
     height: 32px;
     border-radius: 10px;
-    position: absolute;
-    left: 50px;
-    bottom: 20px;
     font-size: 10pt;
+    float: left;
 }
 
 .info-form-input{

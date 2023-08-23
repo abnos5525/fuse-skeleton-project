@@ -17,7 +17,7 @@ const Root = styled(ListItem)(({ theme, ...props }) => ({
   paddingLeft: props.itempadding > 80 ? 80 : props.itempadding,
   paddingTop: 10,
   paddingBottom: 10,
-  color: alpha(theme.palette.text.primary, 0.7),
+  color: alpha(theme.palette.text.primary, 1),
   cursor: 'pointer',
   textDecoration: 'none!important',
   '&:hover': {
