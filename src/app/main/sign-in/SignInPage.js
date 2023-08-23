@@ -130,7 +130,7 @@ function SignInPage() {
                 render={({ field }) => (
                   <FormControl>
                     <FormControlLabel
-                      label="Remember me"
+                      label="مرا به خواطر بسپار"
                       control={<Checkbox size="small" {...field} />}
                     />
                   </FormControl>

@@ -16,6 +16,10 @@ import settingsConfig from 'app/configs/settingsConfig';
 import withAppProviders from './withAppProviders';
 import { AuthProvider } from './auth/AuthContext';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap';
+import 'react-bootstrap/dist/react-bootstrap.min';
+
 // import axios from 'axios';
 /**
  * Axios HTTP Request defaults

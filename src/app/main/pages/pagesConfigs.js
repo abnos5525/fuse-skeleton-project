@@ -6,6 +6,7 @@ import invoicePagesConfig from './invoice/invoicePagesConfig';
 import errorPagesConfig from './error/errorPagesConfig';
 import pricingPagesConfig from './pricing/pricingPagesConfig';
 import searchPagesConfig from './search/searchPagesConfig';
+import systemPagesConfig from './systemComponents/systemPagesConfig';
 
 const pagesConfigs = [
   ...authenticationPagesConfig,
@@ -16,6 +17,7 @@ const pagesConfigs = [
   activitiesPageConfig,
   pricingPagesConfig,
   searchPagesConfig,
+  systemPagesConfig,
 ];
 
 export default pagesConfigs;
