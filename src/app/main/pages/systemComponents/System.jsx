@@ -1,6 +1,6 @@
 import { Formik,Form,Field, ErrorMessage } from "formik";
 import Button from '@mui/material/Button';
-
+import { alpha, styled } from '@mui/material/styles';
 import { Paper } from "@mui/material";
 import {Pagination} from 'react-bootstrap'
 import { getallSystemData } from "./data"; 
@@ -34,28 +34,28 @@ const System = () =>{
                         ${touched.systemName && !errors.systemName ? 'valid-input' : ''}`} type="text" />
                        
                         <ErrorMessage name="systemName" 
-                        render={msg => <p className="text-danger position-absolute">{msg}</p>}/>
+                        render={msg => <p className="text-danger position-absolute border-1 border-danger bg-white p-1" style={{borderRadius:'5px'}}>{msg}</p>}/>
 
                         <Field name="systemLatinName" placeHolder="نام لاتین سامانه"
                         className={`form-control info-form-input vazir fs-5 
                         ${touched.systemLatinName && !errors.systemLatinName ? 'valid-input' : ''}`} type="text" />
                         <ErrorMessage name="systemLatinName" 
-                        render={msg => <p className="text-danger position-absolute" 
-                        style={{right:'35%'}}>{msg}</p>}/>
+                        render={msg => <p className="text-danger position-absolute border-1 border-danger bg-white p-1" 
+                        style={{right:'35%',borderRadius:'5px'}}>{msg}</p>}/>
 
                         <Field name="systemNumber" placeHolder="شماره سامانه"
                         className={`form-control info-form-input vazir fs-5 
                         ${touched.systemNumber && !errors.systemNumber ? 'valid-input' : ''}`}  type="text"  />
                         <ErrorMessage name="systemNumber" 
-                        render={msg => <p className="text-danger position-absolute" 
-                        style={{right:'62%'}}>{msg}</p>}/>
+                        render={msg => <p className="text-danger position-absolute border-1 border-danger bg-white p-1" 
+                        style={{right:'62%',borderRadius:'5px'}}>{msg}</p>}/>
 
                         <Field  name="systemPort" placeHolder="شماره پورت"
                         className={`form-control info-form-input vazir fs-5 
                         ${touched.systemPort && !errors.systemPort ? 'valid-input' : ''}`}  type="text"  />
                         <ErrorMessage name="systemPort" 
-                        render={msg => <p className="text-danger position-absolute" 
-                        style={{top:'16%'}}>{msg}</p>}/>
+                        render={msg => <p className="text-danger position-absolute border-1 border-danger bg-white p-1" 
+                        style={{top:'16%',borderRadius:'5px'}}>{msg}</p>}/>
 
                         {/* <input disabled={!isValid || Object.keys(touched).length === 0} id="info-form-btn" type="submit" className="btn btn-primary" value='ذخیره'/> */}
 

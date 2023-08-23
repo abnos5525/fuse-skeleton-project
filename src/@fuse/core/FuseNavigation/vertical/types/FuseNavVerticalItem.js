@@ -65,14 +65,6 @@ function FuseNavVerticalItem(props) {
         sx={item.sx}
         disabled={item.disabled}
       >
-        {item.icon && (
-          <FuseSvgIcon
-            className={clsx('fuse-list-item-icon shrink-0', item.iconClass)}
-            color="action"
-          >
-            {item.icon}
-          </FuseSvgIcon>
-        )}
 
         <ListItemText
           className="fuse-list-item-text"
