@@ -37,7 +37,7 @@ const themesConfig = {
       },
       background: {
         paper: '#FFFFFF',
-        default: '#f1f5f9',
+        default: '#2a6fff',
       },
       error: {
         light: '#ffcdd2',
@@ -73,6 +73,7 @@ const themesConfig = {
       background: {
         paper: '#1e293b',
         default: '#111827',
+        navbar: `linearGradient(#6094ff, #2a6fff)`
       },
       error: {
         light: '#ffcdd2',

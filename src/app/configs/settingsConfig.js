@@ -10,9 +10,9 @@ const settingsConfig = {
   direction: 'rtl', // rtl, ltr
   theme: {
     main: themesConfig.default,
-    navbar: themesConfig.defaultDark,
+    navbar: themesConfig.default,
     toolbar: themesConfig.default,
-    footer: themesConfig.defaultDark,
+    footer: themesConfig.default,
   },
   /*
    To make whole app auth protected by default set defaultAuth:['admin','staff','user']

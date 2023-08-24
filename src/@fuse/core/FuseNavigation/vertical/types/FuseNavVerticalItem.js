@@ -12,12 +12,12 @@ const Root = styled(ListItem)(({ theme, ...props }) => ({
   minHeight: 44,
   width: '100%',
   borderRadius: '6px',
-  margin: '0 0 4px 0',
+  margin: '0 0 0 0',
   paddingRight: 16,
   paddingLeft: props.itempadding > 80 ? 80 : props.itempadding,
   paddingTop: 10,
   paddingBottom: 10,
-  color: alpha(theme.palette.text.primary, 1),
+  color: alpha(theme.palette.text.primary, .6),
   cursor: 'pointer',
   textDecoration: 'none!important',
   '&:hover': {
@@ -27,7 +27,7 @@ const Root = styled(ListItem)(({ theme, ...props }) => ({
     color: theme.palette.text.primary,
     backgroundColor:
       theme.palette.mode === 'light'
-        ? 'rgba(0, 0, 0, .05)!important'
+        ? '#6094ff!important'
         : 'rgba(255, 255, 255, .1)!important',
     pointerEvents: 'none',
     transition: 'border-radius .15s cubic-bezier(0.4,0.0,0.2,1)',
@@ -71,8 +71,8 @@ function FuseNavVerticalItem(props) {
           primary={item.title}
           secondary={item.subtitle}
           classes={{
-            primary: 'text-13 font-medium fuse-list-item-text-primary truncate',
-            secondary: 'text-11 font-medium fuse-list-item-text-secondary leading-normal truncate',
+            primary: 'text-17 font-medium fuse-list-item-text-primary truncate',
+            secondary: 'text-19 font-medium fuse-list-item-text-secondary leading-normal truncate',
           }}
         />
         {item.badge && <FuseNavBadge badge={item.badge} />}

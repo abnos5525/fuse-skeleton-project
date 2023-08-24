@@ -25,14 +25,17 @@ const Root = styled(List)(({ theme, ...props }) => ({
     paddingLeft: props.itempadding > 80 ? 80 : props.itempadding,
     paddingTop: 10,
     paddingBottom: 10,
-    color: alpha(theme.palette.text.primary, 0.7),
+    color: alpha(theme.palette.text.secondary, 0.5),
     '&:hover': {
-      color: theme.palette.text.primary,
+      color: theme.palette.text.secondary,
     },
     '& > .fuse-list-item-icon': {
       marginRight: 16,
       color: 'inherit',
     },
+  },
+  '& > .fuse-list-item-text': {
+    color: alpha(theme.palette.text.secondary, 0.7),
   },
 }));
 
@@ -103,7 +106,7 @@ function FuseNavVerticalCollapse(props) {
             primary={item.title}
             secondary={item.subtitle}
             classes={{
-              primary: 'text-13 font-medium fuse-list-item-text-primary truncate',
+              primary: 'text-18 font-medium fuse-list-item-text-primary truncate',
               secondary:
                 'text-11 font-medium fuse-list-item-text-secondary leading-normal truncate',
             }}

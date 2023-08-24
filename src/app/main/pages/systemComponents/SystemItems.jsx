@@ -3,7 +3,8 @@ import { Paper } from "@mui/material";
 const SystemItems = ({sys}) =>{
 
     return(
-        <Paper style={{height:'50px',borderBottom:'1px solid #c9c9c9',}}>
+        <Paper className="sm:w-auto p-0 min-h-auto sm:min-h-auto rounded-0 sm:rounded-2xl sm:shadow">
+        <div style={{height:'50px',borderBottom:'1px solid #c9c9c9',}}>
             <div style={{marginRight:'15px'}} className="col-2">{sys.name}</div>
 
             <div style={{marginRight:'30px'}} className="col-2">{sys.latinName}</div>
@@ -21,6 +22,7 @@ const SystemItems = ({sys}) =>{
                     <i className="fa fa-trash-can"/>
                 </div>
             </div>
+        </div>
         </Paper>
     )
 }
