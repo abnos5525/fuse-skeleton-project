@@ -7,6 +7,7 @@ import errorPagesConfig from './error/errorPagesConfig';
 import pricingPagesConfig from './pricing/pricingPagesConfig';
 import searchPagesConfig from './search/searchPagesConfig';
 import systemPagesConfig from './systemComponents/systemPagesConfig';
+import logPagesConfig from './logComponents/logPagesConfig'
 
 const pagesConfigs = [
   ...authenticationPagesConfig,
@@ -18,6 +19,7 @@ const pagesConfigs = [
   pricingPagesConfig,
   searchPagesConfig,
   systemPagesConfig,
+  logPagesConfig,
 ];
 
 export default pagesConfigs;

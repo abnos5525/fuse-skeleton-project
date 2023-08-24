@@ -38,7 +38,7 @@ function Layout2(props) {
 
   return (
     <Root id="fuse-layout" className="w-full flex" config={config}>
-      {config.leftSidePanel.display && <LeftSideLayout2 />}
+      {/* {config.leftSidePanel.display && <LeftSideLayout2 />} */}
 
       <div className="flex flex-col flex-auto min-w-0">
         <main id="fuse-main" className="flex flex-col flex-auto min-h-full min-w-0 relative">
@@ -68,14 +68,10 @@ function Layout2(props) {
 
             {props.children}
           </div>
-
-          {config.footer.display && (
-            <FooterLayout2 className={config.footer.style === 'fixed' && 'sticky bottom-0'} />
-          )}
         </main>
       </div>
 
-      {config.rightSidePanel.display && <RightSideLayout2 />}
+      {/* {config.rightSidePanel.display && <RightSideLayout2 />} */}
       <FuseMessage />
     </Root>
   );

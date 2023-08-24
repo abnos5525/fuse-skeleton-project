@@ -27,7 +27,7 @@ const navigationConfig = [
             id: 'pages.information.log',
             title: 'تعریف لاگ',
             type: 'item',
-
+            url: '/pages/log',
           },
           {
             id: 'pages.information.acception',

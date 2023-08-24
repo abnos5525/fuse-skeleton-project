@@ -12,7 +12,7 @@ const System = () =>{
     const systemData = getallSystemData();
     return(
         <>
-            <Paper className=" container min-h-auto sm:min-h-auto rounded-0 py-5 px-5 sm:p-5 sm:rounded-2xl sm:shadow mt-5">
+            <Paper className=" container min-h-auto sm:min-h-auto rounded-0 py-5 px-5 sm:p-5 sm:rounded-2xl sm:shadow mt-5" style={{width:'95%'}}>
                 {/* <div className="info-form p-3"> */}
                 
                 <Formik initialValues={{
@@ -53,7 +53,7 @@ const System = () =>{
                         ${touched.systemPort && !errors.systemPort ? 'valid-input' : ''}`}  type="text"  />
                         <ErrorMessage name="systemPort" 
                         render={msg => <p className="text-danger position-absolute border-1 border-danger bg-white p-1" 
-                        style={{top:'20%',borderRadius:'5px'}}>{msg}</p>}/>
+                        style={{top:'18%',borderRadius:'5px'}}>{msg}</p>}/>
 
                         {/* <input disabled={!isValid || Object.keys(touched).length === 0} id="info-form-btn" type="submit" className="btn btn-primary" value='ذخیره'/> */}
 
@@ -75,7 +75,7 @@ const System = () =>{
                 </Formik>
                 </Paper>
 
-                <Paper className="container min-h-auto sm:min-h-auto rounded-0 px-1 sm:p-16 sm:rounded-2xl sm:shadow mt-2 info-info">
+                <Paper className="container min-h-auto sm:min-h-auto rounded-0 px-1 sm:p-16 sm:rounded-2xl sm:shadow mt-4 info-info" style={{width:'95%'}}>
 
                 <div className="row">
                         <div className="col-2"><span>نام سامانه</span></div>
@@ -120,7 +120,7 @@ const System = () =>{
                                     <SystemItems key={sys.name} sys={sys}/>
                                 ))
                             }
-                            <Paper className="rounded-0 h-auto">
+                            <Paper className="rounded-0 position-relative" style={{height:'30px'}}>
                                 <Pagination className="pagination-system">
                                     <Pagination.First className="pagination-system-item" />
                                     <Pagination.Prev className="pagination-system-item" />

@@ -1,8 +1,10 @@
+import { Paper } from "@mui/material";
 
 const LogItems = ({log}) =>{
 
     return(
-        <div style={{height:'50px',borderBottom:'1px solid #c9c9c9'}}>
+        <Paper className="sm:w-auto p-0 min-h-auto sm:min-h-auto rounded-0 sm:rounded-2xl sm:shadow">
+
             <div style={{marginRight:'15px'}} className="col-2">{log.describe}</div>
 
             <div style={{marginRight:'30px'}} className="col-2">{log.organizationName}</div>
@@ -26,7 +28,7 @@ const LogItems = ({log}) =>{
                     <i className="fa fa-trash-can"/>
                 </div>
             </div>
-        </div>
+        </Paper>
     )
 }
 

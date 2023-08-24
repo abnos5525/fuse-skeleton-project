@@ -140,8 +140,9 @@ body{
 
 .pagination-system{
   direction:ltr !important;
-  margin-right: auto;
- margin-left:auto;
+ top: 0;
+ bottom: 0;
+ margin: auto;
  width:205px;
 }
 .pagination-system a{
@@ -150,7 +151,7 @@ body{
 
 /* /////////////////////////////////////////////////////// */
 
-.info-info-log{
+/* .info-info-log{
   display: inline;
   box-shadow:rgb(189, 189, 189) -1px 7px 9px;
   border-radius: 10px;
@@ -162,10 +163,10 @@ body{
   font-family: 'vazir' !important;
   float: right;
   
-}
+} */
 
 .info-info-log .row:nth-child(1){
-  height: 35px;
+  height: 25px;
   border-bottom: 1px solid #c9c9c9;
 }
 
@@ -208,6 +209,8 @@ body{
   background-color: #fff;
   height: 260px;
   border-radius: 10px;
+  border-bottom: 1px solid #c9c9c9;
+
 }
 
 .info-info-log .row:nth-child(3) .col-2{

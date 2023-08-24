@@ -12,9 +12,10 @@ import FuseSvgIcon from '../../../FuseSvgIcon';
 const StyledListItem = styled(ListItem)(({ theme }) => ({
   color: theme.palette.text.primary,
   textDecoration: 'none!important',
+  backgroundColor: `${theme.palette.secondary.main}!important`,
   minHeight: 48,
   '&.active': {
-    backgroundColor: `${theme.palette.secondary.main}!important`,
+    backgroundColor: `${theme.palette.secondary.light}!important`,
     color: `${theme.palette.secondary.contrastText}!important`,
     pointerEvents: 'none',
     '& .fuse-list-item-text-primary': {
