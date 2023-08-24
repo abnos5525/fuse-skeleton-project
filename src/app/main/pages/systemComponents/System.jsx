@@ -83,12 +83,12 @@ const System = () =>{
                 <Paper className="w-full sm:w-auto min-h-full h-50 sm:min-h-auto rounded-0 sm:p-48 sm:rounded-2xl sm:shadow info-info mt-5 h-75">
                     
                     
-                        <Paper className="row">
+                        <div className="row">
                             <div className="col-2"><span>نام سامانه</span></div>
                             <div className="col-2"><span>نام لاتین سامانه</span></div>
                             <div className="col-2"><span>شناسه سامانه</span></div>
                             <div className="col-2"><span>شماره پورت</span></div>
-                        </Paper>
+                        </div>
 
                         <Paper className="row p-2">
                             <div className="col-2">
