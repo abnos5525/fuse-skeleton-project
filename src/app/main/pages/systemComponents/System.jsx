@@ -79,15 +79,18 @@ const System = () =>{
                 
                 </Paper>
 
-                <div className="container info-info pt-2">
-                    <div className="grid">
-                        <div className="row">
+                {/* <div className="container info-info pt-2"> */}
+                <Paper className="w-full sm:w-auto min-h-full h-50 sm:min-h-auto rounded-0 sm:p-48 sm:rounded-2xl sm:shadow info-info mt-5 h-75">
+                    
+                    
+                        <Paper className="row">
                             <div className="col-2"><span>نام سامانه</span></div>
                             <div className="col-2"><span>نام لاتین سامانه</span></div>
                             <div className="col-2"><span>شناسه سامانه</span></div>
                             <div className="col-2"><span>شماره پورت</span></div>
-                        </div>
-                        <div className="row p-2">
+                        </Paper>
+
+                        <Paper className="row p-2">
                             <div className="col-2">
                                 <div style={{position:'relative'}}>
                                     <i className="fa-solid fa-magnifying-glass fa-rotate-90"> </i>
@@ -115,15 +118,15 @@ const System = () =>{
                                     <input type="text" className="form-control" placeholder="جستجو"/>
                                 </div>
                             </div>
-                        </div>
+                        </Paper>
 
-                        <div className="row p-2 h-100">
+                        <div className="row h-100">
                             {
                                 systemData.map(sys =>(
                                     <SystemItems key={sys.name} sys={sys}/>
                                 ))
                             }
-                            <div>
+                            <Paper>
                                 <Pagination className="pagination-system">
                                     <Pagination.First className="pagination-system-item" />
                                     <Pagination.Prev className="pagination-system-item" />
@@ -135,10 +138,12 @@ const System = () =>{
                                     <Pagination.Next className="pagination-system-item" />
                                     <Pagination.Last className="pagination-system-item" />
                                 </Pagination>
-                            </div>
+                            </Paper>
                         </div>
-                    </div>
-                </div>
+                    </Paper>
+                   
+                {/* </div> */}
+                
             </div>
         </>
     )

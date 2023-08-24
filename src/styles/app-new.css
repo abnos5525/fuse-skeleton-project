@@ -60,19 +60,17 @@ body{
     font-size: 10pt;
 }
 
-.info-info{
+/* .info-info{
   display: inline;
   box-shadow:rgb(189, 189, 189) -1px 7px 9px;
   border-radius: 10px;
   height: 280px;
   width:95% !important;
-  background-color: #fff;
   position: relative;
   top:80px !important;
   font-family: 'vazir' !important;
   float: right;
-  
-}
+} */
 
 .info-info .row:nth-child(1){
     height: 35px;

@@ -17,6 +17,8 @@ const StyledList = styled(List)(({ theme }) => ({
   },
   '& .fuse-list-item-text': {
     margin: 0,
+    color: 
+      theme.palette.mode === 'light' ? 'rgba(0,0,0,1)' : 'rgba(255, 255, 255, 1)'
   },
   '& .fuse-list-item-text-primary': {
     lineHeight: '20px',
