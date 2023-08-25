@@ -1,9 +1,7 @@
 import { Formik,Form,Field, ErrorMessage } from "formik";
 
 import Box from '@mui/material/Box';
-
 import Button from '@mui/material/Button';
-import { alpha, styled } from '@mui/material/styles';
 import { Paper } from "@mui/material";
 
 import Pagination from '@mui/material/Pagination';
@@ -84,34 +82,34 @@ const System = () =>{
 
                 <Box className="row w-100 m-auto" 
                 style={{height:'30px',borderBottom:'1px solid #aaa'}}>
-                        <span className="col-2 yekan fs-4 fw-bold text-center mx-4">نام سامانه</span>
+                        <span className="col-2 yekan fs-4 fw-bold text-center mx-4 head">نام سامانه</span>
 
-                        <span className="col-2 yekan fs-4 fw-bold text-center mx-4">نام لاتین سامانه</span>
+                        <span className="col-2 yekan fs-4 fw-bold text-center mx-4 head">نام لاتین سامانه</span>
      
-                        <span className="col-2 yekan fs-4 fw-bold text-center mx-4">شناسه سامانه</span>
+                        <span className="col-2 yekan fs-4 fw-bold text-center mx-4 head">شناسه سامانه</span>
 
-                        <span className="col-2 yekan fs-4 fw-bold text-center mx-4">شماره پورت</span>
+                        <span className="col-2 yekan fs-4 fw-bold text-center mx-4 head">شماره پورت</span>
                 </Box>
 
-                <Box className="row w-100 m-auto" 
+                <Box className="row w-100 m-auto searchs" 
                 style={{height:'40px',borderBottom:'1px solid #aaa'}}>
 
-                  <Box className="col-auto yekan mx-4 position-relative">
+                  <Box className="col-auto yekan mx-4 position-relative searchdiv">
                   <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch fa-lg"> </i>
                   <input type="text" className="form-control inputSearch" placeholder="جستجو"/>
                   </Box>
 
-                  <Box className="col-auto yekan mx-4 position-relative">
+                  <Box className="col-auto yekan mx-4 position-relative searchdiv">
                   <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch fa-lg"> </i>
                   <input type="text" className="form-control inputSearch" placeholder="جستجو"/>
                   </Box>
 
-                  <Box className="col-auto yekan mx-4 position-relative">
+                  <Box className="col-auto yekan mx-4 position-relative searchdiv">
                   <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch fa-lg"> </i>
                   <input type="text" className="form-control inputSearch" placeholder="جستجو"/>
                   </Box>
 
-                  <Box className="col-auto yekan mx-4 position-relative">
+                  <Box className="col-auto yekan mx-4 position-relative searchdiv">
                   <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch fa-lg"> </i>
                   <input type="text" className="form-control inputSearch" placeholder="جستجو"/>
                   </Box>

@@ -1,8 +1,12 @@
 import { Formik,Form,Field, ErrorMessage } from "formik";
 import { Paper } from "@mui/material";
 import Button from '@mui/material/Button';
-
-import {Pagination} from 'react-bootstrap'
+import Box from '@mui/material/Box';
+import Pagination from '@mui/material/Pagination';
+import PaginationItem from '@mui/material/PaginationItem';
+import Stack from '@mui/material/Stack';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 import formValidation from './FormValidation'
 import { getallLogData } from "./data"; 
@@ -99,79 +103,72 @@ const Log = () =>{
                 </Formik>
             </Paper>
 
-            <Paper className="container min-h-auto sm:min-h-auto rounded-0 px-1 sm:p-16 sm:rounded-2xl sm:shadow mt-4 info-info-log" style={{width:'95%'}}>
-                        <div className="row">
-                            <div className="col-2"><span className='fs-5'>توضیحات</span></div>
-                            <div className="col-2"><span className='fs-5'>نام سازمان</span></div>
-                            <div className="col-2"><span className='fs-5'>نام سامانه</span></div>
-                            <div className="col-2"><span className='fs-5'>دسته بندی</span></div>
-                            <div className="col-2"><span className='fs-5'>نوع رویداد</span></div>
-                            <div className="col-2"><span className='fs-5'>حساسیت رویداد</span></div>
-                        </div>
-                        <div className="row p-2">
-                            <div className="col-2">
-                                <div style={{position:'relative'}}>
-                                    <i className="fa-solid fa-magnifying-glass fa-rotate-90"> </i>
-                                    <input type="text" className="form-control" placeholder="جستجو"/>
-                                </div>
-                            </div>
+            <Paper className="container min-h-auto sm:min-h-auto rounded-0 px-1 sm:p-16 sm:rounded-2xl sm:shadow mt-4" style={{width:'95%'}}>
+                        <Box className="row w-100 m-auto" 
+                            style={{height:'30px',borderBottom:'1px solid #aaa'}}>
+                            <span className='col-2 yekan fs-5 fw-bold text-center head2'>توضیحات</span>
+                            <span className='col-2 yekan fs-5 fw-bold text-center head2'>نام سازمان</span>
+                            <span className='col-2 yekan fs-5 fw-bold text-center head2'>نام سامانه</span>
+                            <span className='col-2 yekan fs-5 fw-bold text-center head2'>دسته بندی</span>
+                            <span className='col-2 yekan fs-5 fw-bold text-center head2'>نوع رویداد</span>
+                            <span className='col-2 yekan fs-5 fw-bold text-center head2'>حساسیت رویداد</span>
+                        </Box>
+                        <Box className="row w-100 m-auto searchs" 
+                            style={{height:'40px',borderBottom:'1px solid #aaa'}}>
+                            <Box className="col-auto yekan position-relative searchdiv2">
+                            <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch fa-lg"> </i>
+                  <input type="text" className="form-control inputSearch2" placeholder="جستجو"/>
+                            </Box>
 
-                            <div className="col-2">
-                                <div style={{position:'relative'}}>
-                                    <i className="fa-solid fa-magnifying-glass fa-rotate-90"> </i>
-                                    <input type="text" className="form-control" placeholder="جستجو"/>
-                                </div>
-                            </div>
+                            <Box className="col-auto yekan position-relative searchdiv2">
+                            <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch fa-lg"> </i>
+                  <input type="text" className="form-control inputSearch2" placeholder="جستجو"/>
+                            </Box>
 
-                            <div className="col-2">
-                                <div style={{position:'relative'}}>
-                                    <i className="fa-solid fa-magnifying-glass fa-rotate-90"> </i>
-                                    <input type="text" className="form-control" placeholder="جستجو"/>
-                                </div>
-                            </div>
+                            <Box className="col-auto yekan position-relative searchdiv2">
+                            <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch fa-lg"> </i>
+                  <input type="text" className="form-control inputSearch2" placeholder="جستجو"/>
+                            </Box>
 
-                            <div className="col-2">
-                                <div style={{position:'relative'}}>
-                                    <i className="fa-solid fa-magnifying-glass fa-rotate-90"> </i>
-                                    <input type="text" className="form-control" placeholder="جستجو"/>
-                                </div>
-                            </div>
 
-                            <div className="col-2">
-                                <div style={{position:'relative'}}>
-                                    <i className="fa-solid fa-magnifying-glass fa-rotate-90"> </i>
-                                    <input type="text" className="form-control" placeholder="جستجو"/>
-                                </div>
-                            </div>
+                            <Box className="col-auto yekan position-relative searchdiv2">
+                            <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch fa-lg"> </i>
+                  <input type="text" className="form-control inputSearch2" placeholder="جستجو"/>
+                            </Box>
 
-                            <div className="col-2">
-                                <div style={{position:'relative'}}>
-                                    <i className="fa-solid fa-magnifying-glass fa-rotate-90"> </i>
-                                    <input type="text" className="form-control" placeholder="جستجو"/>
-                                </div>
-                            </div>
-                        </div>
+                            <Box className="col-auto yekan position-relative searchdiv2">
+                            <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch fa-lg"> </i>
+                  <input type="text" className="form-control inputSearch2" placeholder="جستجو"/>
+                            </Box>
 
-                        <div className="row p-2 h-100">
+
+                            <Box className="col-auto yekan position-relative searchdiv2">
+                            <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch fa-lg"> </i>
+                  <input type="text" className="form-control inputSearch2" placeholder="جستجو"/>
+                            </Box>
+
+                        </Box>
+
+                        <Box className="row w-100 m-auto" 
+                            style={{height:'auto',borderBottom:'1px solid #aaa'}}>
                             {
                                 logData.map(log =>(
                                     <LogItems key={log.organizationName} log={log}/>
                                 ))
                             }
-                            <Paper className="rounded-0 position-relative" style={{height:'30px'}}>
-                                <Pagination className="pagination-system">
-                                    <Pagination.First className="pagination-system-item" />
-                                    <Pagination.Prev className="pagination-system-item" />
-                                    <Pagination.Item className="pagination-system-item">{1}</Pagination.Item>
-                                    <Pagination.Item className="pagination-system-item">{2}</Pagination.Item>
-                                    <Pagination.Item className="pagination-system-item">{3}</Pagination.Item>
-                                    <Pagination.Ellipsis className="pagination-system-item" />
-                                    <Pagination.Item className="pagination-system-item">{10}</Pagination.Item>
-                                    <Pagination.Next className="pagination-system-item" />
-                                    <Pagination.Last className="pagination-system-item" />
-                                </Pagination>
-                            </Paper>
-                        </div>
+                            
+                        </Box>
+                        <Stack spacing={2} className="pagination" style={{width:'450px'}}>
+                        <Pagination  color="secondary"
+                            count={10}
+                            renderItem={(item) => (
+                            <PaginationItem
+                                slots={{ next: ArrowBackIcon, previous: ArrowForwardIcon }}
+                                {...item}
+                            />
+                            )}
+                        />
+                    </Stack>
                    
                 </Paper>
     

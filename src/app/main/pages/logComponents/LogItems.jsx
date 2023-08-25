@@ -1,9 +1,11 @@
-import { Paper } from "@mui/material";
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 
 const LogItems = ({log}) =>{
 
     return(
-        <Paper className="sm:w-auto p-0 min-h-auto sm:min-h-auto rounded-0 sm:rounded-2xl sm:shadow">
+        <Box className="sm:w-auto p-0 min-h-auto sm:min-h-auto rounded-0 
+        sm:rounded-2xl sm:shadow items2" style={{borderBottom:'1px solid #aaa'}}>
 
             <div style={{marginRight:'15px'}} className="col-2">{log.describe}</div>
 
@@ -20,15 +22,29 @@ const LogItems = ({log}) =>{
 
 
             <div className="col-3">
-                <div className="btn btn-primary" style={{ borderRadius: '5px' }}>
-                    <i className="fa fa-pen" />
-                </div>
+                        <Button
+                        variant="contained"
+                        color="secondary"
+                        className="float-start"
+                        type="submit"
+                        size='small'
+                        style={{borderRadius:'5px',minWidth:'15px'}}
+                        >
+                            <i className="fa fa-pen" />
+                        </Button>
 
-                <div className="btn btn-danger" style={{borderRadius:'5px'}}>
-                    <i className="fa fa-trash-can"/>
-                </div>
+                        <Button
+                        variant="contained"
+                        color="error"
+                        className="float-start"
+                        type="submit"
+                        size='small'
+                        style={{borderRadius:'5px',minWidth:'15px'}}
+                        >
+                            <i className="fa fa-trash-can"/>
+                        </Button>
             </div>
-        </Paper>
+        </Box>
     )
 }
 
