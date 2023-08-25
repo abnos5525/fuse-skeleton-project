@@ -47,6 +47,7 @@ const navigationConfig = [
             id: 'pages.operation.test',
             title: 'تست',
             type: 'item',
+            url: '/pages/activities'
           },
         ],
       },

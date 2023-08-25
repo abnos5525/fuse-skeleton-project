@@ -1,10 +1,12 @@
-import { Paper } from "@mui/material";
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 
 const SystemItems = ({sys}) =>{
 
     return(
-        <Paper className="sm:w-auto p-0 min-h-auto sm:min-h-auto rounded-0 sm:rounded-2xl sm:shadow">
-        <div style={{height:'50px',borderBottom:'1px solid #c9c9c9',}}>
+        <Box className="sm:w-auto p-0 min-h-auto sm:min-h-auto rounded-0 
+        sm:rounded-2xl sm:shadow items" style={{borderBottom:'1px solid #aaa'}}>
+
             <div style={{marginRight:'15px'}} className="col-2">{sys.name}</div>
 
             <div style={{marginRight:'30px'}} className="col-2">{sys.latinName}</div>
@@ -14,16 +16,30 @@ const SystemItems = ({sys}) =>{
              <div style={{marginRight:'40px'}} className="col-2">{sys.port}</div>
 
             <div className="col-3">
-                <div className="btn btn-primary" style={{ borderRadius: '5px' }}>
-                    <i className="fa fa-pen" />
-                </div>
+                        <Button
+                        variant="contained"
+                        color="secondary"
+                        className="float-start"
+                        type="submit"
+                        size='small'
+                        style={{borderRadius:'5px',minWidth:'15px'}}
+                        >
+                            <i className="fa fa-pen" />
+                        </Button>
 
-                <div className="btn btn-danger" style={{borderRadius:'5px'}}>
-                    <i className="fa fa-trash-can"/>
-                </div>
+                        <Button
+                        variant="contained"
+                        color="error"
+                        className="float-start"
+                        type="submit"
+                        size='small'
+                        style={{borderRadius:'5px',minWidth:'15px'}}
+                        >
+                            <i className="fa fa-trash-can"/>
+                        </Button>
+                
             </div>
-        </div>
-        </Paper>
+        </Box>
     )
 }
 

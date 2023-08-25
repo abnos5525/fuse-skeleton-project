@@ -1,12 +1,19 @@
 import { Formik,Form,Field, ErrorMessage } from "formik";
+
+import Box from '@mui/material/Box';
+
 import Button from '@mui/material/Button';
 import { alpha, styled } from '@mui/material/styles';
 import { Paper } from "@mui/material";
-import {Pagination} from 'react-bootstrap'
+
+import Pagination from '@mui/material/Pagination';
+import PaginationItem from '@mui/material/PaginationItem';
+import Stack from '@mui/material/Stack';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { getallSystemData } from "./data"; 
 import SystemItems from "./SystemItems";
 import FormValidation from './FormValidation'
-
 
 const System = () =>{
     const systemData = getallSystemData();
@@ -55,8 +62,6 @@ const System = () =>{
                         render={msg => <p className="text-danger position-absolute border-1 border-danger bg-white p-1" 
                         style={{top:'18%',borderRadius:'5px'}}>{msg}</p>}/>
 
-                        {/* <input disabled={!isValid || Object.keys(touched).length === 0} id="info-form-btn" type="submit" className="btn btn-primary" value='ذخیره'/> */}
-
                         <Button
                         variant="contained"
                         color="secondary"
@@ -75,67 +80,66 @@ const System = () =>{
                 </Formik>
                 </Paper>
 
-                <Paper className="container min-h-auto sm:min-h-auto rounded-0 px-1 sm:p-16 sm:rounded-2xl sm:shadow mt-4 info-info" style={{width:'95%'}}>
+                <Paper className="container min-h-auto sm:min-h-auto rounded-0 px-1 sm:p-16 sm:rounded-2xl sm:shadow mt-4" style={{width:'95%'}}>
 
-                <div className="row">
-                        <div className="col-2"><span>نام سامانه</span></div>
-                        <div className="col-2"><span>نام لاتین سامانه</span></div>
-                        <div className="col-2"><span>شناسه سامانه</span></div>
-                        <div className="col-2"><span>شماره پورت</span></div>
-                </div>
+                <Box className="row w-100 m-auto" 
+                style={{height:'30px',borderBottom:'1px solid #aaa'}}>
+                        <span className="col-2 yekan fs-4 fw-bold text-center mx-4">نام سامانه</span>
 
-                <div className="row p-2">
-                            <div className="col-2">
-                                <div style={{position:'relative'}}>
-                                    <i className="fa-solid fa-magnifying-glass fa-rotate-90"> </i>
-                                    <input type="text" className="form-control" placeholder="جستجو"/>
-                                </div>
-                            </div>
+                        <span className="col-2 yekan fs-4 fw-bold text-center mx-4">نام لاتین سامانه</span>
+     
+                        <span className="col-2 yekan fs-4 fw-bold text-center mx-4">شناسه سامانه</span>
 
-                            <div className="col-2">
-                                <div style={{position:'relative'}}>
-                                    <i className="fa-solid fa-magnifying-glass fa-rotate-90"> </i>
-                                    <input type="text" className="form-control" placeholder="جستجو"/>
-                                </div>
-                            </div>
+                        <span className="col-2 yekan fs-4 fw-bold text-center mx-4">شماره پورت</span>
+                </Box>
 
-                            <div className="col-2">
-                                <div style={{position:'relative'}}>
-                                    <i className="fa-solid fa-magnifying-glass fa-rotate-90"> </i>
-                                    <input type="text" className="form-control" placeholder="جستجو"/>
-                                </div>
-                            </div>
+                <Box className="row w-100 m-auto" 
+                style={{height:'40px',borderBottom:'1px solid #aaa'}}>
 
-                            <div className="col-2">
-                                <div style={{position:'relative'}}>
-                                    <i className="fa-solid fa-magnifying-glass fa-rotate-90"> </i>
-                                    <input type="text" className="form-control" placeholder="جستجو"/>
-                                </div>
-                            </div>
-                        </div>
+                  <Box className="col-auto yekan mx-4 position-relative">
+                  <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch fa-lg"> </i>
+                  <input type="text" className="form-control inputSearch" placeholder="جستجو"/>
+                  </Box>
 
-                        <div className="row h-100">
-                            {
-                                systemData.map(sys =>(
-                                    <SystemItems key={sys.name} sys={sys}/>
-                                ))
-                            }
-                            <Paper className="rounded-0 position-relative" style={{height:'30px'}}>
-                                <Pagination className="pagination-system">
-                                    <Pagination.First className="pagination-system-item" />
-                                    <Pagination.Prev className="pagination-system-item" />
-                                    <Pagination.Item className="pagination-system-item">{1}</Pagination.Item>
-                                    <Pagination.Item className="pagination-system-item">{2}</Pagination.Item>
-                                    <Pagination.Item className="pagination-system-item">{3}</Pagination.Item>
-                                    <Pagination.Ellipsis className="pagination-system-item" />
-                                    <Pagination.Item className="pagination-system-item">{10}</Pagination.Item>
-                                    <Pagination.Next className="pagination-system-item" />
-                                    <Pagination.Last className="pagination-system-item" />
-                                </Pagination>
-                            </Paper>
-                        </div>
+                  <Box className="col-auto yekan mx-4 position-relative">
+                  <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch fa-lg"> </i>
+                  <input type="text" className="form-control inputSearch" placeholder="جستجو"/>
+                  </Box>
 
-                </Paper>
+                  <Box className="col-auto yekan mx-4 position-relative">
+                  <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch fa-lg"> </i>
+                  <input type="text" className="form-control inputSearch" placeholder="جستجو"/>
+                  </Box>
+
+                  <Box className="col-auto yekan mx-4 position-relative">
+                  <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch fa-lg"> </i>
+                  <input type="text" className="form-control inputSearch" placeholder="جستجو"/>
+                  </Box>
+
+                </Box>
+
+                <Box className="row w-100 m-auto" 
+                style={{height:'auto',borderBottom:'1px solid #aaa'}}>
+                    {
+                        systemData.map(sys =>(
+                            <SystemItems key={sys.systmeName} sys={sys}/>
+                        ))
+                    }
+                    <Stack spacing={2} className="pagination" style={{width:'450px'}}>
+                        <Pagination  color="secondary"
+                            count={10}
+                            renderItem={(item) => (
+                            <PaginationItem
+                                slots={{ next: ArrowBackIcon, previous: ArrowForwardIcon }}
+                                {...item}
+                            />
+                            )}
+                        />
+                    </Stack>
+
+                </Box>
+
+            </Paper>
 
         </>
     )
