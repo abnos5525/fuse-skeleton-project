@@ -13,12 +13,12 @@ const LogItems = ({log}) =>{
 
             <div style={{marginRight:'30px'}} className="col-2">{log.softwareName}</div>
 
-             <div style={{marginRight:'30px'}} className="col-2">{log.type}</div>
+             <div style={{marginRight:'35px'}} className="col-2">{log.type}</div>
 
-             <div style={{marginRight:'30px'}} className="col-2">{log.event}</div>
+             <div style={{marginRight:'35px'}} className="col-2">{log.event}</div>
 
 
-             <div style={{marginRight:'30px'}} className="col-2">{log.sensitive}</div>
+             <div style={{marginRight:'35px'}} className="col-2">{log.sensitive}</div>
 
 
             <div className="col-3">

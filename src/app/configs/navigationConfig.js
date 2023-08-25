@@ -33,6 +33,7 @@ const navigationConfig = [
             id: 'pages.information.acception',
             title: 'تعریف / تایید عامل',
             type: 'item',
+            url: '/pages/acception',
           },
 
         ],
@@ -47,7 +48,6 @@ const navigationConfig = [
             id: 'pages.operation.test',
             title: 'تست',
             type: 'item',
-            url: '/pages/activities'
           },
         ],
       },

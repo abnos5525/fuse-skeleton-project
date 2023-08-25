@@ -123,6 +123,7 @@ const System = () =>{
                             <SystemItems key={sys.systmeName} sys={sys}/>
                         ))
                     }
+                </Box>
                     <Stack spacing={2} className="pagination" style={{width:'450px'}}>
                         <Pagination  color="secondary"
                             count={10}
@@ -135,7 +136,7 @@ const System = () =>{
                         />
                     </Stack>
 
-                </Box>
+                
 
             </Paper>
 

@@ -9,6 +9,8 @@ import searchPagesConfig from './search/searchPagesConfig';
 import systemPagesConfig from './systemComponents/systemPagesConfig';
 import logPagesConfig from './logComponents/logPagesConfig'
 
+import acceptionPagesConfig from './acceptionComponents/acceptionPagesConfig'
+
 const pagesConfigs = [
   ...authenticationPagesConfig,
   comingSoonPagesConfig,
@@ -20,6 +22,7 @@ const pagesConfigs = [
   searchPagesConfig,
   systemPagesConfig,
   logPagesConfig,
+  acceptionPagesConfig
 ];
 
 export default pagesConfigs;

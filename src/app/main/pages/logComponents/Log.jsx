@@ -40,7 +40,7 @@ const Log = () =>{
                             <option>سازمان2</option>
                         </Field>
                         <ErrorMessage name="organName" 
-                        render={msg => <p className="text-danger position-absolute border-1 border-danger bg-white p-1">{msg}</p>}/>
+                        render={msg => <p className="text-danger position-absolute border-1 border-danger bg-white p-1" style={{borderRadius:'5px'}}>{msg}</p>}/>
 
                         <Field name='systemName' as='select' 
                         className={`form-control info-form-input vazir fs-5 
@@ -52,7 +52,7 @@ const Log = () =>{
                             <option>سامانه2</option>
                         </Field>
                         <ErrorMessage name="systemName" 
-                        render={msg => <p className="text-danger position-absolute border-1 border-danger bg-white p-1" style={{right:'35%'}}>{msg}</p>}/>
+                        render={msg => <p className="text-danger position-absolute border-1 border-danger bg-white p-1" style={{right:'35%',borderRadius:'5px'}}>{msg}</p>}/>
 
                         <Field name='group' as='select' 
                         className={`form-control info-form-input vazir fs-5 
@@ -64,13 +64,13 @@ const Log = () =>{
                             <option>دسته بندی2</option>
                         </Field>
                         <ErrorMessage name="group" 
-                        render={msg => <p className="text-danger position-absolute border-1 border-danger bg-white p-1" style={{right:'62%'}}>{msg}</p>}/>
+                        render={msg => <p className="text-danger position-absolute border-1 border-danger bg-white p-1" style={{right:'62%',borderRadius:'5px'}}>{msg}</p>}/>
 
                         <Field type="text" name="event" placeHolder="نوع رویداد"
                         className={`form-control info-form-input vazir fs-5 
                         ${touched.event && !errors.event ? 'valid-input' : ''}`} />
                         <ErrorMessage name="event" 
-                        render={msg => <p className="text-danger position-absolute border-1 border-danger bg-white p-1" style={{top:'17%'}}>{msg}</p>}/>
+                        render={msg => <p className="text-danger position-absolute border-1 border-danger bg-white p-1" style={{top:'17%',borderRadius:'5px'}}>{msg}</p>}/>
 
                         <Field name='sensitive' as='select' 
                         className={`form-control info-form-input vazir fs-5 
@@ -84,7 +84,7 @@ const Log = () =>{
                         </Field>
                         <ErrorMessage name="sensitive"  
                         render={msg => <p className="text-danger position-absolute border-1 border-danger bg-white p-1" 
-                        style={{right:'35%',top:'18%'}}>{msg}</p>}/>
+                        style={{right:'35%',top:'17%',borderRadius:'5px'}}>{msg}</p>}/>
 
                         <Button
                             variant="contained"
@@ -113,6 +113,7 @@ const Log = () =>{
                             <span className='col-2 yekan fs-5 fw-bold text-center head2'>نوع رویداد</span>
                             <span className='col-2 yekan fs-5 fw-bold text-center head2'>حساسیت رویداد</span>
                         </Box>
+
                         <Box className="row w-100 m-auto searchs" 
                             style={{height:'40px',borderBottom:'1px solid #aaa'}}>
                             <Box className="col-auto yekan position-relative searchdiv2">
