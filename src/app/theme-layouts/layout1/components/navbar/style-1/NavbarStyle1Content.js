@@ -32,7 +32,7 @@ const StyledContent = styled(FuseScrollbars)(({ theme }) => ({
 
 function NavbarStyle1Content(props) {
   return (
-    <Root className={clsx('flex flex-auto flex-col overflow-hidden h-full', props.className)}>
+    <Root className={clsx('flex flex-auto flex-col overflow-hidden h-full iranSans', props.className)}>
       <div className="flex flex-row items-center shrink-0 h-48 md:h-72 px-20">
         {/* <div className="flex flex-1 mx-4">
           <Logo />
@@ -42,7 +42,7 @@ function NavbarStyle1Content(props) {
       </div>
 
       <StyledContent
-        className="flex flex-1 flex-col min-h-0"
+        className="flex flex-1 flex-col min-h-0 iranSans"
         option={{ suppressScrollX: true, wheelPropagation: false }}
       >
         {/* <UserNavbarHeader /> */}

@@ -6,17 +6,19 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { useMemo } from 'react';
 import FuseNavBadge from '../../FuseNavBadge';
-import FuseSvgIcon from '../../../FuseSvgIcon';
 
 const Root = styled(ListItem)(({ theme, ...props }) => ({
   minHeight: 44,
   width: '100%',
-  borderRadius: '6px',
+  fontFamily: 'iranSans!important',
+  borderRadius: '2px',
   margin: '0 0 0 0',
-  paddingRight: 16,
-  paddingLeft: props.itempadding > 80 ? 80 : props.itempadding,
-  paddingTop: 10,
-  paddingBottom: 10,
+  backgroundImage:
+  theme.palette.mode === 'light'
+    ? 'linear-gradient(90deg,#6094ff, #2a70ff)!important'
+    : 'linear-gradient(90deg,#3a4f77, #081b3d)!important',
+  paddingTop: 0,
+  paddingBottom: 0,
   color: alpha(theme.palette.text.primary, .6),
   cursor: 'pointer',
   textDecoration: 'none!important',
@@ -25,24 +27,19 @@ const Root = styled(ListItem)(({ theme, ...props }) => ({
   },
   '&.active': {
     color: theme.palette.text.primary,
-    backgroundColor:
+    backgroundImage:
       theme.palette.mode === 'light'
-        ? '#6094ff!important'
-        : 'rgba(255, 255, 255, .1)!important',
+        ? 'linear-gradient(90deg, #91b4fd, #4883ff)!important'
+        : 'linear-gradient(90deg, #425989, #152035)!important',
     pointerEvents: 'none',
     transition: 'border-radius .15s cubic-bezier(0.4,0.0,0.2,1)',
     '& > .fuse-list-item-text-primary': {
       color: 'inherit',
     },
-    '& > .fuse-list-item-icon': {
-      color: 'inherit',
-    },
   },
-  '& >.fuse-list-item-icon': {
-    marginRight: 16,
-    color: 'inherit',
+  '& > .fuse-list-item-text': {
+    fontFamily: 'iranSans'
   },
-  '& > .fuse-list-item-text': {},
 }));
 
 function FuseNavVerticalItem(props) {
@@ -67,7 +64,7 @@ function FuseNavVerticalItem(props) {
       >
 
         <ListItemText
-          className="fuse-list-item-text"
+          className="fuse-list-item-text iranSans"
           primary={item.title}
           secondary={item.subtitle}
           classes={{

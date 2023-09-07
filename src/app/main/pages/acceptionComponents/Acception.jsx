@@ -1,12 +1,14 @@
-import { Formik,Form,Field, ErrorMessage } from "formik";
-import { Paper } from "@mui/material";
+import { Paper, TextField, Select, MenuItem, InputLabel,FormControl,Typography } from "@mui/material";
+import { yupResolver } from '@hookform/resolvers/yup';
+import {useForm, Controller} from 'react-hook-form'
+
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Pagination from '@mui/material/Pagination';
 import PaginationItem from '@mui/material/PaginationItem';
 import Stack from '@mui/material/Stack';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
+import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 
 import formValidation from './FormValidation'
 
@@ -15,149 +17,288 @@ import AcceptionItems from "./AcceptionItems";
 
 const Acception = () =>{
     const acceptionData = getallAcceptionData();
+
+    const defaultValues = {
+        acceptName: '',
+        systemName: '',
+        organName: '',
+        systemAddress: '',
+        systemPort: '',
+        systemMainAddress: '',
+        systemMainPort: '',
+      };
+      const { control, formState, handleSubmit, reset } = useForm({
+        mode: 'onChange',
+        defaultValues,
+        resolver: yupResolver(formValidation),
+      });
+
+      const { isValid, dirtyFields, errors } = formState;
+
+    function onSubmit() {
+        reset(defaultValues);
+    }
+
     return(
         <>
             <Paper className=" container min-h-auto sm:min-h-auto rounded-0 py-5 px-5 sm:p-5 sm:rounded-2xl sm:shadow mt-5" style={{width:'95%'}}>
 
-                <Formik initialValues={{
-                    acceptName: '',
-                    softwareName: '',
-                    organName: '',
-                    systemAddress: '',
-                    systemPort: '',
-                    systemMainAddress: '',
+                <form 
+                name="organForm"
+                noValidate
+                onSubmit={handleSubmit(onSubmit)}>
 
-                }} validationSchema={formValidation} 
-                    onSubmit={()=> alert('ok')}>
+                <Controller
+                    name="organName"
+                    control={control}
+                    render={({ field }) => (
+                    <FormControl variant="outlined" className="info-form-input">
+                        <InputLabel className="h-100" htmlFor="organName" style={{lineHeight:'5px'}}>نام سازمان</InputLabel>
+                        <Select
+                        label="نام سازمان"
+                        error={!!errors.organName}
+                        {...field}
+                        >
+                        <MenuItem value="Option 1">سازمان1</MenuItem>
+                        <MenuItem value="Option 2">سازمان2</MenuItem>
+                        <MenuItem value="Option 3">سازمان3</MenuItem>
+                        </Select>
+                    </FormControl>
+                    )}
+                />
+                {errors?.organName && (
+                    <Typography
+                    className="position-absolute bg-white"
+                    color="error"
+                    variant="body2"
+                    style={{ zIndex: '2', top: '10%', right: '49%' }}
+                    >
+                    {errors.organName.message}
+                    </Typography>
+                )}
 
-                {({ touched, errors, isValid }) => (
-                    <Form>
-                        
-                    <Field type="text" name="acceptName" placeHolder="نام"
-                        className={`form-control info-form-input vazir fs-5 
-                        ${touched.acceptName && !errors.acceptName ? 'valid-input' : ''} `}
-                    />
-                    <ErrorMessage name="acceptName" 
-                    render={msg => <p className="text-danger position-absolute border-1 border-danger bg-white p-1"
-                    style={{borderRadius:'5px'}}>{msg}</p>}/>
+                <Controller
+                    name="systemName"
+                    control={control}
+                    render={({ field }) => (
+                    <FormControl variant="outlined" className="info-form-input">
+                        <InputLabel className="h-100" htmlFor="systemName" style={{lineHeight:'5px'}}>نام سامانه</InputLabel>
+                        <Select
+                        label="نام سامانه"
+                        error={!!errors.systemName}
+                        {...field}
+                        >
+                        <MenuItem value="Option 1">سامانه1</MenuItem>
+                        <MenuItem value="Option 2">سامانه2</MenuItem>
+                        <MenuItem value="Option 3">سامانه3</MenuItem>
+                        </Select>
+                    </FormControl>
+                    )}
+                />
+                {errors?.systemName && (
+                    <Typography
+                    className="position-absolute bg-white"
+                    color="error"
+                    variant="body2"
+                    style={{ zIndex: '2', top: '10%', right: '49%' }}
+                    >
+                    {errors.systemName.message}
+                    </Typography>
+                )}
 
-                    <Field name='softwareName' as='select' 
-                        className={`form-control info-form-input vazir fs-5 ${touched.softwareName && !errors.softwareName ? 'valid-input' : ''} `}>
-                            <option value="">
-                              سامانه
-                            </option>
-                            <option> سامانه1</option>
-                            <option> سامانه2</option>
-                        </Field>
-                        <ErrorMessage name="softwareName" 
-                        render={msg => <p className="text-danger position-absolute border-1 border-danger bg-white p-1" 
-                        style={{right:'34%',borderRadius:'5px'}}>{msg}</p>}/>
-
-                        <Field name='organName' as='select' 
-                        className={`form-control info-form-input vazir fs-5 ${touched.organName && !errors.organName ? 'valid-input' : ''} `}>
-                            <option value="">
-                              سازمان
-                            </option>
-                            <option> سازمان1</option>
-                            <option> سازمان2</option>
-                        </Field>
-                        <ErrorMessage name="organName" 
-                        render={msg => <p className="text-danger position-absolute border-1 border-danger bg-white p-1"
-                        style={{right:'62%',borderRadius:'5px'}}>{msg}</p>}/>
-                        
-
-                        <Field type="text" name="systemAddress" placeHolder="آدرس سامانه عامل"
-                            className={`form-control info-form-input vazir fs-5 
-                        ${touched.systemAddress && !errors.systemAddress ? 'valid-input' : ''} `}
+                        <Controller
+                        name="systemAddress" 
+                        className="position-relative"
+                        control={control}
+                        render={({ field }) => (
+                            <div>
+                            <Typography className='position-absolute bg-white'
+                             color="error" variant="body2"
+                                style={{zIndex:'2',top:'18%',right:'20%'}}>
+                                {errors?.systemAddress?.message}
+                            </Typography>
+                            <TextField
+                                size="small"
+                                {...field}
+                                label="آدرس سامانه عامل"
+                                type="text"
+                                error={!!errors.systemAddress}
+                                helperText=""
+                                className="info-form-input"
+                                variant="outlined"
+                                required
+                            />
+                            </div>
+                        )}
                         />
-                        <ErrorMessage name="systemAddress" 
-                        render={msg => <p className="text-danger position-absolute border-1 border-danger bg-white p-1" 
-                        style={{top:'18%',borderRadius:'5px'}}>{msg}</p>}/>
 
-                        <Field type="text" name="systemPort" placeHolder="پورت سامانه عامل"
-                        className={`form-control info-form-input vazir fs-5 
-                        ${touched.systemPort && !errors.systemPort ? 'valid-input' : ''} `} />
-                        <ErrorMessage name="systemPort" 
-                        render={msg => <p className="text-danger position-absolute border-1 border-danger bg-white p-1"
-                        style={{right:'34%',top:'18%',borderRadius:'5px'}}>{msg}</p>}/>
+                    <Controller
+                        name="systemPort" 
+                        className="position-relative"
+                        control={control}
+                        render={({ field }) => (
+                            <div>
+                            <Typography className='position-absolute bg-white'
+                             color="error" variant="body2"
+                                style={{zIndex:'2',top:'18%',right:'54%'}}>
+                                {errors?.systemPort?.message}
+                            </Typography>
+                            <TextField
+                                size="small"
+                                {...field}
+                                label="پورت سامانه عامل"
+                                type="text"
+                                error={!!errors.systemPort}
+                                helperText=""
+                                className="info-form-input"
+                                variant="outlined"
+                                required
+                            />
+                            </div>
+                        )}
+                        />
 
-                        <Field type="text" name="systemMainAddress" placeHolder="آدرس سامانه اصلی"
-                        className={`form-control info-form-input vazir fs-5 
-                        ${touched.systemMainAddress && !errors.systemMainAddress ? 'valid-input' : ''} `} />
-                        <ErrorMessage name="systemMainAddress" 
-                        render={msg => <p className="text-danger position-absolute border-1 border-danger bg-white p-1"
-                        style={{right:'62%',top:'18%',borderRadius:'5px'}}>{msg}</p>}/>
+                    <Controller
+                        name="systemMainAddress" 
+                        className="position-relative"
+                        control={control}
+                        render={({ field }) => (
+                            <div>
+                            <Typography className='position-absolute bg-white'
+                             color="error" variant="body2"
+                                style={{zIndex:'2',top:'18%',right:'73%'}}>
+                                {errors?.systemMainAddress?.message}
+                            </Typography>
+                            <TextField
+                                size="small"
+                                {...field}
+                                label="آدرس سامانه اصلی"
+                                type="text"
+                                error={!!errors.systemMainAddress}
+                                helperText=""
+                                className="info-form-input"
+                                variant="outlined"
+                                required
+                            />
+                            </div>
+                        )}
+                        />
 
-                        <Field type="text" name="systemMainPort" placeHolder="پورت سامانه اصلی"
-                        className={`form-control info-form-input vazir fs-5 
-                        ${touched.systemMainPort && !errors.systemMainPort ? 'valid-input' : ''} `} />
-                        <ErrorMessage name="systemMainPort" 
-                        render={msg => <p className="text-danger position-absolute border-1 border-danger bg-white p-1"
-                        style={{top:'26%',borderRadius:'5px'}}>{msg}</p>}/>
+                    <Controller
+                        name="systemMainPort" 
+                        className="position-relative"
+                        control={control}
+                        render={({ field }) => (
+                            <div>
+                            <Typography className='position-absolute bg-white'
+                             color="error" variant="body2"
+                                style={{zIndex:'2',top:'26%',right:'26%'}}>
+                                {errors?.systemMainPort?.message}
+                            </Typography>
+                            <TextField
+                                size="small"
+                                {...field}
+                                label="پورت سامانه اصلی"
+                                type="text"
+                                error={!!errors.systemMainPort}
+                                helperText=""
+                                className="info-form-input"
+                                variant="outlined"
+                                required
+                            />
+                            </div>
+                        )}
+                        />
+
+                <Controller
+                    name="status"
+                    control={control}
+                    render={({ field }) => (
+                    <FormControl variant="outlined" className="info-form-input">
+                        <InputLabel className="h-100" htmlFor="status" style={{lineHeight:'5px'}}>وضعیت</InputLabel>
+                        <Select
+                        label="وضعیت"
+                        error={!!errors.status}
+                        {...field}
+                        >
+                        <MenuItem value="Option 1">ثبت اولیه</MenuItem>
+                        <MenuItem value="Option 2">در حال بررسی</MenuItem>
+                        </Select>
+                    </FormControl>
+                    )}
+                />
+                {errors?.status && (
+                    <Typography
+                    className="position-absolute bg-white"
+                    color="error"
+                    variant="body2"
+                    style={{ zIndex: '2', top: '10%', right: '49%' }}
+                    >
+                    {errors.status.message}
+                    </Typography>
+                )}
 
                         <Button
-                            variant="contained"
-                            color="secondary"
-                            className="float-start"
-                            aria-label="Register"
-                            disabled={!isValid || Object.keys(touched).length === 0}
-                            type="submit"
-                            size="small"
-                            style={{marginTop:'6vw',width: '120px'}}
-                            >
-                                ذخیره
+                        variant="contained"
+                        color="secondary"
+                        className="float-start"
+                        aria-label="Register"
+                        disabled={!formState.isValid}
+                        type="submit"
+                        size="small"
+                        style={{marginTop:'6vw',width: '120px'}}>
+                            ذخیره
                         </Button>
-                    </Form>
-                    )}
-                </Formik>
+
+                </form>
             </Paper>
 
             <Paper className="container min-h-auto sm:min-h-auto rounded-0 px-1 sm:p-16 sm:rounded-2xl sm:shadow mt-4" style={{width:'95%'}}>
                         <Box className="row w-100 m-auto" 
                             style={{height:'40px',borderBottom:'1px solid #aaa'}}>
-                            <span className='col-2 yekan fs-5 fw-bold text-center head3'>نام سازمان</span>
-                            <span className='col-2 yekan fs-5 fw-bold text-center head3'>نام سامانه</span>
-                            <span className='col-2 yekan fs-5 fw-bold text-center head3'>آدرس عامل</span>
-                            <span className='col-2 yekan fs-5 fw-bold text-center head3'>پورت عامل</span>
-                            <span className='col-2 yekan fs-5 fw-bold text-center head3'>آدرس سامانه اصلی</span>
-                            <span className='col-2 yekan fs-5 fw-bold text-center head3'>پورت سامانه اصلی</span>
-                            <span className='col-2 yekan fs-5 fw-bold text-center head3'>وضعیت</span>
+                            <span className='col-2 iranSans fs-5 fw-bold text-center head3'>نام سازمان</span>
+                            <span className='col-2 iranSans fs-5 fw-bold text-center head3'>نام سامانه</span>
+                            <span className='col-2 iranSans fs-5 fw-bold text-center head3'>آدرس عامل</span>
+                            <span className='col-2 iranSans fs-5 fw-bold text-center head3'>پورت عامل</span>
+                            <span className='col-2 iranSans fs-5 fw-bold text-center head3'>آدرس سامانه اصلی</span>
+                            <span className='col-2 iranSans fs-5 fw-bold text-center head3'>پورت سامانه اصلی</span>
+                            <span className='col-2 iranSans fs-5 fw-bold text-center head3'>وضعیت</span>
                         </Box>
 
                         <Box className="row w-100 m-auto searchs" 
                             style={{height:'40px',borderBottom:'1px solid #aaa'}}>
-                            <Box className="col-auto yekan position-relative searchdiv3">
+                            <Box className="col-auto iranSans position-relative searchdiv3">
                             <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch fa-lg"> </i>
                   <input type="text" className="form-control inputSearch2" placeholder="جستجو"/>
                             </Box>
 
-                            <Box className="col-auto yekan position-relative searchdiv3">
+                            <Box className="col-auto iranSans position-relative searchdiv3">
                             <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch fa-lg"> </i>
                   <input type="text" className="form-control inputSearch2" placeholder="جستجو"/>
                             </Box>
 
-                            <Box className="col-auto yekan position-relative searchdiv3">
+                            <Box className="col-auto iranSans position-relative searchdiv3">
                             <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch fa-lg"> </i>
                   <input type="text" className="form-control inputSearch2" placeholder="جستجو"/>
                             </Box>
 
 
-                            <Box className="col-auto yekan position-relative searchdiv3">
+                            <Box className="col-auto iranSans position-relative searchdiv3">
                             <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch fa-lg"> </i>
                   <input type="text" className="form-control inputSearch2" placeholder="جستجو"/>
                             </Box>
 
-                            <Box className="col-auto yekan position-relative searchdiv3">
+                            <Box className="col-auto iranSans position-relative searchdiv3">
                             <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch fa-lg"> </i>
                   <input type="text" className="form-control inputSearch2" placeholder="جستجو"/>
                             </Box>
 
-                            <Box className="col-auto yekan position-relative searchdiv3">
+                            <Box className="col-auto iranSans position-relative searchdiv3">
                             <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch fa-lg"> </i>
                   <input type="text" className="form-control inputSearch2" placeholder="جستجو"/>
                             </Box>
 
-                            <Box className="col-auto yekan position-relative searchdiv3">
+                            <Box className="col-auto iranSans position-relative searchdiv3">
                             <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch fa-lg"> </i>
                   <input type="text" className="form-control inputSearch2" placeholder="جستجو"/>
                             </Box>
@@ -165,11 +306,12 @@ const Acception = () =>{
                         </Box>
 
 
-                        <Box className="row w-100 m-auto">
+                        <Box className="row w-100 m-auto" style={{height:'auto'}}>
                             {
-                                acceptionData.map(acpt =>(
+                                acceptionData.length > 0 ? acceptionData.map(acpt =>(
                                     <AcceptionItems key={acpt.organizationName} acpt={acpt}/>
-                                ))
+                                )) : 
+                                <p className='text-danger fs-3 text-center iranSans py-3'>موردی یافت نشد</p>
                             }
                         </Box>
                             
@@ -178,7 +320,7 @@ const Acception = () =>{
                             count={10}
                             renderItem={(item) => (
                             <PaginationItem
-                                slots={{ next: ArrowBackIcon, previous: ArrowForwardIcon }}
+                            components={{ next: KeyboardDoubleArrowLeftIcon, previous: KeyboardDoubleArrowRightIcon }}
                                 {...item}
                             />
                             )}

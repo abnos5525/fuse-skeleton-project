@@ -10,7 +10,7 @@ body{
   a{
     color:#fff !important;
     text-decoration:none !important;
-    font-family:'vazir' !important;
+    font-family:'iranSans' !important;
     font-size:11pt !important;
   }
 
@@ -37,7 +37,7 @@ body{
     background-color: #fff;
     position: relative;
     top:40px !important;
-    font-family: 'vazir' !important;
+    font-family: 'iranSans' !important;
     float: right;
 }
 
@@ -59,16 +59,23 @@ body{
     font-size: 10pt;
 }
 
+.bRadius{
+  border: 1px solid;
+  border-radius: 12%;
+
+}
+
 .inputSearch{
   width: 20%;
   height: 32px;
   padding-right: 25px !important;
-  border-radius: 10px;
+  border-radius: 8px !important;
+  margin-top: 3px;
 }
 
 .iconSearch{
   position: absolute;
-  top:15px;
+  top:18px;
   right: 12px;
   color: #3e7bfa;
 }
@@ -76,16 +83,17 @@ body{
 .items .col-2{
   float: right;
   text-align: center;
-  font-size: 16px;
-  font-family: 'yekan';
+  font-size: 12px;
+  font-family: 'iranSans';
   font-weight: bold;
   line-height: 45px;
+  height: 50px;
 }
 
 .items .col-3{
   float: left;
-  height: 100%;
-  width: 20%;
+  height: 50px;
+  width: 19%;
   text-align: center;
 }
 
@@ -102,22 +110,35 @@ body{
   width: 17%!important;
 }
 
+.searchs{
+  background-color: #dadada;
+}
+
 
 .pagination{
   direction: ltr;
   width:150px;
+  margin-top: 12px;
   margin-bottom: 0;
-  margin-right: auto;
+  margin-right: 210px;
   margin-left: auto;
 }
 
 /* /////////////////////////////////////////////////////// */
 
 .inputSearch2{
-  width: 80%!important;
+  width: 82%!important;
   height: 32px;
-  padding-right: 15px !important;
-  border-radius: 10px;
+  padding-right: 19px !important;
+  border-radius: 8px !important;
+  margin-top: 3px;
+}
+
+.iconSearch2{
+  position: absolute;
+  top:18px;
+  right: 12px;
+  color: #3e7bfa;
 }
 
 .head2{
@@ -131,18 +152,19 @@ body{
 .items2 .col-2{
   float: right;
   text-align: center;
-  font-size: 16px;
-  font-family: 'yekan';
+  font-size: 11px;
+  font-family: 'iranSans';
   font-weight: bold;
-  line-height: 30px;
+  line-height: 30px !important;
   width: 10%;
   overflow: hidden;
+  height: 50px;
 }
 
 .items2 .col-3{
   float: left;
-  height: 100%;
-  width: 20%;
+  height: 50px;
+  width: 19%;
   text-align: center;
 }
 
@@ -158,6 +180,7 @@ body{
   height: 32px;
   padding-right: 15px !important;
   border-radius: 10px;
+  margin-top: 3px;
 }
 
 .head3{
@@ -171,18 +194,19 @@ body{
 .items3 .col-2{
   float: right;
   text-align: center;
-  font-size: 16px;
-  font-family: 'yekan';
+  font-size: 12px;
+  font-family: 'iranSans';
   font-weight: bold;
-  line-height: 20px;
+  line-height: 36px;
   width: 11.3%;
   overflow: hidden;
+  height: 50px;
 }
 
 .items3 .col-3{
   float: left;
-  height: 100%;
-  width: 15%;
+  height: 50px;
+  width: 13%;
   text-align: center;
 }
 
@@ -197,6 +221,7 @@ body{
 
 .valid-input {
   border: 1px solid #12a668 !important;
+
 }
 
 .custom-select{

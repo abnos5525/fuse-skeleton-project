@@ -3,11 +3,19 @@ import Button from '@mui/material/Button';
 
 const LogItems = ({log}) =>{
 
-    return(
-        <Box className="sm:w-auto p-0 min-h-auto sm:min-h-auto rounded-0 
-        sm:rounded-2xl sm:shadow items2" style={{borderBottom:'1px solid #aaa'}}>
+    const showDescribe=(text)=>{
+        alert(text)
+    }
 
-            <div style={{marginRight:'15px'}} className="col-2">{log.describe}</div>
+    return(
+        <Box className="sm:w-auto p-0 rounded-0 
+        sm:rounded-2xl sm:shadow items2" style={{borderBottom:'1px solid #ccc'}}>
+
+            <div onClick={() => showDescribe(log.describe)} style={{marginRight:'15px'}}
+        className="col-2 cursor-pointer"
+      >
+        {log.describe}
+      </div>
 
             <div style={{marginRight:'30px'}} className="col-2">{log.organizationName}</div>
 
@@ -24,24 +32,24 @@ const LogItems = ({log}) =>{
             <div className="col-3">
                         <Button
                         variant="contained"
-                        color="secondary"
-                        className="float-start"
-                        type="submit"
-                        size='small'
-                        style={{borderRadius:'5px',minWidth:'15px'}}
-                        >
-                            <i className="fa fa-pen" />
-                        </Button>
-
-                        <Button
-                        variant="contained"
                         color="error"
                         className="float-start"
                         type="submit"
                         size='small'
-                        style={{borderRadius:'5px',minWidth:'15px'}}
+                        style={{borderRadius:'5px',minWidth:'15px',height:'30px'}}
                         >
-                            <i className="fa fa-trash-can"/>
+                            <i className="fa fa-light fa-trash fa-sm" />
+                        </Button>
+
+                        <Button
+                        variant="contained"
+                        color="secondary"
+                        className="float-start"
+                        type="submit"
+                        size='small'
+                        style={{borderRadius:'5px',minWidth:'15px',height:'30px'}}
+                        >
+                            <i className="fa fa-pen fa-sm" />
                         </Button>
             </div>
         </Box>

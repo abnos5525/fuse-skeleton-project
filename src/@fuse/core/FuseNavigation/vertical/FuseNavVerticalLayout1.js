@@ -6,6 +6,8 @@ import FuseNavItem from '../FuseNavItem';
 
 const StyledList = styled(List)(({ theme }) => ({
   '& .fuse-list-item': {
+    fontFamily: 'iranSans!important',
+
     '&:hover': {
       backgroundColor:
         theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0,0,0,.04)',
@@ -18,10 +20,12 @@ const StyledList = styled(List)(({ theme }) => ({
   '& .fuse-list-item-text': {
     margin: 0,
     color: 
-      theme.palette.mode === 'light' ? 'rgba(0,0,0,1)' : 'rgba(255, 255, 255, 1)'
+      theme.palette.mode === 'light' ? 'rgba(255,255,255,1)' : 'rgba(255, 255, 255, 1)'
   },
   '& .fuse-list-item-text-primary': {
+    fontSize: '14px',
     lineHeight: '20px',
+    fontFamily: 'iranSans!important',
   },
   '&.active-square-list': {
     '& .fuse-list-item, & .active.fuse-list-item': {
@@ -49,7 +53,7 @@ function FuseNavVerticalLayout1(props) {
   return (
     <StyledList
       className={clsx(
-        'navigation whitespace-nowrap px-12 py-0',
+        'navigation whitespace-nowrap px-12 py-0 iranSans',
         `active-${active}-list`,
         dense && 'dense',
         className

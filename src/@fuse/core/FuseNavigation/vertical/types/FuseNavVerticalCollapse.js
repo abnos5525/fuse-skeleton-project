@@ -18,7 +18,12 @@ const Root = styled(List)(({ theme, ...props }) => ({
   '&.open': {},
   '& > .fuse-list-item': {
     minHeight: 44,
+    backgroundImage:
+    theme.palette.mode === 'light'
+    ? 'linear-gradient(90deg,#6c9cff, #4582ff)!important'
+    : 'linear-gradient(90deg,#3a4f77, #081b3d)!important',
     width: '100%',
+    fontFamily: 'iranSans!important',
     borderRadius: '6px',
     margin: '0 0 4px 0',
     paddingRight: 16,
@@ -85,7 +90,7 @@ function FuseNavVerticalCollapse(props) {
         <ListItem
           component={item.url ? NavLinkAdapter : 'li'}
           button
-          className="fuse-list-item"
+          className="fuse-list-item iranSans"
           onClick={() => setOpen(!open)}
           to={item.url}
           end={item.end}
@@ -102,7 +107,7 @@ function FuseNavVerticalCollapse(props) {
           )}
 
           <ListItemText
-            className="fuse-list-item-text"
+            className="fuse-list-item-text iranSans"
             primary={item.title}
             secondary={item.subtitle}
             classes={{
