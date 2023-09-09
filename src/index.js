@@ -11,6 +11,10 @@ import App from './app/App';
 import * as serviceWorker from './serviceWorker';
 import reportWebVitals from './reportWebVitals';
 
+import 'react-confirm-alert/src/react-confirm-alert.css'
+
+import 'react-toastify/dist/ReactToastify.css';
+
 const container = document.getElementById('root');
 const root = createRoot(container);
 root.render(<App />);

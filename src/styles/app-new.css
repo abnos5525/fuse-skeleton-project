@@ -117,10 +117,15 @@ body{
 
 .pagination{
   direction: ltr;
-  width:150px;
+  width:200px;
   margin-top: 12px;
   margin-bottom: 0;
-  margin-right: 210px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.pagination_items{
+  margin-right: auto;
   margin-left: auto;
 }
 

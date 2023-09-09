@@ -1,4 +1,4 @@
-package com.fuse.server.system;
+package com.fuse.server.log;
 
 import com.fuse.server.DatabaseManager;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,27 +8,32 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.*;
-import java.util.Date;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-@WebServlet(name = "addSystemInfo", urlPatterns = {"/addSystemInfo"})
-public class AddSystemServlet extends HttpServlet {
+import java.util.Date;
+@WebServlet(name = "addLogInfo", urlPatterns = {"/addLogInfo"})
+public class AddLogServlet extends HttpServlet {
 
     private DatabaseManager databaseManager;
 
     private String query;
 
-    private String systemName;
-    private String systemLatinName;
+    private int organNumber;
     private int systemNumber;
-    private String systemPort;
+
+    private String logGroup;
+    private String event;
+    private String sensitive;
+    private String describtions;
 
     private String formattedDateTime;
 
     public void init() {
         databaseManager = new DatabaseManager();
-        query = "INSERT INTO tbl_system (systemName,systemLatinName,systemNumber,systemPort,systemDate,systemUpdateDate) " +
-                "VALUES (?,?,?,?,?,?)";
+        query = "INSERT INTO tbl_log (organNumber,systemNumber,logGroup,event,sensitive,describtion" +
+                ",logDate,logUpdateDate) VALUES (?,?,?,?,?,?,?,?)";
 
         Date currentDate = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -40,10 +45,12 @@ public class AddSystemServlet extends HttpServlet {
 
         try {
 
-            systemName = request.getParameter("systemName");
-            systemLatinName = request.getParameter("systemLatinName");
-            systemNumber = Integer.parseInt(request.getParameter("systemNumber"));
-            systemPort = request.getParameter("systemPort");
+            organNumber = Integer.parseInt(request.getParameter("organName"));
+            systemNumber = Integer.parseInt(request.getParameter("systemName"));
+            logGroup = request.getParameter("group");
+            event = request.getParameter("event");
+            sensitive = request.getParameter("sensitive");
+            describtions = request.getParameter("describtion");
 
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
@@ -52,12 +59,14 @@ public class AddSystemServlet extends HttpServlet {
 
             PreparedStatement preparedStatement = connection.prepareStatement(query);
 
-            preparedStatement.setString(1, systemName);
-            preparedStatement.setString(2, systemLatinName);
-            preparedStatement.setInt(3, systemNumber);
-            preparedStatement.setString(4, systemPort);
-            preparedStatement.setString(5, formattedDateTime);
-            preparedStatement.setString(6, formattedDateTime);
+            preparedStatement.setInt(1, organNumber);
+            preparedStatement.setInt(2, systemNumber);
+            preparedStatement.setString(3, logGroup);
+            preparedStatement.setString(4, event);
+            preparedStatement.setString(5, sensitive);
+            preparedStatement.setString(6, describtions);
+            preparedStatement.setString(7, formattedDateTime);
+            preparedStatement.setString(8, formattedDateTime);
 
             int rowsAffected = preparedStatement.executeUpdate();
 

@@ -1,9 +1,12 @@
-import { Paper, TextField, Select, MenuItem, InputLabel,FormControl,Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import { Paper} from "@mui/material";
+import axios from "axios";
 
-import { yupResolver } from '@hookform/resolvers/yup';
-import {useForm, Controller} from 'react-hook-form'
+import {ToastContainer } from 'react-toastify';
+import _ from 'lodash';
 
-import Button from '@mui/material/Button';
+import AppContext from "app/AppContext";
+
 import Box from '@mui/material/Box';
 import Pagination from '@mui/material/Pagination';
 import PaginationItem from '@mui/material/PaginationItem';
@@ -11,222 +14,123 @@ import Stack from '@mui/material/Stack';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 
-import formValidation from './FormValidation'
-import { getallLogData } from "./data"; 
+import InsertForm from "./InsertForm";
+import UpdateForm from "./UpdateForm";
+
 import LogItems from "./LogItems";
 
+
 const Log = () =>{
-    const logData = getallLogData();
 
-    const defaultValues = {
-        organName: '',
-        systemName: '',
-        group: '',
-        event: '',
-        sensitive: ''
-      };
-      const { control, formState, handleSubmit, reset } = useForm({
-        mode: 'onChange',
-        defaultValues,
-        resolver: yupResolver(formValidation),
-      });
+  const [logFormSwitch, setLogFormSwitch] = useState(true);
 
-      const { isValid, dirtyFields, errors } = formState;
+  const [logFormValues, setLogFormValues] = useState({});
 
-    function onSubmit() {
-        reset(defaultValues);
-    }
+  const [logInfo, setLogInfo] = useState([]);
+
+  const [systemInfo, setSystemInfo] = useState([]);
+  const [organInfo, setOrganInfo] = useState([]);
+
+  const [forceRenderLog, setForceRenderLog] = useState(false);
+
+  // مقادیر ورودی سرچ ها
+  const [searchByOrganName, setSearchByOrganName] = useState('');
+  const [searchBySystemName, setSearchBySystem] = useState('');
+  const [searchByGroup, setSearchByGroup] = useState('');
+  const [searchByEvent, setSearchByEvent] = useState('');
+  const [searchBySensitive, setSearchBySensitive] = useState('');
+  const [searchByDescribtion, setSearchByDescribtion] = useState('');
+  const [filteredLog, setFilteredLog] = useState([]);
+
+    //------------------------------------------------------
+  //   -----------------------Show-------------------------------
+  //------------------------------------------------------
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        const { data } = await axios.get('http://localhost:8085/server/logInfo');
+        setLogInfo(data);
+
+        setForceRenderLog(!forceRenderLog)
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetch();
+  }, [forceRenderLog]);
+
+
+
+  useEffect(() => {
+    const filtered = logInfo.filter((item) =>
+      item.organName.includes(searchByOrganName) &&
+      item.systemName.includes(searchBySystemName) &&
+      item.logGroup.includes(searchByGroup) &&
+      item.event.includes(searchByEvent) &&
+      item.sensitive.includes(searchBySensitive) &&
+      item.describtion.includes(searchByDescribtion) 
+    )
+    setFilteredLog(filtered)
+  }, [searchByOrganName, searchBySystemName, searchByGroup, searchByEvent, searchBySensitive,searchByDescribtion]);
+
+// -----------------------Pagination---------------------------
+const [currentPage, setCurrentPage] = useState(1); // شماره صفحه جاری
+const itemsPerPage = 3; // تعداد موارد در هر صفحه
+const totalPages = Math.ceil(filteredLog.length / itemsPerPage);
+
+const getCurrentPageItems = () => {
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  return filteredLog.slice(startIndex, endIndex);
+};
+
+const handleSearch = () => {
+  const filtered = systemInfo.filter((item) =>
+        item.organName.includes(searchByOrganName) &&
+        item.systemName.includes(searchBySystemName) &&
+        item.logGroup.includes(searchByGroup) &&
+        item.event.includes(searchByEvent) &&
+        item.sensitive.includes(searchBySensitive) &&
+        item.describtion.includes(searchByDescribtion) 
+  );
+  setFilteredLog(filtered);
+
+  setCurrentPage(1);
+};
+
+const handleSearchDebounced = _.debounce(handleSearch, 1000);
+
+useEffect(() => {
+  handleSearchDebounced();
+}, [searchByOrganName, searchBySystemName, searchByGroup, searchByEvent,searchBySensitive,searchByDescribtion]);
+
 
     return(
         <>
+            <AppContext.Provider value={{
+                logFormSwitch,
+                setLogFormSwitch,
+                logFormValues,
+                setLogFormValues,
+
+                forceRenderLog,
+                setForceRenderLog,
+
+                systemInfo,
+                setSystemInfo,
+
+                organInfo,
+                setOrganInfo,
+            }}>
             <Paper className=" container min-h-auto sm:min-h-auto rounded-0 py-5 px-5 sm:p-5 sm:rounded-2xl sm:shadow mt-5" style={{width:'95%'}}>
 
-                <form 
-                name="organForm"
-                noValidate
-                onSubmit={handleSubmit(onSubmit)}>
-
-            <Controller
-                    name="organName"
-                    control={control}
-                    render={({ field }) => (
-                    <FormControl variant="outlined" className="info-form-input">
-                        <InputLabel className="h-100" htmlFor="organName" style={{lineHeight:'5px'}}>نام سازمان</InputLabel>
-                        <Select
-                        label="نام سامانه"
-                        error={!!errors.systemName}
-                        {...field}
-                        >
-                        <MenuItem value="Option 1">گزینه 1</MenuItem>
-                        <MenuItem value="Option 2">گزینه 2</MenuItem>
-                        <MenuItem value="Option 3">گزینه 3</MenuItem>
-                        </Select>
-                    </FormControl>
-                    )}
-                />
-                {errors?.organName && (
-                    <Typography
-                    className="position-absolute bg-white"
-                    color="error"
-                    variant="body2"
-                    style={{ zIndex: '2', top: '10%', right: '49%' }}
-                    >
-                    {errors.organName.message}
-                    </Typography>
-                )}
-
-                <Controller
-                    name="systemName"
-                    control={control}
-                    render={({ field }) => (
-                    <FormControl variant="outlined" className="info-form-input">
-                        <InputLabel className="h-100" htmlFor="systemName" style={{lineHeight:'5px'}}>نام سامانه</InputLabel>
-                        <Select
-                        label="نام سامانه"
-                        error={!!errors.systemName}
-                        {...field}
-                        >
-                        <MenuItem value="Option 1">گزینه 1</MenuItem>
-                        <MenuItem value="Option 2">گزینه 2</MenuItem>
-                        <MenuItem value="Option 3">گزینه 3</MenuItem>
-                        </Select>
-                    </FormControl>
-                    )}
-                />
-                {errors?.systemName && (
-                    <Typography
-                    className="position-absolute bg-white"
-                    color="error"
-                    variant="body2"
-                    style={{ zIndex: '2', top: '10%', right: '49%' }}
-                    >
-                    {errors.systemName.message}
-                    </Typography>
-                )}
-
-                    <Controller
-                    name="group"
-                    control={control}
-                    render={({ field }) => (
-                    <FormControl variant="outlined" className="info-form-input">
-                        <InputLabel className="h-100" htmlFor="group" style={{lineHeight:'5px'}}>دسته بندی</InputLabel>
-                        <Select
-                        label="دسته بندی"
-                        error={!!errors.group}
-                        {...field}
-                        >
-                        <MenuItem value="Option 1">گزینه 1</MenuItem>
-                        <MenuItem value="Option 2">گزینه 2</MenuItem>
-                        <MenuItem value="Option 3">گزینه 3</MenuItem>
-                        </Select>
-                    </FormControl>
-                    )}
-                />
-                {errors?.group && (
-                    <Typography
-                    className="position-absolute bg-white"
-                    color="error"
-                    variant="body2"
-                    style={{ zIndex: '2', top: '10%', right: '49%' }}
-                    >
-                    {errors.group.message}
-                    </Typography>
-                )}
-
-                        <Controller
-                        name="event" 
-                        className="position-relative"
-                        control={control}
-                        render={({ field }) => (
-                            <div>
-                            <Typography className='position-absolute bg-white'
-                             color="error" variant="body2"
-                                style={{zIndex:'2',top:'18%',right:'26%'}}>
-                                {errors?.event?.message}
-                            </Typography>
-                            <TextField
-                                size="small"
-                                {...field}
-                                label="نوع رویداد"
-                                type="text"
-                                error={!!errors.event}
-                                helperText=""
-                                className="info-form-input"
-                                variant="outlined"
-                                required
-                            />
-                            </div>
-                        )}
-                        />
-
-                    <Controller
-                    name="sensitive"
-                    control={control}
-                    render={({ field }) => (
-                    <FormControl variant="outlined" className="info-form-input">
-                        <InputLabel className="h-100" htmlFor="sensitive" style={{lineHeight:'5px'}}>حساسیت رویداد</InputLabel>
-                        <Select
-                        label="حساسیت رویداد"
-                        error={!!errors.sensitive}
-                        {...field}
-                        >
-                        <MenuItem value="Option 1">کم</MenuItem>
-                        <MenuItem value="Option 2">نرمال</MenuItem>
-                        <MenuItem value="Option 3">بحرانی</MenuItem>
-                        </Select>
-                    </FormControl>
-                    )}
-                />
-                {errors?.sensitive && (
-                    <Typography
-                    className="position-absolute bg-white"
-                    color="error"
-                    variant="body2"
-                    style={{ zIndex: '2', top: '10%', right: '49%' }}
-                    >
-                    {errors.sensitive.message}
-                    </Typography>
-                )}
+      <ToastContainer />
                 
-                <Controller
-                        name="describtion" 
-                        className="position-relative"
-                        control={control}
-                        render={({ field }) => (
-                            <div>
-                            <Typography className='position-absolute bg-white'
-                             color="error" variant="body2"
-                                style={{zIndex:'2',top:'18%',right:'26%'}}>
-                                {errors?.describtion?.message}
-                            </Typography>
-                            <TextField
-                                size="small"
-                                {...field}
-                                label="توضیحات"
-                                type="text"
-                                error={!!errors.describtion}
-                                helperText=""
-                                className="info-form-input"
-                                variant="outlined"
-                                required
-                            />
-                            </div>
-                        )}
-                        />
-
-                        <Button
-                        variant="contained"
-                        color="secondary"
-                        className="float-start"
-                        aria-label="Register"
-                        disabled={!formState.isValid}
-                        type="submit"
-                        size="small"
-                        style={{marginTop:'6vw',width: '120px'}}>
-                            ذخیره
-                        </Button>
-
-                </form>
+                {logFormSwitch ? (
+                    <InsertForm/>
+                ) : (
+                    <UpdateForm/>
+                )}
             </Paper>
 
             <Paper className="container min-h-auto sm:min-h-auto rounded-0 px-1 sm:p-16 sm:rounded-2xl sm:shadow mt-4" style={{width:'95%'}}>
@@ -244,62 +148,104 @@ const Log = () =>{
                             style={{height:'40px',borderBottom:'1px solid #aaa'}}>
                             <Box className="col-auto iranSans position-relative searchdiv2">
                             <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch2 fa-lg"> </i>
-                  <input type="text" className="form-control inputSearch2" placeholder="جستجو"/>
+                  <input type="text" className="form-control inputSearch2" placeholder="جستجو"
+                            value={searchByDescribtion}
+                        onChange={(e) => setSearchByDescribtion(e.target.value)}
+                  />
                             </Box>
 
                             <Box className="col-auto iranSans position-relative searchdiv2">
                             <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch2 fa-lg"> </i>
-                  <input type="text" className="form-control inputSearch2" placeholder="جستجو"/>
+                  <input type="text" className="form-control inputSearch2" placeholder="جستجو"
+                    value={searchByOrganName}
+                        onChange={(e) => setSearchByOrganName(e.target.value)}
+                  />
                             </Box>
 
                             <Box className="col-auto iranSans position-relative searchdiv2">
                             <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch2 fa-lg"> </i>
-                  <input type="text" className="form-control inputSearch2" placeholder="جستجو"/>
-                            </Box>
-
-
-                            <Box className="col-auto iranSans position-relative searchdiv2">
-                            <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch2 fa-lg"> </i>
-                  <input type="text" className="form-control inputSearch2" placeholder="جستجو"/>
-                            </Box>
-
-                            <Box className="col-auto iranSans position-relative searchdiv2">
-                            <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch2 fa-lg"> </i>
-                  <input type="text" className="form-control inputSearch2" placeholder="جستجو"/>
+                  <input type="text" className="form-control inputSearch2" placeholder="جستجو"
+                    value={searchBySystemName}
+                        onChange={(e) => setSearchBySystem(e.target.value)}
+                  />
                             </Box>
 
 
                             <Box className="col-auto iranSans position-relative searchdiv2">
                             <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch2 fa-lg"> </i>
-                  <input type="text" className="form-control inputSearch2" placeholder="جستجو"/>
+                  <input type="text" className="form-control inputSearch2" placeholder="جستجو"
+                    value={searchByGroup}
+                        onChange={(e) => setSearchByGroup(e.target.value)}
+                  />
+                            </Box>
+
+                            <Box className="col-auto iranSans position-relative searchdiv2">
+                            <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch2 fa-lg"> </i>
+                  <input type="text" className="form-control inputSearch2" placeholder="جستجو"
+                    value={searchByEvent}
+                        onChange={(e) => setSearchByEvent(e.target.value)}
+                  />
+                            </Box>
+
+
+                            <Box className="col-auto iranSans position-relative searchdiv2">
+                            <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch2 fa-lg"> </i>
+                  <input type="text" className="form-control inputSearch2" placeholder="جستجو"
+                    value={searchBySensitive}
+                        onChange={(e) => setSearchBySensitive(e.target.value)}
+                  />
                             </Box>
 
                         </Box>
 
-                        <Box className="row w-100 m-auto" 
-                            style={{height:'auto'}}>
-                            {
-                                logData.length>0 ? logData.map(log =>(
-                                    <LogItems key={log.organizationName} log={log}/>
-                                )) : 
-                                <p className='text-danger fs-3 text-center iranSans py-3'>موردی یافت نشد</p>
-                            }
-                            
-                        </Box>
-                        <Stack spacing={2} className="pagination" style={{width:'450px'}}>
-                        <Pagination  color="secondary"
-                            count={10}
-                            renderItem={(item) => (
-                            <PaginationItem
-                            components={{ next: KeyboardDoubleArrowLeftIcon, previous: KeyboardDoubleArrowRightIcon }}
-                                {...item}
-                            />
+                        <Box className="row w-100 m-auto" style={{ height: 'auto' }}>
+                            {filteredLog.length > 0 ? (
+                                getCurrentPageItems().map(log=> <LogItems key={log.id} log={log} />)
+                            ) : (
+                            <p className="text-danger fs-3 text-center iranSans py-3">موردی یافت نشد</p>
                             )}
-                        />
-                    </Stack>
+                        </Box>
+
+                        {filteredLog.length > 0 ?
+                        <Stack spacing={2} className="pagination" style={{ width: '450px' }}>
+                            <Pagination className="pagination_items"
+                            color="secondary"
+                            count={totalPages}
+                            page={currentPage}
+                            onChange={(event, page) => setCurrentPage(page)}
+                            renderItem={(item) => (
+                                <PaginationItem
+                                components={{
+                                    next: KeyboardDoubleArrowLeftIcon,
+                                    previous: KeyboardDoubleArrowRightIcon,
+                                }}
+                                {...item}
+                                />
+                            )}
+                            />
+                        </Stack>
+                        :
+                        <Stack spacing={2} className="pagination" style={{ width: '450px' }}>
+                            <Pagination className="pagination_items"
+                                color="secondary"
+                                count={totalPages}
+                                page={currentPage} 
+                                onChange={(event, page) => setCurrentPage(page)}
+                                renderItem={(item) => (
+                                    <PaginationItem
+                                    components={{
+                                        next: KeyboardDoubleArrowLeftIcon,
+                                        previous: KeyboardDoubleArrowRightIcon,
+                                    }}
+                                    {...item}
+                                    />
+                                )}
+                                />
+                        </Stack>
+        }
                    
                 </Paper>
-    
+            </AppContext.Provider>
         </>
     )
 }

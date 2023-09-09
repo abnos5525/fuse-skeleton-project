@@ -8,11 +8,14 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.*;
-import java.util.Date;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-@WebServlet(name = "addSystemInfo", urlPatterns = {"/addSystemInfo"})
-public class AddSystemServlet extends HttpServlet {
+import java.util.Date;
+
+@WebServlet(name = "updateSystemInfo", urlPatterns = {"/updateSystemInfo"})
+public class UpdateSystemServlet extends HttpServlet {
 
     private DatabaseManager databaseManager;
 
@@ -21,14 +24,14 @@ public class AddSystemServlet extends HttpServlet {
     private String systemName;
     private String systemLatinName;
     private int systemNumber;
+    private int oldSystemNumber;
     private String systemPort;
 
     private String formattedDateTime;
 
     public void init() {
         databaseManager = new DatabaseManager();
-        query = "INSERT INTO tbl_system (systemName,systemLatinName,systemNumber,systemPort,systemDate,systemUpdateDate) " +
-                "VALUES (?,?,?,?,?,?)";
+        query = "UPDATE tbl_system SET systemName=?,systemLatinName=?,systemNumber=?,systemPort=?, systemUpdateDate=? WHERE systemNumber=?";
 
         Date currentDate = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -37,18 +40,20 @@ public class AddSystemServlet extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setCharacterEncoding("UTF-8");
-
+        PrintWriter out = response.getWriter();
         try {
 
             systemName = request.getParameter("systemName");
             systemLatinName = request.getParameter("systemLatinName");
             systemNumber = Integer.parseInt(request.getParameter("systemNumber"));
+
+            oldSystemNumber = Integer.parseInt(request.getParameter("oldSystemNumber"));
             systemPort = request.getParameter("systemPort");
 
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
             Connection connection = databaseManager.getConnection();
-            System.out.println("POST Inserted");
+            System.out.println("POST Updated");
 
             PreparedStatement preparedStatement = connection.prepareStatement(query);
 
@@ -57,13 +62,13 @@ public class AddSystemServlet extends HttpServlet {
             preparedStatement.setInt(3, systemNumber);
             preparedStatement.setString(4, systemPort);
             preparedStatement.setString(5, formattedDateTime);
-            preparedStatement.setString(6, formattedDateTime);
+            preparedStatement.setInt(6, oldSystemNumber);
 
             int rowsAffected = preparedStatement.executeUpdate();
 
             if (rowsAffected > 0) {
                 response.setStatus(HttpServletResponse.SC_CREATED);
-                System.out.println("Saved Successfully!");
+                System.out.println("Updated Successfully!");
             } else {
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                 System.out.println("There is a problem!");
@@ -74,12 +79,10 @@ public class AddSystemServlet extends HttpServlet {
         } catch (SQLException e) {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            PrintWriter out = response.getWriter();
             out.println("There is a problem with connection");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            PrintWriter out = response.getWriter();
             out.println("There is a problem with JDBC driver");
         }
 

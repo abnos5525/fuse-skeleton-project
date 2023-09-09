@@ -1,307 +1,242 @@
-import { forwardRef, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { yupResolver } from '@hookform/resolvers/yup';
-import {useForm, Controller} from 'react-hook-form'
 
-import qs from 'qs';
+import {ToastContainer } from 'react-toastify';
 
+import _ from 'lodash';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import { Paper, TextField,Typography } from "@mui/material";
 
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
+import { Paper} from '@mui/material';
 
 import Pagination from '@mui/material/Pagination';
 import PaginationItem from '@mui/material/PaginationItem';
 import Stack from '@mui/material/Stack';
+
+import AppContext from 'app/AppContext';
+
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
-import { getallSystemData } from "./data"; 
-import SystemItems from "./SystemItems";
-import FormValidation from './FormValidation'
+import SystemItems from './SystemItems';
 
-const System = () =>{
-    const systemData = getallSystemData();
+import InsertForm from './InsertForm';
+import UpdateForm from './UpdateForm';
 
-    const Alert = forwardRef(function Alert(props, ref) {
-        return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-    });
+const System = () => {
+  const [forceRender, setForceRender] = useState(false);
 
-    const defaultValues = {
-        systemName: '',
-        systemLatinName: '',
-        systemNumber: '',
-        systemPort: '',
-      };
+  const [systemFormSwitch, setSystemFormSwitch] = useState(true);
 
-    const { control, formState, handleSubmit, reset } = useForm({
-        mode: 'onChange',
-        defaultValues,
-        resolver: yupResolver(FormValidation),
-      });
+  const [systemFormValues, setSystemFormValues] = useState({});
 
-    const { isValid, dirtyFields, errors } = formState;
 
-      //------------------------------------------------------
-      //------------------------------------------------------
-      //------------------------------------------------------
+  const [system, setSystem] = useState([]);
+  
+  // مقادیر ورودی سرچ ها
+  const [searchByName, setSearchByName] = useState('');
+  const [searchByLatinName, setSearchByLatinName] = useState('');
+  const [searchBySystemNumber, setSearchBySystemNumber] = useState('');
+  const [searchBySystemPort, setSearchBySystemPort] = useState('');
+  const [filteredSys, setFilteredSys] = useState([]);
+  
+  //------------------------------------------------------
+  //   -----------------------Show-------------------------------
+  //------------------------------------------------------
 
-      const [open, setOpen] = useState(false);
+  const [systemNumbers , setSystemNumbers] = useState([])
 
-      const handleClick = () => {
-        setOpen(true);
-      };
-    
-      const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-          return;
-        }
-    
-        setOpen(false);
-      };
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        const { data } = await axios.get('http://localhost:8085/server/systemInfo');
+        setSystem(data);
+        
+        const sysNums = data.map((obj)=> obj.systemNumber)
+        setSystemNumbers(sysNums)
 
-      const config = {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      };
+        setForceRender(!forceRender)
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetch();
+  }, [forceRender]);
 
-    const onSubmit = async (formData) =>{
-        try{
-            console.log(formData)
-            const data = qs.stringify(formData);
 
-            const {status} = await axios.post('http://localhost:8085/server/addSystemInfo', data, config)
-
-            if(status === 201){
-                console.log('Done')
-            }else{
-                console.log('Error')
-            }
-
-        }catch(err){
-            console.log(err)
-        }
-        reset(defaultValues);
-    }
-
-      //------------------------------------------------------
-      //------------------------------------------------------
-      //------------------------------------------------------
-
-    const [system, setSystem] = useState([])
-
-    useEffect(()=>{
-        const fetch= async ()=>{
-            try {
-            const {data} = await axios.get('http://localhost:8085/server/systemInfo')
-            setSystem(data)
-
-        }catch (error) {
-            console.error(error);
-          }
-        } 
-        fetch()
-    },[])
-    
-
-    return(
-        <>
-            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-                <Stack spacing={2} sx={{ width: '100%' }}>
-                    <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-                        ثبت شد
-                    </Alert>
-                </Stack>
-            </Snackbar>
-
-            <Paper className="container min-h-auto sm:min-h-auto rounded-0 
-                py-5 px-5 sm:p-5 sm:rounded-2xl sm:shadow mt-5" style={{width:'95%'}}>
-
-                <form method='post'
-                name="systemForm"
-                noValidate
-                onSubmit={handleSubmit(onSubmit)}>
-
-                    <Controller
-                        name="systemName"
-                        className="position-relative"
-                        control={control}
-                        render={({ field }) => (
-                            <div>
-                            <Typography className='position-absolute bg-white'
-                             color="error" variant="body2"
-                                style={{zIndex:'2',right:'22%',top:'10%'}}>
-                                {errors?.systemName?.message}
-                            </Typography>
-                            <TextField size="small"
-                            {...field}
-                            label="نام سامانه"
-                            type="text"
-                            error={!!errors.systemName}
-                            className="info-form-input"
-                            variant="outlined"
-                            required
-                            />
-                            </div>
-                        )}/>
-
-                        <Controller
-                        name="systemLatinName"
-                        className="position-relative"
-                        control={control}
-                        render={({ field }) => (
-                            <div>
-                            <Typography className='position-absolute bg-white'
-                             color="error" variant="body2"
-                                style={{zIndex:'2',top:'10%',right:'49%'}}>
-                                {errors?.systemLatinName?.message}
-                            </Typography>
-                            <TextField size="small"
-                            {...field}
-                            label="نام لاتین سامانه"
-                            type="text"
-                            error={!!errors.systemLatinName}
-                            className="info-form-input"
-                            variant="outlined"
-                            required
-                            />
-                            </div>
-                        )}/>
-
-                        <Controller
-                        name="systemNumber"
-                        className="position-relative"
-                        control={control}
-                        render={({ field }) => (
-                            <div>
-                            <Typography className='position-absolute bg-white'
-                             color="error" variant="body2"
-                                style={{zIndex:'2',top:'10%',right:'81%'}}>
-                                {errors?.systemNumber?.message}
-                            </Typography>
-                            <TextField size="small"
-                            {...field}
-                            label="شماره سامانه"
-                            type="text"
-                            error={!!errors.systemNumber}
-                            className="info-form-input"
-                            variant="outlined"
-                            required
-                            />
-                            </div>
-                        )}/>
-
-                        <Controller
-                        name="systemPort" 
-                        className="position-relative"
-                        control={control}
-                        render={({ field }) => (
-                            <div>
-                            <Typography className='position-absolute bg-white'
-                             color="error" variant="body2"
-                                style={{zIndex:'2',top:'18%',right:'26%'}}>
-                                {errors?.systemPort?.message}
-                            </Typography>
-                            <TextField
-                                size="small"
-                                {...field}
-                                label="پورت سامانه"
-                                type="text"
-                                error={!!errors.systemPort}
-                                helperText=""
-                                className="info-form-input"
-                                variant="outlined"
-                                required
-                            />
-                            </div>
-                        )}
-                        />
-
-                        <Button
-                        variant="contained"
-                        color="secondary"
-                        className="float-start"
-                        aria-label="Register"
-                        disabled={!formState.isValid}
-                        type="submit"
-                        size="small"
-                        style={{marginTop:'6vw',width: '120px'}}>
-                            ذخیره
-                        </Button>
-
-                </form>
-            
-
-            </Paper>
-
-                <Paper className="container min-h-auto sm:min-h-auto rounded-0 px-1 sm:p-16 sm:rounded-2xl sm:shadow mt-4" style={{width:'95%'}}>
-
-                <Box className="row w-100 m-auto" 
-                style={{height:'30px',borderBottom:'1px solid #aaa'}}>
-                        <span className="col-2 iranSans fs-4 fw-bold text-center mx-4 head">نام سامانه</span>
-
-                        <span className="col-2 iranSans fs-4 fw-bold text-center mx-4 head">نام لاتین سامانه</span>
-     
-                        <span className="col-2 iranSans fs-4 fw-bold text-center mx-4 head">شناسه سامانه</span>
-
-                        <span className="col-2 iranSans fs-4 fw-bold text-center mx-4 head">شماره پورت</span>
-                </Box>
-
-                <Box className="row w-100 m-auto searchs" 
-                style={{height:'40px',borderBottom:'1px solid #aaa'}}>
-
-                  <Box className="col-auto iranSans mx-4 position-relative searchdiv">
-                  <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch fa-lg"> </i>
-                  <input type="text" className="form-control inputSearch" placeholder="جستجو"/>
-                  </Box>
-
-                  <Box className="col-auto iranSans mx-4 position-relative searchdiv">
-                  <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch fa-lg"> </i>
-                  <input type="text" className="form-control inputSearch" placeholder="جستجو"/>
-                  </Box>
-
-                  <Box className="col-auto iranSans mx-4 position-relative searchdiv">
-                  <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch fa-lg"> </i>
-                  <input type="text" className="form-control inputSearch" placeholder="جستجو"/>
-                  </Box>
-
-                  <Box className="col-auto iranSans mx-4 position-relative searchdiv">
-                  <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch fa-lg"> </i>
-                  <input type="text" className="form-control inputSearch" placeholder="جستجو"/>
-                  </Box>
-
-                </Box>
-
-                <Box className="row w-100 m-auto" 
-                style={{height:'auto'}}>
-                    {
-                        system.length > 0 ? system.map((sys, index) =>(
-                            <SystemItems key={index} sys={sys}/>
-                        )) :
-                            <p className='text-danger fs-3 text-center iranSans py-3'>موردی یافت نشد</p>
-                    }
-                </Box>
-
-                    <Stack spacing={2} className="pagination" style={{width:'450px'}}>
-                        <Pagination  color="secondary"
-                            count={10}
-                            renderItem={(item) => (
-                            <PaginationItem
-                            components={{ next: KeyboardDoubleArrowLeftIcon, previous: KeyboardDoubleArrowRightIcon }}
-                                {...item}
-                            />
-                            )}
-                        />
-                    </Stack>
-
-                
-
-            </Paper>
-
-        </>
+  useEffect(() => {
+    const filtered = system.filter((item) =>
+      item.systemName.includes(searchByName) &&
+      item.systemLatinName.toLowerCase().includes(searchByLatinName.toLowerCase()) &&
+      item.systemNumber.includes(searchBySystemNumber) &&
+      item.systemPort.includes(searchBySystemPort)
     )
-}
+    setFilteredSys(filtered)
+  }, [system, searchByName, searchByLatinName, searchBySystemNumber, searchBySystemPort]);
+
+
+// -----------------------Pagination---------------------------
+const [currentPage, setCurrentPage] = useState(1); // شماره صفحه جاری
+const itemsPerPage = 3; // تعداد موارد در هر صفحه
+const totalPages = Math.ceil(filteredSys.length / itemsPerPage);
+
+const getCurrentPageItems = () => {
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  return filteredSys.slice(startIndex, endIndex);
+};
+
+const handleSearch = () => {
+  const filtered = system.filter((item) =>
+    item.systemName.includes(searchByName) &&
+    item.systemLatinName.toLowerCase().includes(searchByLatinName.toLowerCase()) &&
+    item.systemNumber.includes(searchBySystemNumber) &&
+    item.systemPort.includes(searchBySystemPort)
+  );
+  setFilteredSys(filtered);
+
+  setCurrentPage(1);
+};
+
+const handleSearchDebounced = _.debounce(handleSearch, 1000);
+
+useEffect(() => {
+  handleSearchDebounced();
+}, [searchByName, searchByLatinName, searchBySystemNumber, searchBySystemPort]);
+
+
+  return (
+    <>
+      <AppContext.Provider
+        value={{
+          setSystemFormSwitch,
+          systemFormSwitch,
+
+          systemFormValues,
+          setSystemFormValues,
+
+          forceRender,
+          setForceRender,
+          
+          systemNumbers,
+        }}
+      >
+      <ToastContainer />
+        <Paper
+          className="container min-h-auto sm:min-h-auto rounded-0 
+                py-5 px-5 sm:p-5 sm:rounded-2xl sm:shadow mt-5"
+          style={{ width: '95%' }}
+        >
+
+          {systemFormSwitch ? (
+            <InsertForm/>
+          ) : (
+            <UpdateForm/>
+          )}
+        </Paper>
+
+        <Paper
+          className="container min-h-auto sm:min-h-auto rounded-0 px-1 sm:p-16 sm:rounded-2xl sm:shadow mt-4"
+          style={{ width: '95%' }}
+        >
+          <Box
+            className="row w-100 m-auto"
+            style={{ height: '30px', borderBottom: '1px solid #aaa' }}
+          >
+            <span className="col-2 iranSans fs-4 fw-bold text-center mx-4 head">نام سامانه</span>
+
+            <span className="col-2 iranSans fs-4 fw-bold text-center mx-4 head">
+              نام لاتین سامانه
+            </span>
+
+            <span className="col-2 iranSans fs-4 fw-bold text-center mx-4 head">شناسه سامانه</span>
+
+            <span className="col-2 iranSans fs-4 fw-bold text-center mx-4 head">شماره پورت</span>
+          </Box>
+
+          <Box
+            className="row w-100 m-auto searchs"
+            style={{ height: '40px', borderBottom: '1px solid #aaa' }}
+          >
+            <Box className="col-auto iranSans mx-4 position-relative searchdiv">
+              <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch fa-lg"> </i>
+              <input type="text" className="form-control inputSearch" placeholder="جستجو"
+              value={searchByName}
+                onChange={(e) => setSearchByName(e.target.value)} />
+            </Box>
+
+            <Box className="col-auto iranSans mx-4 position-relative searchdiv">
+              <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch fa-lg"> </i>
+              <input type="text" className="form-control inputSearch" placeholder="جستجو" 
+                value={searchByLatinName}
+                onChange={(e) => setSearchByLatinName(e.target.value)}
+              />
+            </Box>
+
+            <Box className="col-auto iranSans mx-4 position-relative searchdiv">
+              <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch fa-lg"> </i>
+              <input type="text" className="form-control inputSearch" placeholder="جستجو" 
+                value={searchBySystemNumber}
+                onChange={(e) => setSearchBySystemNumber(e.target.value)}
+              />
+            </Box>
+
+            <Box className="col-auto iranSans mx-4 position-relative searchdiv">
+              <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch fa-lg"> </i>
+              <input type="text" className="form-control inputSearch" placeholder="جستجو" 
+                value={searchBySystemPort}
+                onChange={(e) => setSearchBySystemPort(e.target.value)}
+              />
+            </Box>
+          </Box>
+
+          <Box className="row w-100 m-auto" style={{ height: 'auto' }}>
+            {filteredSys.length > 0 ? (
+              getCurrentPageItems().map((sys,index) => <SystemItems key={index} sys={sys} />)
+            ) : (
+              <p className="text-danger fs-3 text-center iranSans py-3">موردی یافت نشد</p>
+            )}
+          </Box>
+
+          {filteredSys.length > 0 ?
+          <Stack spacing={2} className="pagination" style={{ width: '450px' }}>
+            <Pagination className="pagination_items"
+              color="secondary"
+              count={totalPages}
+              page={currentPage}
+              onChange={(event, page) => setCurrentPage(page)}
+              renderItem={(item) => (
+                <PaginationItem
+                  components={{
+                    next: KeyboardDoubleArrowLeftIcon,
+                    previous: KeyboardDoubleArrowRightIcon,
+                  }}
+                  {...item}
+                />
+              )}
+            />
+          </Stack>
+        :
+        <Stack spacing={2} className="pagination" style={{ width: '450px' }}>
+              <Pagination className="pagination_items"
+                  color="secondary"
+                  count={totalPages}
+                  page={currentPage} 
+                  onChange={(event, page) => setCurrentPage(page)}
+                  renderItem={(item) => (
+                    <PaginationItem
+                      components={{
+                        next: KeyboardDoubleArrowLeftIcon,
+                        previous: KeyboardDoubleArrowRightIcon,
+                      }}
+                      {...item}
+                    />
+                  )}
+                />
+          </Stack>
+        }
+        </Paper>
+      </AppContext.Provider>
+    </>
+  );
+};
 
 export default System;

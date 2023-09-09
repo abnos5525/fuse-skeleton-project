@@ -1,4 +1,4 @@
-package com.fuse.server.system;
+package com.fuse.server.accept;
 
 import com.fuse.server.DatabaseManager;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,31 +8,22 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.*;
-import java.util.Date;
-import java.text.SimpleDateFormat;
-@WebServlet(name = "addSystemInfo", urlPatterns = {"/addSystemInfo"})
-public class AddSystemServlet extends HttpServlet {
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+@WebServlet(name = "deleteAcceptInfo", urlPatterns = {"/deleteAcceptInfo"})
+public class DeleteAcceptServlet extends HttpServlet {
 
     private DatabaseManager databaseManager;
 
     private String query;
 
-    private String systemName;
-    private String systemLatinName;
-    private int systemNumber;
-    private String systemPort;
-
-    private String formattedDateTime;
+    private int acceptId;
 
     public void init() {
         databaseManager = new DatabaseManager();
-        query = "INSERT INTO tbl_system (systemName,systemLatinName,systemNumber,systemPort,systemDate,systemUpdateDate) " +
-                "VALUES (?,?,?,?,?,?)";
-
-        Date currentDate = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        formattedDateTime = dateFormat.format(currentDate);
+        query = "DELETE FROM tbl_accept WHERE id=?";
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -40,30 +31,23 @@ public class AddSystemServlet extends HttpServlet {
 
         try {
 
-            systemName = request.getParameter("systemName");
-            systemLatinName = request.getParameter("systemLatinName");
-            systemNumber = Integer.parseInt(request.getParameter("systemNumber"));
-            systemPort = request.getParameter("systemPort");
+            acceptId = Integer.parseInt(request.getParameter("id"));
 
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
             Connection connection = databaseManager.getConnection();
-            System.out.println("POST Inserted");
+            System.out.println("POST Deleted");
 
             PreparedStatement preparedStatement = connection.prepareStatement(query);
 
-            preparedStatement.setString(1, systemName);
-            preparedStatement.setString(2, systemLatinName);
-            preparedStatement.setInt(3, systemNumber);
-            preparedStatement.setString(4, systemPort);
-            preparedStatement.setString(5, formattedDateTime);
-            preparedStatement.setString(6, formattedDateTime);
+            preparedStatement.setInt(1, acceptId);
+
 
             int rowsAffected = preparedStatement.executeUpdate();
 
             if (rowsAffected > 0) {
                 response.setStatus(HttpServletResponse.SC_CREATED);
-                System.out.println("Saved Successfully!");
+                System.out.println("Deleted Successfully!");
             } else {
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                 System.out.println("There is a problem!");

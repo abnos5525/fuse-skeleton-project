@@ -1,4 +1,4 @@
-package com.fuse.server.system;
+package com.fuse.server.log;
 
 import com.fuse.server.DatabaseManager;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,27 +8,33 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.*;
-import java.util.Date;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-@WebServlet(name = "addSystemInfo", urlPatterns = {"/addSystemInfo"})
-public class AddSystemServlet extends HttpServlet {
+import java.util.Date;
+
+@WebServlet(name = "updateLogInfo", urlPatterns = {"/updateLogInfo"})
+public class UpdateLogServlet extends HttpServlet {
 
     private DatabaseManager databaseManager;
 
     private String query;
 
-    private String systemName;
-    private String systemLatinName;
-    private int systemNumber;
-    private String systemPort;
+    private int logId;
+    private int organName;
+    private int systemName;
+    private String group;
+    private String event;
+    private String sensitive;
+    private String describtion;
 
     private String formattedDateTime;
 
     public void init() {
         databaseManager = new DatabaseManager();
-        query = "INSERT INTO tbl_system (systemName,systemLatinName,systemNumber,systemPort,systemDate,systemUpdateDate) " +
-                "VALUES (?,?,?,?,?,?)";
+        query = "UPDATE tbl_log SET organNumber=?,systemNumber=?,logGroup=?,event=?, sensitive=? " +
+                ",describtion=?,logUpdateDate=? WHERE id=?";
 
         Date currentDate = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -37,33 +43,43 @@ public class AddSystemServlet extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setCharacterEncoding("UTF-8");
-
+        PrintWriter out = response.getWriter();
         try {
 
-            systemName = request.getParameter("systemName");
-            systemLatinName = request.getParameter("systemLatinName");
-            systemNumber = Integer.parseInt(request.getParameter("systemNumber"));
-            systemPort = request.getParameter("systemPort");
+            logId = Integer.parseInt(request.getParameter("logId"));
+
+            organName = Integer.parseInt(request.getParameter("organName"));
+
+            systemName = Integer.parseInt(request.getParameter("systemName"));
+
+            group = request.getParameter("group");
+
+            event = request.getParameter("event");
+
+            sensitive = request.getParameter("sensitive");
+            describtion = request.getParameter("describtion");
 
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
             Connection connection = databaseManager.getConnection();
-            System.out.println("POST Inserted");
+            System.out.println("POST Updated");
 
             PreparedStatement preparedStatement = connection.prepareStatement(query);
 
-            preparedStatement.setString(1, systemName);
-            preparedStatement.setString(2, systemLatinName);
-            preparedStatement.setInt(3, systemNumber);
-            preparedStatement.setString(4, systemPort);
-            preparedStatement.setString(5, formattedDateTime);
-            preparedStatement.setString(6, formattedDateTime);
+            preparedStatement.setInt(1, organName);
+            preparedStatement.setInt(2, systemName);
+            preparedStatement.setString(3, group);
+            preparedStatement.setString(4, event);
+            preparedStatement.setString(5, sensitive);
+            preparedStatement.setString(6, describtion);
+            preparedStatement.setString(7, formattedDateTime);
+            preparedStatement.setInt(8, logId);
 
             int rowsAffected = preparedStatement.executeUpdate();
 
             if (rowsAffected > 0) {
                 response.setStatus(HttpServletResponse.SC_CREATED);
-                System.out.println("Saved Successfully!");
+                System.out.println("Updated Successfully!");
             } else {
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                 System.out.println("There is a problem!");
@@ -74,12 +90,10 @@ public class AddSystemServlet extends HttpServlet {
         } catch (SQLException e) {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            PrintWriter out = response.getWriter();
             out.println("There is a problem with connection");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            PrintWriter out = response.getWriter();
             out.println("There is a problem with JDBC driver");
         }
 

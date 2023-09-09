@@ -1,16 +1,21 @@
-package com.fuse.server.system;
+package com.fuse.server;
 
-import java.io.*;
-import java.sql.*;
-
-import com.fuse.server.DatabaseManager;
-import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-@WebServlet(name = "systemInfo", urlPatterns = {"/systemInfo"})
-public class SystemServlet extends HttpServlet {
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+@WebServlet(name = "organInfo", urlPatterns = {"/organInfo"})
+public class OrganServlet extends HttpServlet {
 
     private DatabaseManager databaseManager;
 
@@ -18,7 +23,7 @@ public class SystemServlet extends HttpServlet {
 
     public void init() {
         databaseManager = new DatabaseManager();
-        query = "SELECT * FROM tbl_system ORDER BY systemUpdateDate DESC";
+        query = "SELECT * FROM tbl_organs";
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -38,10 +43,8 @@ public class SystemServlet extends HttpServlet {
 
             while (resultSet.next()) {
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.put("systemName", resultSet.getString("systemName"));
-                jsonObject.put("systemLatinName", resultSet.getString("systemLatinName"));
-                jsonObject.put("systemNumber", resultSet.getString("systemNumber"));
-                jsonObject.put("systemPort", resultSet.getString("systemPort"));
+                jsonObject.put("id", resultSet.getString("id"));
+                jsonObject.put("organName", resultSet.getString("organName"));
                 jsonArray.put(jsonObject);
             }
 

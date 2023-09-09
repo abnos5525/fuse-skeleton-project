@@ -1,16 +1,22 @@
-package com.fuse.server.system;
-
-import java.io.*;
-import java.sql.*;
+package com.fuse.server.log;
 
 import com.fuse.server.DatabaseManager;
-import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-@WebServlet(name = "systemInfo", urlPatterns = {"/systemInfo"})
-public class SystemServlet extends HttpServlet {
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+@WebServlet(name = "logInfo", urlPatterns = {"/logInfo"})
+public class LogServlet extends HttpServlet {
 
     private DatabaseManager databaseManager;
 
@@ -18,7 +24,11 @@ public class SystemServlet extends HttpServlet {
 
     public void init() {
         databaseManager = new DatabaseManager();
-        query = "SELECT * FROM tbl_system ORDER BY systemUpdateDate DESC";
+        query = "SELECT L.*, S.systemName, O.organName\n" +
+                "FROM tbl_log AS L\n" +
+                "JOIN tbl_system AS S ON L.systemNumber = S.systemNumber\n" +
+                "JOIN tbl_organs AS O ON L.organNumber = O.id\n" +
+                "ORDER BY L.logUpdateDate DESC;\n";
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -38,10 +48,15 @@ public class SystemServlet extends HttpServlet {
 
             while (resultSet.next()) {
                 JSONObject jsonObject = new JSONObject();
+                jsonObject.put("id", resultSet.getInt("id"));
+                jsonObject.put("organName", resultSet.getString("organName"));
                 jsonObject.put("systemName", resultSet.getString("systemName"));
-                jsonObject.put("systemLatinName", resultSet.getString("systemLatinName"));
-                jsonObject.put("systemNumber", resultSet.getString("systemNumber"));
-                jsonObject.put("systemPort", resultSet.getString("systemPort"));
+                jsonObject.put("logGroup", resultSet.getString("logGroup"));
+                jsonObject.put("event", resultSet.getString("event"));
+                jsonObject.put("sensitive", resultSet.getString("sensitive"));
+                jsonObject.put("describtion", resultSet.getString("describtion"));
+                jsonObject.put("organNumber", resultSet.getInt("organNumber"));
+                jsonObject.put("systemNumber", resultSet.getInt("systemNumber"));
                 jsonArray.put(jsonObject);
             }
 

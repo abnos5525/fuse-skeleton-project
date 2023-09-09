@@ -1,4 +1,4 @@
-package com.fuse.server.system;
+package com.fuse.server.accept;
 
 import com.fuse.server.DatabaseManager;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,27 +8,34 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.*;
-import java.util.Date;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-@WebServlet(name = "addSystemInfo", urlPatterns = {"/addSystemInfo"})
-public class AddSystemServlet extends HttpServlet {
+import java.util.Date;
+
+@WebServlet(name = "updateAcceptInfo", urlPatterns = {"/updateAcceptInfo"})
+public class UpdateAcceptServlet extends HttpServlet {
 
     private DatabaseManager databaseManager;
 
     private String query;
 
-    private String systemName;
-    private String systemLatinName;
-    private int systemNumber;
+    private int acceptId;
+    private int organName;
+    private int systemName;
+    private String systemAddress;
     private String systemPort;
+    private String systemMainAddress;
+    private String systemMainPort;
+    private String status;
 
     private String formattedDateTime;
 
     public void init() {
         databaseManager = new DatabaseManager();
-        query = "INSERT INTO tbl_system (systemName,systemLatinName,systemNumber,systemPort,systemDate,systemUpdateDate) " +
-                "VALUES (?,?,?,?,?,?)";
+        query = "UPDATE tbl_acception SET organNumber=?,systemNumber=?,systemAddress=?,systemPort=?, systemMainAddress=? " +
+                ",systemMainPort=?,status=?,acceptUpdateDate=? WHERE id=?";
 
         Date currentDate = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -37,33 +44,45 @@ public class AddSystemServlet extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setCharacterEncoding("UTF-8");
-
+        PrintWriter out = response.getWriter();
         try {
 
-            systemName = request.getParameter("systemName");
-            systemLatinName = request.getParameter("systemLatinName");
-            systemNumber = Integer.parseInt(request.getParameter("systemNumber"));
+            acceptId = Integer.parseInt(request.getParameter("acceptId"));
+
+            organName = Integer.parseInt(request.getParameter("organName"));
+
+            systemName = Integer.parseInt(request.getParameter("systemName"));
+
+            systemAddress = request.getParameter("systemAddress");
+
             systemPort = request.getParameter("systemPort");
+
+            systemMainAddress = request.getParameter("systemMainAddress");
+            systemMainPort = request.getParameter("systemMainPort");
+            status = request.getParameter("status");
 
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
             Connection connection = databaseManager.getConnection();
-            System.out.println("POST Inserted");
+            System.out.println("POST Updated");
 
             PreparedStatement preparedStatement = connection.prepareStatement(query);
 
-            preparedStatement.setString(1, systemName);
-            preparedStatement.setString(2, systemLatinName);
-            preparedStatement.setInt(3, systemNumber);
+            preparedStatement.setInt(1, organName);
+            preparedStatement.setInt(2, systemName);
+            preparedStatement.setString(3, systemAddress);
             preparedStatement.setString(4, systemPort);
-            preparedStatement.setString(5, formattedDateTime);
-            preparedStatement.setString(6, formattedDateTime);
+            preparedStatement.setString(5, systemMainAddress);
+            preparedStatement.setString(6, systemMainPort);
+            preparedStatement.setString(7, status);
+            preparedStatement.setString(8, formattedDateTime);
+            preparedStatement.setInt(9, acceptId);
 
             int rowsAffected = preparedStatement.executeUpdate();
 
             if (rowsAffected > 0) {
                 response.setStatus(HttpServletResponse.SC_CREATED);
-                System.out.println("Saved Successfully!");
+                System.out.println("Updated Successfully!");
             } else {
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                 System.out.println("There is a problem!");
@@ -74,12 +93,10 @@ public class AddSystemServlet extends HttpServlet {
         } catch (SQLException e) {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            PrintWriter out = response.getWriter();
             out.println("There is a problem with connection");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            PrintWriter out = response.getWriter();
             out.println("There is a problem with JDBC driver");
         }
 
