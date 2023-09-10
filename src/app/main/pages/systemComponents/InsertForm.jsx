@@ -12,7 +12,7 @@ import FormValidation from './FormValidation';
 
 const InsertForm = ()=>{
 
-    const {systemNumbers} = useContext(AppContext)
+    const {systemNumbers,setForceRender,forceRender} = useContext(AppContext)
 
     const defaultValues = {
         systemName: '',
@@ -71,6 +71,8 @@ const InsertForm = ()=>{
                 progress: undefined,
                 theme: 'light',
               });
+              
+              setForceRender(!forceRender)
             } else {
               toast.error('!مشکلی پیش آمده', {
                 position: 'bottom-left',

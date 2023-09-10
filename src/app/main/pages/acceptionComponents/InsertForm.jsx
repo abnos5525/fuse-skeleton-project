@@ -12,16 +12,17 @@ import FormValidation from './FormValidation';
 
 const InsertForm = ()=>{
 
-    const {logFormSwitch,forceRenderLog,setForceRenderLog,systemInfo,setSystemInfo,
-      organInfo,setOrganInfo} = useContext(AppContext)
+    const {acceptFormSwitch,forceRenderAccept,setForceRenderAccept,systemInfoAccept,setSystemInfoAccept,
+      organInfoAccept,setOrganInfoAccept} = useContext(AppContext)
 
     const defaultValues = {
       organName: '',
       systemName: '',
-      group: '',
-      event: '',
-      sensitive: '',
-      describtion: '',
+      systemAddress: '',
+      systemPort: '',
+      systemMainAddress: '',
+      systemMainPort: '',
+      status: ''
     };
     const { control, formState, handleSubmit, reset } = useForm({
       mode: 'onChange',
@@ -42,7 +43,7 @@ const InsertForm = ()=>{
             const data = qs.stringify(formData);
             console.log(formData)
             const { status } = await axios.post(
-              'http://localhost:8085/server/addLogInfo',
+              'http://localhost:8085/server/addAcceptInfo',
               data,
               config
             );
@@ -58,7 +59,7 @@ const InsertForm = ()=>{
                 theme: 'light',
               });
               reset(defaultValues);
-              setForceRenderLog(!forceRenderLog)
+              setForceRenderAccept(!forceRenderAccept)
             } else {
               toast.error('!مشکلی پیش آمده', {
                 position: 'bottom-left',
@@ -93,8 +94,8 @@ const InsertForm = ()=>{
           try {
             const { data:systemData } = await axios.get('http://localhost:8085/server/systemInfo');
             const { data: organData } = await axios.get('http://localhost:8085/server/organInfo');
-            setSystemInfo(systemData);
-            setOrganInfo(organData);
+            setSystemInfoAccept(systemData);
+            setOrganInfoAccept(organData);
 
           } catch (error) {
             console.error(error);
@@ -106,7 +107,7 @@ const InsertForm = ()=>{
     return(
         <>
             <form 
-                name="logForm"
+                name="acceptionForm"
                 noValidate
                 onSubmit={handleSubmit(onSubmit)}>
 
@@ -118,10 +119,10 @@ const InsertForm = ()=>{
                         <InputLabel className="h-100" htmlFor="organName" style={{lineHeight:'5px'}}>نام سازمان</InputLabel>
                         <Select
                         label="نام سازمان"
-                        error={!!errors.systemName}
+                        error={!!errors.organName}
                         {...field}
                         >
-                        {organInfo.length > 0 ? organInfo.map(org => (
+                        {organInfoAccept.length > 0 ? organInfoAccept.map(org => (
                           <MenuItem value={org.id}>{org.organName}</MenuItem>
                         ))
                         :
@@ -154,7 +155,7 @@ const InsertForm = ()=>{
                         {...field}
                         >
                         
-                        {systemInfo.length > 0 ? systemInfo.map(sys => (
+                        {systemInfoAccept.length > 0 ? systemInfoAccept.map(sys => (
                           <MenuItem value={sys.systemNumber}>{sys.systemName}</MenuItem>
                         ))
                         :
@@ -177,37 +178,9 @@ const InsertForm = ()=>{
                     </Typography>
                 )}
 
-                    <Controller
-                    name="group"
-                    control={control}
-                    render={({ field }) => (
-                    <FormControl variant="outlined" className="info-form-input">
-                        <InputLabel className="h-100" htmlFor="group" style={{lineHeight:'5px'}}>دسته بندی</InputLabel>
-                        <Select
-                        label="دسته بندی"
-                        error={!!errors.group}
-                        {...field}
-                        >
-                        <MenuItem value="دسته بندی اول">دسته بندی اول</MenuItem>
-                        <MenuItem value="دسته بندی دوم">دسته بندی دوم</MenuItem>
-                        <MenuItem value="دسته بندی سوم">دسته بندی سوم</MenuItem>
-                        </Select>
-                    </FormControl>
-                    )}
-                />
-                {errors?.group && (
-                    <Typography
-                    className="position-absolute bg-white"
-                    color="error"
-                    variant="body2"
-                    style={{ zIndex: '2', top: '10%', right: '49%' }}
-                    >
-                    {errors.group.message}
-                    </Typography>
-                )}
 
                         <Controller
-                        name="event" 
+                        name="systemAddress" 
                         className="position-relative"
                         control={control}
                         render={({ field }) => (
@@ -215,14 +188,14 @@ const InsertForm = ()=>{
                             <Typography className='position-absolute bg-white'
                              color="error" variant="body2"
                                 style={{zIndex:'2',top:'18%',right:'26%'}}>
-                                {errors?.event?.message}
+                                {errors?.systemAddress?.message}
                             </Typography>
                             <TextField
                                 size="small"
                                 {...field}
-                                label="نوع رویداد"
+                                label="آدرس سامانه عامل"
                                 type="text"
-                                error={!!errors.event}
+                                error={!!errors.systemAddress}
                                 className="info-form-input"
                                 variant="outlined"
                                 required
@@ -231,52 +204,81 @@ const InsertForm = ()=>{
                         )}
                         />
 
-                    <Controller
-                    name="sensitive"
-                    control={control}
-                    render={({ field }) => (
-                    <FormControl variant="outlined" className="info-form-input">
-                        <InputLabel className="h-100" htmlFor="sensitive" style={{lineHeight:'5px'}}>حساسیت رویداد</InputLabel>
-                        <Select
-                        label="حساسیت رویداد"
-                        error={!!errors.sensitive}
-                        {...field}
-                        >
-                        <MenuItem value="کم">کم</MenuItem>
-                        <MenuItem value="نرمال">نرمال</MenuItem>
-                        <MenuItem value="بحرانی">بحرانی</MenuItem>
-                        </Select>
-                    </FormControl>
-                    )}
-                />
-                {errors?.sensitive && (
-                    <Typography
-                    className="position-absolute bg-white"
-                    color="error"
-                    variant="body2"
-                    style={{ zIndex: '2', top: '10%', right: '49%' }}
-                    >
-                    {errors.sensitive.message}
-                    </Typography>
-                )}
-                
-                <Controller
-                        name="describtion" 
+                      <Controller
+                        name="systemPort" 
                         className="position-relative"
                         control={control}
                         render={({ field }) => (
                             <div>
+                            <Typography className='position-absolute bg-white'
+                             color="error" variant="body2"
+                                style={{zIndex:'2',top:'18%',right:'26%'}}>
+                                {errors?.systemPort?.message}
+                            </Typography>
                             <TextField
                                 size="small"
                                 {...field}
-                                label="توضیحات"
+                                label="پورت سامانه عامل"
                                 type="text"
+                                error={!!errors.systemPort}
                                 className="info-form-input"
                                 variant="outlined"
+                                required
                             />
                             </div>
                         )}
                         />
+
+                      <Controller
+                        name="systemMainAddress" 
+                        className="position-relative"
+                        control={control}
+                        render={({ field }) => (
+                            <div>
+                            <Typography className='position-absolute bg-white'
+                             color="error" variant="body2"
+                                style={{zIndex:'2',top:'18%',right:'26%'}}>
+                                {errors?.systemMainAddress?.message}
+                            </Typography>
+                            <TextField
+                                size="small"
+                                {...field}
+                                label="آدرس سامانه اصلی"
+                                type="text"
+                                error={!!errors.systemMainAddress}
+                                className="info-form-input"
+                                variant="outlined"
+                                required
+                            />
+                            </div>
+                        )}
+                        />
+
+                      <Controller
+                        name="systemMainPort" 
+                        className="position-relative"
+                        control={control}
+                        render={({ field }) => (
+                            <div>
+                            <Typography className='position-absolute bg-white'
+                             color="error" variant="body2"
+                                style={{zIndex:'2',top:'18%',right:'80%'}}>
+                                {errors?.systemMainPort?.message}
+                            </Typography>
+                            <TextField
+                                size="small"
+                                {...field}
+                                label="پورت سامانه عامل"
+                                type="text"
+                                error={!!errors.systemMainPort}
+                                className="info-form-input"
+                                variant="outlined"
+                                required
+                            />
+                            </div>
+                        )}
+                        />
+
 
                         <Button
                         variant="contained"

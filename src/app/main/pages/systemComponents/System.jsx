@@ -28,16 +28,14 @@ const System = () => {
 
   const [systemFormValues, setSystemFormValues] = useState({});
 
-
   const [system, setSystem] = useState([]);
-  
-  // مقادیر ورودی سرچ ها
-  const [searchByName, setSearchByName] = useState('');
-  const [searchByLatinName, setSearchByLatinName] = useState('');
+
+  const [searchBySystemName, setSearchBySystem] = useState('');
+  const [searchBySystemLatinName, setSearchBySystemLatinName] = useState('');
   const [searchBySystemNumber, setSearchBySystemNumber] = useState('');
   const [searchBySystemPort, setSearchBySystemPort] = useState('');
-  const [filteredSys, setFilteredSys] = useState([]);
   
+  const [filteredSystem, setFilteredSystem] = useState([]);
   //------------------------------------------------------
   //   -----------------------Show-------------------------------
   //------------------------------------------------------
@@ -53,7 +51,6 @@ const System = () => {
         const sysNums = data.map((obj)=> obj.systemNumber)
         setSystemNumbers(sysNums)
 
-        setForceRender(!forceRender)
       } catch (error) {
         console.error(error);
       }
@@ -61,37 +58,35 @@ const System = () => {
     fetch();
   }, [forceRender]);
 
-
   useEffect(() => {
     const filtered = system.filter((item) =>
-      item.systemName.includes(searchByName) &&
-      item.systemLatinName.toLowerCase().includes(searchByLatinName.toLowerCase()) &&
+      item.systemName.includes(searchBySystemName) &&
+      item.systemLatinName.toLowerCase().includes(searchBySystemLatinName.toLowerCase()) &&
       item.systemNumber.includes(searchBySystemNumber) &&
       item.systemPort.includes(searchBySystemPort)
     )
-    setFilteredSys(filtered)
-  }, [system, searchByName, searchByLatinName, searchBySystemNumber, searchBySystemPort]);
-
+    setFilteredSystem(filtered)
+  }, [system, searchBySystemName, searchBySystemLatinName, searchBySystemNumber, searchBySystemPort]);
 
 // -----------------------Pagination---------------------------
 const [currentPage, setCurrentPage] = useState(1); // شماره صفحه جاری
 const itemsPerPage = 3; // تعداد موارد در هر صفحه
-const totalPages = Math.ceil(filteredSys.length / itemsPerPage);
+const totalPages = Math.ceil(filteredSystem.length / itemsPerPage);
 
 const getCurrentPageItems = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  return filteredSys.slice(startIndex, endIndex);
+  return filteredSystem.slice(startIndex, endIndex);
 };
 
 const handleSearch = () => {
   const filtered = system.filter((item) =>
-    item.systemName.includes(searchByName) &&
-    item.systemLatinName.toLowerCase().includes(searchByLatinName.toLowerCase()) &&
+    item.systemName.includes(searchBySystemName) &&
+    item.systemLatinName.toLowerCase().includes(searchBySystemLatinName.toLowerCase()) &&
     item.systemNumber.includes(searchBySystemNumber) &&
     item.systemPort.includes(searchBySystemPort)
   );
-  setFilteredSys(filtered);
+  setFilteredSystem(filtered);
 
   setCurrentPage(1);
 };
@@ -100,8 +95,7 @@ const handleSearchDebounced = _.debounce(handleSearch, 1000);
 
 useEffect(() => {
   handleSearchDebounced();
-}, [searchByName, searchByLatinName, searchBySystemNumber, searchBySystemPort]);
-
+}, [system,searchBySystemName, searchBySystemLatinName, searchBySystemNumber, searchBySystemPort]);
 
   return (
     <>
@@ -159,44 +153,45 @@ useEffect(() => {
             <Box className="col-auto iranSans mx-4 position-relative searchdiv">
               <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch fa-lg"> </i>
               <input type="text" className="form-control inputSearch" placeholder="جستجو"
-              value={searchByName}
-                onChange={(e) => setSearchByName(e.target.value)} />
+              value={searchBySystemName}
+                        onChange={(e) => setSearchBySystem(e.target.value)}
+                />
             </Box>
 
             <Box className="col-auto iranSans mx-4 position-relative searchdiv">
               <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch fa-lg"> </i>
               <input type="text" className="form-control inputSearch" placeholder="جستجو" 
-                value={searchByLatinName}
-                onChange={(e) => setSearchByLatinName(e.target.value)}
+              value={searchBySystemLatinName}
+                        onChange={(e) => setSearchBySystemLatinName(e.target.value)}
               />
             </Box>
 
             <Box className="col-auto iranSans mx-4 position-relative searchdiv">
               <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch fa-lg"> </i>
               <input type="text" className="form-control inputSearch" placeholder="جستجو" 
-                value={searchBySystemNumber}
-                onChange={(e) => setSearchBySystemNumber(e.target.value)}
+              value={searchBySystemNumber}
+                        onChange={(e) => setSearchBySystemNumber(e.target.value)}
               />
             </Box>
 
             <Box className="col-auto iranSans mx-4 position-relative searchdiv">
               <i className="fa-solid fa-magnifying-glass fa-rotate-90 iconSearch fa-lg"> </i>
               <input type="text" className="form-control inputSearch" placeholder="جستجو" 
-                value={searchBySystemPort}
-                onChange={(e) => setSearchBySystemPort(e.target.value)}
+              value={searchBySystemPort}
+                        onChange={(e) => setSearchBySystemPort(e.target.value)}
               />
             </Box>
           </Box>
 
           <Box className="row w-100 m-auto" style={{ height: 'auto' }}>
-            {filteredSys.length > 0 ? (
+            {filteredSystem.length > 0 ? (
               getCurrentPageItems().map((sys,index) => <SystemItems key={index} sys={sys} />)
             ) : (
               <p className="text-danger fs-3 text-center iranSans py-3">موردی یافت نشد</p>
             )}
           </Box>
 
-          {filteredSys.length > 0 ?
+          {filteredSystem.length > 0 ?
           <Stack spacing={2} className="pagination" style={{ width: '450px' }}>
             <Pagination className="pagination_items"
               color="secondary"
@@ -216,21 +211,20 @@ useEffect(() => {
           </Stack>
         :
         <Stack spacing={2} className="pagination" style={{ width: '450px' }}>
-              <Pagination className="pagination_items"
-                  color="secondary"
-                  count={totalPages}
-                  page={currentPage} 
-                  onChange={(event, page) => setCurrentPage(page)}
-                  renderItem={(item) => (
-                    <PaginationItem
-                      components={{
-                        next: KeyboardDoubleArrowLeftIcon,
-                        previous: KeyboardDoubleArrowRightIcon,
-                      }}
-                      {...item}
-                    />
-                  )}
-                />
+                            <Pagination className="pagination_items"
+                                color="secondary"
+                                count={1}
+                                onChange={(event, page) => setCurrentPage(page)}
+                                renderItem={(item) => (
+                                    <PaginationItem
+                                    components={{
+                                        next: KeyboardDoubleArrowLeftIcon,
+                                        previous: KeyboardDoubleArrowRightIcon,
+                                    }}
+                                    {...item}
+                                    />
+                                )}
+                                />
           </Stack>
         }
         </Paper>

@@ -40,6 +40,7 @@ const Log = () =>{
   const [searchByEvent, setSearchByEvent] = useState('');
   const [searchBySensitive, setSearchBySensitive] = useState('');
   const [searchByDescribtion, setSearchByDescribtion] = useState('');
+
   const [filteredLog, setFilteredLog] = useState([]);
 
     //------------------------------------------------------
@@ -51,15 +52,12 @@ const Log = () =>{
         const { data } = await axios.get('http://localhost:8085/server/logInfo');
         setLogInfo(data);
 
-        setForceRenderLog(!forceRenderLog)
       } catch (error) {
         console.error(error);
       }
     };
     fetch();
   }, [forceRenderLog]);
-
-
 
   useEffect(() => {
     const filtered = logInfo.filter((item) =>
@@ -71,7 +69,7 @@ const Log = () =>{
       item.describtion.includes(searchByDescribtion) 
     )
     setFilteredLog(filtered)
-  }, [searchByOrganName, searchBySystemName, searchByGroup, searchByEvent, searchBySensitive,searchByDescribtion]);
+  }, [logInfo, searchByOrganName, searchBySystemName, searchByGroup, searchByEvent, searchBySensitive,searchByDescribtion]);
 
 // -----------------------Pagination---------------------------
 const [currentPage, setCurrentPage] = useState(1); // شماره صفحه جاری
@@ -84,25 +82,27 @@ const getCurrentPageItems = () => {
   return filteredLog.slice(startIndex, endIndex);
 };
 
-const handleSearch = () => {
-  const filtered = systemInfo.filter((item) =>
-        item.organName.includes(searchByOrganName) &&
-        item.systemName.includes(searchBySystemName) &&
-        item.logGroup.includes(searchByGroup) &&
-        item.event.includes(searchByEvent) &&
-        item.sensitive.includes(searchBySensitive) &&
-        item.describtion.includes(searchByDescribtion) 
-  );
-  setFilteredLog(filtered);
+const handleSearchDebounced = _.debounce(()=>{
 
-  setCurrentPage(1);
+  const filtered = logInfo.filter((item) =>
+  item.organName.includes(searchByOrganName) &&
+  item.systemName.includes(searchBySystemName) &&
+  item.logGroup.includes(searchByGroup) &&
+  item.event.includes(searchByEvent) &&
+  item.sensitive.includes(searchBySensitive) &&
+  item.describtion.includes(searchByDescribtion)
+);
+setFilteredLog(filtered);
+
+}, 1000);
+
+const handlePageChange = (event, value) => {
+  setCurrentPage(value);
 };
-
-const handleSearchDebounced = _.debounce(handleSearch, 1000);
 
 useEffect(() => {
   handleSearchDebounced();
-}, [searchByOrganName, searchBySystemName, searchByGroup, searchByEvent,searchBySensitive,searchByDescribtion]);
+}, [logInfo,searchByOrganName, searchBySystemName, searchByGroup, searchByEvent,searchBySensitive,searchByDescribtion]);
 
 
     return(
@@ -212,7 +212,7 @@ useEffect(() => {
                             color="secondary"
                             count={totalPages}
                             page={currentPage}
-                            onChange={(event, page) => setCurrentPage(page)}
+                            onChange={handlePageChange}
                             renderItem={(item) => (
                                 <PaginationItem
                                 components={{
@@ -228,8 +228,7 @@ useEffect(() => {
                         <Stack spacing={2} className="pagination" style={{ width: '450px' }}>
                             <Pagination className="pagination_items"
                                 color="secondary"
-                                count={totalPages}
-                                page={currentPage} 
+                                count={1}
                                 onChange={(event, page) => setCurrentPage(page)}
                                 renderItem={(item) => (
                                     <PaginationItem

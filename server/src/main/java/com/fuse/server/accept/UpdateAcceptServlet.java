@@ -28,14 +28,13 @@ public class UpdateAcceptServlet extends HttpServlet {
     private String systemPort;
     private String systemMainAddress;
     private String systemMainPort;
-    private String status;
 
     private String formattedDateTime;
 
     public void init() {
         databaseManager = new DatabaseManager();
         query = "UPDATE tbl_acception SET organNumber=?,systemNumber=?,systemAddress=?,systemPort=?, systemMainAddress=? " +
-                ",systemMainPort=?,status=?,acceptUpdateDate=? WHERE id=?";
+                ",systemMainPort=?,acceptUpdateDate=? WHERE id=?";
 
         Date currentDate = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -59,7 +58,6 @@ public class UpdateAcceptServlet extends HttpServlet {
 
             systemMainAddress = request.getParameter("systemMainAddress");
             systemMainPort = request.getParameter("systemMainPort");
-            status = request.getParameter("status");
 
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
@@ -74,9 +72,8 @@ public class UpdateAcceptServlet extends HttpServlet {
             preparedStatement.setString(4, systemPort);
             preparedStatement.setString(5, systemMainAddress);
             preparedStatement.setString(6, systemMainPort);
-            preparedStatement.setString(7, status);
-            preparedStatement.setString(8, formattedDateTime);
-            preparedStatement.setInt(9, acceptId);
+            preparedStatement.setString(7, formattedDateTime);
+            preparedStatement.setInt(8, acceptId);
 
             int rowsAffected = preparedStatement.executeUpdate();
 

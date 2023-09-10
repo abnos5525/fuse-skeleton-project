@@ -29,6 +29,21 @@ const AppContext = createContext({
     setSystemInfo: () => [],
     systemInfo: [],
 
+    // ----------------Acception--------------------
+    acceptFormSwitch: true,
+    setAcceptFormSwitch: () =>[],
+
+    acceptFormValues: {},
+    setAcceptFormValues: () =>[],
+
+    forceRenderAccept: [],
+    setForceRenderAccept: () =>[],
+
+    systemInfoAccept: [],
+    setSystemInfoAccept: () =>[],
+
+    organInfoAccept: [],
+    setOrganInfoAccept: () =>[],
 
 });
 

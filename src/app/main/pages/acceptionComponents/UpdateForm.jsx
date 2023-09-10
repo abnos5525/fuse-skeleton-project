@@ -1,7 +1,7 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import { FormControl, Hidden, InputLabel, MenuItem, Paper, Select, TextField, Typography } from '@mui/material';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import qs from 'qs';
 import axios from 'axios';
 import AppContext from 'app/AppContext';
@@ -12,23 +12,24 @@ import FormValidation from './FormValidation';
 
 const UpdateForm = ()=>{
 
-    const {setForceRenderLog, forceRenderLog,setLogFormSwitch,
-      setLogFormValues,logFormValues,organInfo,systemInfo} = useContext(AppContext)
+    const {setForceRenderAccept, forceRenderAccept,setAcceptFormSwitch,
+      setAcceptFormValues,acceptFormValues,organInfoAccept,systemInfoAccept} = useContext(AppContext)
 
       const defaultValues = {
-            organName: logFormValues.organNumber,
-            systemName: logFormValues.systemNumber,
-            group: logFormValues.logGroup,
-            event: logFormValues.event,
-            sensitive: logFormValues.sensitive,
-            describtion: logFormValues.describtion,
+            organName: acceptFormValues.organNumber,
+            systemName: acceptFormValues.systemNumber,
 
-            logId: logFormValues.id
+            systemAddress: acceptFormValues.systemAddress,
+            systemPort: acceptFormValues.systemPort,
+            systemMainAddress: acceptFormValues.systemMainAddress,
+            systemMainPort: acceptFormValues.systemMainPort,
+
+            acceptId: acceptFormValues.id
       };
 
       useEffect(()=>{
         reset(defaultValues);
-      },[logFormValues])
+      },[acceptFormValues])
       
 
       const { control, formState, handleSubmit, reset } = useForm({
@@ -51,7 +52,7 @@ const UpdateForm = ()=>{
             const data = qs.stringify(formData);
             console.log(formData)
             const { status } = await axios.post(
-              'http://localhost:8085/server/updateLogInfo',
+              'http://localhost:8085/server/updateAcceptInfo',
               data,
               config
             );
@@ -67,7 +68,7 @@ const UpdateForm = ()=>{
                 progress: undefined,
                 theme: 'light',
               });
-            setLogFormSwitch(true)
+            setAcceptFormSwitch(true)
             } else {
               toast.error('مشکلی پیش آمده!', {
                 position: 'bottom-left',
@@ -80,7 +81,7 @@ const UpdateForm = ()=>{
                 theme: 'light',
               });
             }
-            setForceRenderLog(!forceRenderLog);
+            setForceRenderAccept(!forceRenderAccept);
             reset(defaultValues);
           
         } catch (err) {
@@ -100,8 +101,8 @@ const UpdateForm = ()=>{
 
       const cancelUpdate = (e) => {
         e.preventDefault()
-        setLogFormSwitch(true);
-        setLogFormValues({});
+        setAcceptFormSwitch(true);
+        setAcceptFormValues({});
       };
 
     return(
@@ -127,7 +128,7 @@ const UpdateForm = ()=>{
                           field.onChange(selectedOrganNumber);
                         }}
                                 >
-                        {organInfo.length > 0 ? organInfo.map(org => (
+                        {organInfoAccept.length > 0 ? organInfoAccept.map(org => (
                           <MenuItem value={org.id}>{org.organName}</MenuItem>
                         ))
                         :
@@ -164,7 +165,7 @@ const UpdateForm = ()=>{
                         }}
                         >
                         
-                        {systemInfo.length > 0 ? systemInfo.map(sys => (
+                        {systemInfoAccept.length > 0 ? systemInfoAccept.map(sys => (
                           <MenuItem value={sys.systemNumber}>{sys.systemName}</MenuItem>
                         ))
                         :
@@ -187,37 +188,8 @@ const UpdateForm = ()=>{
                     </Typography>
                 )}
 
-                    <Controller
-                    name="group"
-                    control={control}
-                    render={({ field }) => (
-                    <FormControl variant="outlined" className="info-form-input">
-                        <InputLabel className="h-100" htmlFor="group" style={{lineHeight:'5px'}}>دسته بندی</InputLabel>
-                        <Select
-                        label="دسته بندی"
-                        error={!!errors.group}
-                        {...field}
-                        >
-                        <MenuItem value="دسته بندی اول">دسته بندی اول</MenuItem>
-                        <MenuItem value="دسته بندی دوم">دسته بندی دوم</MenuItem>
-                        <MenuItem value="دسته بندی سوم">دسته بندی سوم</MenuItem>
-                        </Select>
-                    </FormControl>
-                    )}
-                />
-                {errors?.group && (
-                    <Typography
-                    className="position-absolute bg-white"
-                    color="error"
-                    variant="body2"
-                    style={{ zIndex: '2', top: '10%', right: '49%' }}
-                    >
-                    {errors.group.message}
-                    </Typography>
-                )}
-
-                        <Controller
-                        name="event" 
+                  <Controller
+                        name="systemAddress" 
                         className="position-relative"
                         control={control}
                         render={({ field }) => (
@@ -225,14 +197,89 @@ const UpdateForm = ()=>{
                             <Typography className='position-absolute bg-white'
                              color="error" variant="body2"
                                 style={{zIndex:'2',top:'18%',right:'26%'}}>
-                                {errors?.event?.message}
+                                {errors?.systemAddress?.message}
                             </Typography>
                             <TextField
                                 size="small"
                                 {...field}
-                                label="نوع رویداد"
+                                label="آدرس سامانه عامل"
                                 type="text"
-                                error={!!errors.event}
+                                error={!!errors.systemAddress}
+                                className="info-form-input"
+                                variant="outlined"
+                                required
+                            />
+                            </div>
+                        )}
+                        />
+
+                      <Controller
+                        name="systemPort" 
+                        className="position-relative"
+                        control={control}
+                        render={({ field }) => (
+                            <div>
+                            <Typography className='position-absolute bg-white'
+                             color="error" variant="body2"
+                                style={{zIndex:'2',top:'18%',right:'26%'}}>
+                                {errors?.systemPort?.message}
+                            </Typography>
+                            <TextField
+                                size="small"
+                                {...field}
+                                label="پورت سامانه عامل"
+                                type="text"
+                                error={!!errors.systemPort}
+                                className="info-form-input"
+                                variant="outlined"
+                                required
+                            />
+                            </div>
+                        )}
+                        />
+
+                    <Controller
+                        name="systemMainAddress" 
+                        className="position-relative"
+                        control={control}
+                        render={({ field }) => (
+                            <div>
+                            <Typography className='position-absolute bg-white'
+                             color="error" variant="body2"
+                                style={{zIndex:'2',top:'18%',right:'26%'}}>
+                                {errors?.systemMainAddress?.message}
+                            </Typography>
+                            <TextField
+                                size="small"
+                                {...field}
+                                label="آدرس سامانه اصلی"
+                                type="text"
+                                error={!!errors.systemMainAddress}
+                                className="info-form-input"
+                                variant="outlined"
+                                required
+                            />
+                            </div>
+                        )}
+                        />
+
+                      <Controller
+                        name="systemMainPort" 
+                        className="position-relative"
+                        control={control}
+                        render={({ field }) => (
+                            <div>
+                            <Typography className='position-absolute bg-white'
+                             color="error" variant="body2"
+                                style={{zIndex:'2',top:'18%',right:'80%'}}>
+                                {errors?.systemMainPort?.message}
+                            </Typography>
+                            <TextField
+                                size="small"
+                                {...field}
+                                label="پورت سامانه عامل"
+                                type="text"
+                                error={!!errors.systemMainPort}
                                 className="info-form-input"
                                 variant="outlined"
                                 required
@@ -242,7 +289,7 @@ const UpdateForm = ()=>{
                         />
 
               <Controller 
-                name="logId"
+                name="AcceptId"
                 className="position-relative"
                 control={control}
                 render={({ field }) => (
@@ -253,53 +300,6 @@ const UpdateForm = ()=>{
                     />
                 )}
               />
-
-                    <Controller
-                    name="sensitive"
-                    control={control}
-                    render={({ field }) => (
-                    <FormControl variant="outlined" className="info-form-input">
-                        <InputLabel className="h-100" htmlFor="sensitive" style={{lineHeight:'5px'}}>حساسیت رویداد</InputLabel>
-                        <Select
-                        label="حساسیت رویداد"
-                        error={!!errors.sensitive}
-                        {...field}
-                        >
-                        <MenuItem value="کم">کم</MenuItem>
-                        <MenuItem value="نرمال">نرمال</MenuItem>
-                        <MenuItem value="بحرانی">بحرانی</MenuItem>
-                        </Select>
-                    </FormControl>
-                    )}
-                />
-                {errors?.sensitive && (
-                    <Typography
-                    className="position-absolute bg-white"
-                    color="error"
-                    variant="body2"
-                    style={{ zIndex: '2', top: '10%', right: '49%' }}
-                    >
-                    {errors.sensitive.message}
-                    </Typography>
-                )}
-                
-                <Controller
-                        name="describtion" 
-                        className="position-relative"
-                        control={control}
-                        render={({ field }) => (
-                            <div>
-                            <TextField
-                                size="small"
-                                {...field}
-                                label="توضیحات"
-                                type="text"
-                                className="info-form-input"
-                                variant="outlined"
-                            />
-                            </div>
-                        )}
-                        />
 
               <Button
                 variant="contained"

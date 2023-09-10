@@ -27,7 +27,7 @@ public class AddAcceptServlet extends HttpServlet {
     private String systemPort;
     private String systemMainAddress;
     private String systemMainPort;
-    private String status;
+    private String status = "ثبت اولیه";
 
     private String formattedDateTime;
 
@@ -52,7 +52,6 @@ public class AddAcceptServlet extends HttpServlet {
             systemPort = request.getParameter("systemPort");
             systemMainAddress = request.getParameter("systemMainAddress");
             systemMainPort = request.getParameter("systemMainPort");
-            status = request.getParameter("status");
 
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 

@@ -23,7 +23,7 @@ public class DeleteAcceptServlet extends HttpServlet {
 
     public void init() {
         databaseManager = new DatabaseManager();
-        query = "DELETE FROM tbl_accept WHERE id=?";
+        query = "DELETE FROM tbl_acception WHERE id=?";
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
