@@ -31,7 +31,16 @@ public class UpdateSystemServlet extends HttpServlet {
 
     public void init() {
         databaseManager = new DatabaseManager();
-        query = "UPDATE tbl_system SET systemName=?,systemLatinName=?,systemNumber=?,systemPort=?, systemUpdateDate=? WHERE systemNumber=?";
+        query = "UPDATE s\n" +
+                "SET s.systemName = ?,\n" +
+                "s.systemLatinName = ?,\n" +
+                "s.systemNumber = ?,\n" +
+                "s.systemPort = ?,\n" +
+                "s.systemUpdateDate = ?\n" +
+                "FROM tbl_system AS s\n" +
+                "LEFT JOIN tbl_log AS l ON s.systemNumber = l.systemNumber\n" +
+                "LEFT JOIN tbl_acception AS a ON s.systemNumber = a.systemNumber\n" +
+                "WHERE s.systemNumber = ?;";
 
         Date currentDate = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -53,7 +62,6 @@ public class UpdateSystemServlet extends HttpServlet {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
             Connection connection = databaseManager.getConnection();
-            System.out.println("POST Updated");
 
             PreparedStatement preparedStatement = connection.prepareStatement(query);
 
@@ -62,7 +70,9 @@ public class UpdateSystemServlet extends HttpServlet {
             preparedStatement.setInt(3, systemNumber);
             preparedStatement.setString(4, systemPort);
             preparedStatement.setString(5, formattedDateTime);
+
             preparedStatement.setInt(6, oldSystemNumber);
+
 
             int rowsAffected = preparedStatement.executeUpdate();
 

@@ -57,7 +57,7 @@ const UpdateForm = ()=>{
 
         try {
           
-          if(filteredSystem.includes(formData.systemNumber.toString())){
+          if(filteredSystem.includes(formData.systemNumber)){
             toast.error('!شماره سامانه تکراری است', {
               position: 'bottom-left',
               autoClose: 5000,

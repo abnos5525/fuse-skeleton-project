@@ -47,7 +47,7 @@ public class SystemServlet extends HttpServlet {
 
             out.print(jsonArray.toString());
 
-            System.out.println("Connected");
+            System.out.println("System-Connected");
 
             databaseManager.closeConnection(connection);
 

@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Paper} from "@mui/material";
 import axios from "axios";
+import SkeletonSpinner from "../SkeletonSpinner";
 
 import {ToastContainer } from 'react-toastify';
 import _ from 'lodash';
@@ -22,6 +23,8 @@ import getConnection from "../serverUrl";
 
 
 const Acception = () =>{
+
+  const [skeleton, setSkeleton] = useState(false)
 
   const [acceptFormSwitch, setAcceptFormSwitch] = useState(true);
 
@@ -51,11 +54,14 @@ const Acception = () =>{
   useEffect(() => {
     const fetch = async () => {
       try {
+        setSkeleton(true)
         const { data } = await axios.get(getConnection('acceptInfo'));
         
         setAcceptInfo(data);
+        setSkeleton(false)
 
       } catch (error) {
+        setSkeleton(false)
         console.error(error);
       }
     };
@@ -212,18 +218,21 @@ useEffect(() => {
 
 
                         <Box className="row w-100 m-auto" style={{ height: 'auto' }}>
+                          {skeleton ? <> <SkeletonSpinner/> <SkeletonSpinner/> </> :
+                          <>
                             {filteredAccept.length > 0 ? (
                                 getCurrentPageItems().map(accept=> <AcceptionItems key={accept.id} accept={accept} />)
                             ) : (
                             <p className="text-danger fs-3 text-center iranSans py-3">موردی یافت نشد</p>
                             )}
+                          </>
+                          }
                         </Box>
 
-                        {filteredAccept.length > 0 ?
                         <Stack spacing={2} className="pagination" style={{ width: '450px' }}>
                             <Pagination className="pagination_items"
                             color="secondary"
-                            count={totalPages}
+                            count={totalPages ? totalPages : 10}
                             page={currentPage}
                             onChange={handlePageChange}
                             renderItem={(item) => (
@@ -237,24 +246,7 @@ useEffect(() => {
                             )}
                             />
                         </Stack>
-                        :
-                        <Stack spacing={2} className="pagination" style={{ width: '450px' }}>
-                            <Pagination className="pagination_items"
-                                color="secondary"
-                                count={1}
-                                onChange={(event, page) => setCurrentPage(page)}
-                                renderItem={(item) => (
-                                    <PaginationItem
-                                    components={{
-                                        next: KeyboardDoubleArrowLeftIcon,
-                                        previous: KeyboardDoubleArrowRightIcon,
-                                    }}
-                                    {...item}
-                                    />
-                                )}
-                                />
-                        </Stack>
-        }
+
                    
                 </Paper>
             </AppContext.Provider>

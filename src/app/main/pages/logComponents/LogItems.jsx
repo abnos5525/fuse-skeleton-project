@@ -12,6 +12,7 @@ import getConnection from '../serverUrl';
 const LogItems = ({log}) =>{
 
     const showDescribe=(text)=>{
+      if(text)
         alert(text)
     }
 
@@ -135,9 +136,9 @@ const LogItems = ({log}) =>{
         <Box className="sm:w-auto p-0 rounded-0 
         sm:rounded-2xl sm:shadow items2" style={{borderBottom:'1px solid #ccc'}}>
 
-            <div onClick={() => showDescribe(log.describtion)} style={{marginRight:'15px'}}
-        className="col-2 cursor-pointer"
-      >
+            <div onClick={() => showDescribe(log.describtion)} 
+            style={{marginRight:'15px',textDecoration:'underline'}}
+        className={`col-2 ${log.describtion ? 'cursor-pointer' : ''}`}>
         {log.describtion}
       </div>
             <div style={{marginRight:'30px'}} className="col-2">{log.organName}</div>

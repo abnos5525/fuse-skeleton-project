@@ -23,7 +23,17 @@ public class DeleteSystemServlet extends HttpServlet {
 
     public void init() {
         databaseManager = new DatabaseManager();
-        query = "DELETE FROM tbl_system WHERE systemNumber=?";
+        query = "BEGIN TRANSACTION;" +
+                "DELETE FROM tbl_log\n" +
+                "WHERE systemNumber = ?;\n" +
+
+                "DELETE FROM tbl_acception\n" +
+                "WHERE systemNumber = ?;\n" +
+
+                "DELETE FROM tbl_system\n" +
+                "WHERE systemNumber = ?;\n" +
+
+                "COMMIT;";
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -36,11 +46,12 @@ public class DeleteSystemServlet extends HttpServlet {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
             Connection connection = databaseManager.getConnection();
-            System.out.println("POST Deleted");
 
             PreparedStatement preparedStatement = connection.prepareStatement(query);
 
             preparedStatement.setInt(1, systemNumber);
+            preparedStatement.setInt(2, systemNumber);
+            preparedStatement.setInt(3, systemNumber);
 
 
             int rowsAffected = preparedStatement.executeUpdate();

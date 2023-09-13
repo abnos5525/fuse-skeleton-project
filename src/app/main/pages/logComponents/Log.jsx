@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Paper} from "@mui/material";
 import axios from "axios";
-
+import SkeletonSpinner from "../SkeletonSpinner";
 import {ToastContainer } from 'react-toastify';
 import _ from 'lodash';
 
@@ -22,6 +22,8 @@ import getConnection from "../serverUrl";
 
 
 const Log = () =>{
+
+  const [skeleton,setSkeleton] = useState(false)
 
   const [logFormSwitch, setLogFormSwitch] = useState(true);
 
@@ -50,10 +52,12 @@ const Log = () =>{
   useEffect(() => {
     const fetch = async () => {
       try {
+        setSkeleton(true)
         const { data } = await axios.get(getConnection('logInfo'));
         setLogInfo(data);
-
+        setSkeleton(false)
       } catch (error) {
+        setSkeleton(false)
         console.error(error);
       }
     };
@@ -200,18 +204,21 @@ useEffect(() => {
                         </Box>
 
                         <Box className="row w-100 m-auto" style={{ height: 'auto' }}>
+                          {skeleton ? <> <SkeletonSpinner/> <SkeletonSpinner/> </> :
+                          <>
                             {filteredLog.length > 0 ? (
                                 getCurrentPageItems().map(log=> <LogItems key={log.id} log={log} />)
                             ) : (
                             <p className="text-danger fs-3 text-center iranSans py-3">موردی یافت نشد</p>
                             )}
+                            </>
+                          }
                         </Box>
 
-                        {filteredLog.length > 0 ?
                         <Stack spacing={2} className="pagination" style={{ width: '450px' }}>
                             <Pagination className="pagination_items"
                             color="secondary"
-                            count={totalPages}
+                            count={totalPages ? totalPages : 10}
                             page={currentPage}
                             onChange={handlePageChange}
                             renderItem={(item) => (
@@ -225,24 +232,7 @@ useEffect(() => {
                             )}
                             />
                         </Stack>
-                        :
-                        <Stack spacing={2} className="pagination" style={{ width: '450px' }}>
-                            <Pagination className="pagination_items"
-                                color="secondary"
-                                count={1}
-                                onChange={(event, page) => setCurrentPage(page)}
-                                renderItem={(item) => (
-                                    <PaginationItem
-                                    components={{
-                                        next: KeyboardDoubleArrowLeftIcon,
-                                        previous: KeyboardDoubleArrowRightIcon,
-                                    }}
-                                    {...item}
-                                    />
-                                )}
-                                />
-                        </Stack>
-        }
+
                    
                 </Paper>
             </AppContext.Provider>

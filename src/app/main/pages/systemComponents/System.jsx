@@ -1,8 +1,9 @@
+import SkeletonSpinner from '../SkeletonSpinner';
+
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 import {ToastContainer } from 'react-toastify';
-
 import _ from 'lodash';
 import Box from '@mui/material/Box';
 
@@ -31,6 +32,8 @@ const System = () => {
 
   const [system, setSystem] = useState([]);
 
+  const [skeleton, setSkeleton] = useState(false)
+
   const [searchBySystemName, setSearchBySystem] = useState('');
   const [searchBySystemLatinName, setSearchBySystemLatinName] = useState('');
   const [searchBySystemNumber, setSearchBySystemNumber] = useState('');
@@ -46,13 +49,16 @@ const System = () => {
   useEffect(() => {
     const fetch = async () => {
       try {
+        setSkeleton(true)
         const { data } = await axios.get(getConnection('systemInfo'));
         setSystem(data);
         
         const sysNums = data.map((obj)=> obj.systemNumber)
         setSystemNumbers(sysNums)
+        setSkeleton(false)
 
       } catch (error) {
+        setSkeleton(false)
         console.error(error);
       }
     };
@@ -77,7 +83,7 @@ const totalPages = Math.ceil(filteredSystem.length / itemsPerPage);
 const getCurrentPageItems = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  return filteredSystem.slice(startIndex, endIndex);
+  return filteredSystem.slice(startIndex, endIndex );
 };
 
 const handleSearch = () => {
@@ -89,10 +95,11 @@ const handleSearch = () => {
   );
   setFilteredSystem(filtered);
 
-  setCurrentPage(1);
+  setCurrentPage(1)
+
 };
 
-const handleSearchDebounced = _.debounce(handleSearch, 1000);
+const handleSearchDebounced = _.debounce(handleSearch, 500);
 
 useEffect(() => {
   handleSearchDebounced();
@@ -112,6 +119,9 @@ useEffect(() => {
           setForceRender,
           
           systemNumbers,
+
+          setSkeleton,
+          skeleton
         }}
       >
       <ToastContainer />
@@ -185,18 +195,23 @@ useEffect(() => {
           </Box>
 
           <Box className="row w-100 m-auto" style={{ height: 'auto' }}>
+          {skeleton ? <><SkeletonSpinner/> <SkeletonSpinner/></> :
+          <>
             {filteredSystem.length > 0 ? (
               getCurrentPageItems().map((sys,index) => <SystemItems key={index} sys={sys} />)
             ) : (
               <p className="text-danger fs-3 text-center iranSans py-3">موردی یافت نشد</p>
             )}
+            </>
+          }
+          
+
           </Box>
 
-          {filteredSystem.length > 0 ?
           <Stack spacing={2} className="pagination" style={{ width: '450px' }}>
             <Pagination className="pagination_items"
               color="secondary"
-              count={totalPages}
+              count={totalPages ? totalPages : 10}
               page={currentPage}
               onChange={(event, page) => setCurrentPage(page)}
               renderItem={(item) => (
@@ -210,24 +225,7 @@ useEffect(() => {
               )}
             />
           </Stack>
-        :
-        <Stack spacing={2} className="pagination" style={{ width: '450px' }}>
-                            <Pagination className="pagination_items"
-                                color="secondary"
-                                count={1}
-                                onChange={(event, page) => setCurrentPage(page)}
-                                renderItem={(item) => (
-                                    <PaginationItem
-                                    components={{
-                                        next: KeyboardDoubleArrowLeftIcon,
-                                        previous: KeyboardDoubleArrowRightIcon,
-                                    }}
-                                    {...item}
-                                    />
-                                )}
-                                />
-          </Stack>
-        }
+
         </Paper>
       </AppContext.Provider>
     </>
