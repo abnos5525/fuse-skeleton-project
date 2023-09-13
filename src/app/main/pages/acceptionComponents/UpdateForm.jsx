@@ -9,6 +9,7 @@ import AppContext from 'app/AppContext';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, Controller } from 'react-hook-form';
 import FormValidation from './FormValidation';
+import getConnection from '../serverUrl';
 
 const UpdateForm = ()=>{
 
@@ -52,7 +53,7 @@ const UpdateForm = ()=>{
             const data = qs.stringify(formData);
             console.log(formData)
             const { status } = await axios.post(
-              'http://localhost:8085/server/updateAcceptInfo',
+              getConnection('updateAcceptInfo'),
               data,
               config
             );

@@ -7,6 +7,7 @@ import { confirmAlert } from "react-confirm-alert";
 import AppContext from 'app/AppContext';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import getConnection from '../serverUrl';
 
 const LogItems = ({log}) =>{
 
@@ -85,7 +86,7 @@ const LogItems = ({log}) =>{
             const data = qs.stringify({id: log.id});
       
             const { status } = await axios.post(
-              'http://localhost:8085/server/deleteLogInfo',
+              getConnection('deleteLogInfo'),
               data,
               config
             );

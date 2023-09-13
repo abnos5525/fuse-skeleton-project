@@ -18,6 +18,7 @@ import InsertForm from "./InsertForm";
 import UpdateForm from "./UpdateForm";
 
 import LogItems from "./LogItems";
+import getConnection from "../serverUrl";
 
 
 const Log = () =>{
@@ -49,7 +50,7 @@ const Log = () =>{
   useEffect(() => {
     const fetch = async () => {
       try {
-        const { data } = await axios.get('http://localhost:8085/server/logInfo');
+        const { data } = await axios.get(getConnection('logInfo'));
         setLogInfo(data);
 
       } catch (error) {

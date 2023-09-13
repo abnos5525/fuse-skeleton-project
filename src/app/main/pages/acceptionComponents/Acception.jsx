@@ -18,6 +18,7 @@ import InsertForm from "./InsertForm";
 import UpdateForm from "./UpdateForm";
 
 import AcceptionItems from "./AcceptionItems";
+import getConnection from "../serverUrl";
 
 
 const Acception = () =>{
@@ -50,7 +51,8 @@ const Acception = () =>{
   useEffect(() => {
     const fetch = async () => {
       try {
-        const { data } = await axios.get('http://localhost:8085/server/acceptInfo');
+        const { data } = await axios.get(getConnection('acceptInfo'));
+        
         setAcceptInfo(data);
 
       } catch (error) {

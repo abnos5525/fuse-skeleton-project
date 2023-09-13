@@ -20,6 +20,7 @@ import SystemItems from './SystemItems';
 
 import InsertForm from './InsertForm';
 import UpdateForm from './UpdateForm';
+import getConnection from '../serverUrl';
 
 const System = () => {
   const [forceRender, setForceRender] = useState(false);
@@ -45,7 +46,7 @@ const System = () => {
   useEffect(() => {
     const fetch = async () => {
       try {
-        const { data } = await axios.get('http://localhost:8085/server/systemInfo');
+        const { data } = await axios.get(getConnection('systemInfo'));
         setSystem(data);
         
         const sysNums = data.map((obj)=> obj.systemNumber)

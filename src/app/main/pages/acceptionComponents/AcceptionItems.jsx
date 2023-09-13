@@ -7,6 +7,7 @@ import { confirmAlert } from "react-confirm-alert";
 import AppContext from 'app/AppContext';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import getConnection from '../serverUrl';
 
 const AcceptionItems = ({accept}) =>{
 
@@ -81,7 +82,7 @@ const AcceptionItems = ({accept}) =>{
             const data = qs.stringify({id: accept.id});
       
             const { status } = await axios.post(
-              'http://localhost:8085/server/deleteAcceptInfo',
+              getConnection('deleteAcceptInfo'),
               data,
               config
             );

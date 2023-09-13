@@ -9,6 +9,7 @@ import AppContext from 'app/AppContext';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, Controller } from 'react-hook-form';
 import FormValidation from './FormValidation';
+import getConnection from '../serverUrl';
 
 const InsertForm = ()=>{
 
@@ -43,7 +44,7 @@ const InsertForm = ()=>{
             const data = qs.stringify(formData);
             console.log(formData)
             const { status } = await axios.post(
-              'http://localhost:8085/server/addAcceptInfo',
+              getConnection('addAcceptInfo'),
               data,
               config
             );
@@ -92,8 +93,8 @@ const InsertForm = ()=>{
       useEffect(() => {
         const fetch = async () => {
           try {
-            const { data:systemData } = await axios.get('http://localhost:8085/server/systemInfo');
-            const { data: organData } = await axios.get('http://localhost:8085/server/organInfo');
+            const { data:systemData } = await axios.get(getConnection('systemInfo'));
+            const { data: organData } = await axios.get(getConnection('organInfo'));
             setSystemInfoAccept(systemData);
             setOrganInfoAccept(organData);
 

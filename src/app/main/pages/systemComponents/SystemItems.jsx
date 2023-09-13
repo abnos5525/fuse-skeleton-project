@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import qs from 'qs';
 import axios from 'axios';
 import Box from '@mui/material/Box';
@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import { confirmAlert } from "react-confirm-alert";
 
 import AppContext from 'app/AppContext';
+import getConnection from '../serverUrl';
 
 const SystemItems = ({sys}) =>{
 
@@ -75,7 +76,7 @@ const SystemItems = ({sys}) =>{
             const data = qs.stringify({systemNumber: sys.systemNumber});
       
             const { status } = await axios.post(
-              'http://localhost:8085/server/deleteSystemInfo',
+              getConnection('deleteSystemInfo'),
               data,
               config
             );

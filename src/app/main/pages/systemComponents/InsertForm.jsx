@@ -9,6 +9,7 @@ import AppContext from 'app/AppContext';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, Controller } from 'react-hook-form';
 import FormValidation from './FormValidation';
+import getConnection from '../serverUrl';
 
 const InsertForm = ()=>{
 
@@ -56,7 +57,7 @@ const InsertForm = ()=>{
             
             const data = qs.stringify(formData);
             const { status } = await axios.post(
-              'http://localhost:8085/server/addSystemInfo',
+              getConnection('addSystemInfo'),
               data,
               config
             );
