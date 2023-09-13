@@ -62,6 +62,8 @@ public class LogServlet extends HttpServlet {
 
             out.print(jsonArray.toString());
 
+            System.out.println("Log-Connected");
+
             databaseManager.closeConnection(connection);
 
         } catch (SQLException e) {

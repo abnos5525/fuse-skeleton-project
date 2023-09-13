@@ -63,6 +63,8 @@ public class AcceptServlet extends HttpServlet {
 
             out.print(jsonArray.toString());
 
+            System.out.println("Acception-Connected");
+
             databaseManager.closeConnection(connection);
 
         } catch (SQLException e) {

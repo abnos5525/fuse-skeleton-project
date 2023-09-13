@@ -511,3 +511,11 @@
 127.0.0.1 - - [14/Sep/2023:02:51:45 +0430] "OPTIONS /server/organInfo HTTP/1.1" 200 -
 127.0.0.1 - - [14/Sep/2023:02:51:45 +0430] "GET /server/organInfo HTTP/1.1" 200 185
 127.0.0.1 - - [14/Sep/2023:03:49:52 +0430] "OPTIONS /server/systemInfo HTTP/1.1" 200 -
+127.0.0.1 - - [14/Sep/2023:03:54:00 +0430] "OPTIONS /server/systemInfo HTTP/1.1" 200 -
+127.0.0.1 - - [14/Sep/2023:03:54:01 +0430] "GET /server/systemInfo HTTP/1.1" 200 217
+127.0.0.1 - - [14/Sep/2023:03:54:19 +0430] "OPTIONS /server/systemInfo HTTP/1.1" 200 -
+127.0.0.1 - - [14/Sep/2023:03:54:19 +0430] "GET /server/systemInfo HTTP/1.1" 200 217
+127.0.0.1 - - [14/Sep/2023:03:54:19 +0430] "OPTIONS /server/logInfo HTTP/1.1" 200 -
+127.0.0.1 - - [14/Sep/2023:03:54:19 +0430] "GET /server/logInfo HTTP/1.1" 200 240
+127.0.0.1 - - [14/Sep/2023:03:54:21 +0430] "OPTIONS /server/organInfo HTTP/1.1" 200 -
+127.0.0.1 - - [14/Sep/2023:03:54:22 +0430] "GET /server/organInfo HTTP/1.1" 200 185

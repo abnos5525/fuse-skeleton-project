@@ -36,7 +36,6 @@ public class DeleteLogServlet extends HttpServlet {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
             Connection connection = databaseManager.getConnection();
-            System.out.println("POST Deleted");
 
             PreparedStatement preparedStatement = connection.prepareStatement(query);
 

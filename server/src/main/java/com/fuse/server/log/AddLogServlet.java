@@ -55,7 +55,6 @@ public class AddLogServlet extends HttpServlet {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
             Connection connection = databaseManager.getConnection();
-            System.out.println("POST Inserted");
 
             PreparedStatement preparedStatement = connection.prepareStatement(query);
 

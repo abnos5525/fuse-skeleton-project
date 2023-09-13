@@ -62,7 +62,6 @@ public class UpdateLogServlet extends HttpServlet {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
             Connection connection = databaseManager.getConnection();
-            System.out.println("POST Updated");
 
             PreparedStatement preparedStatement = connection.prepareStatement(query);
 

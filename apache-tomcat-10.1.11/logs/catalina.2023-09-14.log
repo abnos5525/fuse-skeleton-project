@@ -187,3 +187,116 @@
 14-Sep-2023 03:48:55.373 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [E:\JAVASCRIPPPTTTT\Fuse-React-v8.2.1-demo\apache-tomcat-10.1.11\webapps\ROOT] has finished in [51] ms
 14-Sep-2023 03:48:55.381 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
 14-Sep-2023 03:48:55.588 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [3266] milliseconds
+14-Sep-2023 03:52:52.523 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/10.1.11
+14-Sep-2023 03:52:52.531 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Jul 6 2023 13:45:39 UTC
+14-Sep-2023 03:52:52.531 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 10.1.11.0
+14-Sep-2023 03:52:52.532 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Windows 10
+14-Sep-2023 03:52:52.532 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            10.0
+14-Sep-2023 03:52:52.532 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+14-Sep-2023 03:52:52.533 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             C:\Program Files\Java\jdk-17.0.2
+14-Sep-2023 03:52:52.533 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           17.0.2+8-LTS-86
+14-Sep-2023 03:52:52.533 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Oracle Corporation
+14-Sep-2023 03:52:52.534 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         E:\JAVASCRIPPPTTTT\Fuse-React-v8.2.1-demo\apache-tomcat-10.1.11
+14-Sep-2023 03:52:52.534 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         E:\JAVASCRIPPPTTTT\Fuse-React-v8.2.1-demo\apache-tomcat-10.1.11
+14-Sep-2023 03:52:52.550 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=E:\JAVASCRIPPPTTTT\Fuse-React-v8.2.1-demo\apache-tomcat-10.1.11\conf\logging.properties
+14-Sep-2023 03:52:52.551 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+14-Sep-2023 03:52:52.551 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+14-Sep-2023 03:52:52.551 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
+14-Sep-2023 03:52:52.552 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+14-Sep-2023 03:52:52.552 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+14-Sep-2023 03:52:52.553 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+14-Sep-2023 03:52:52.557 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+14-Sep-2023 03:52:52.558 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+14-Sep-2023 03:52:52.559 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=E:\JAVASCRIPPPTTTT\Fuse-React-v8.2.1-demo\apache-tomcat-10.1.11
+14-Sep-2023 03:52:52.559 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=E:\JAVASCRIPPPTTTT\Fuse-React-v8.2.1-demo\apache-tomcat-10.1.11
+14-Sep-2023 03:52:52.560 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=E:\JAVASCRIPPPTTTT\Fuse-React-v8.2.1-demo\apache-tomcat-10.1.11\temp
+14-Sep-2023 03:52:52.564 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent Loaded Apache Tomcat Native library [2.0.4] using APR version [1.7.4].
+14-Sep-2023 03:52:52.574 INFO [main] org.apache.catalina.core.AprLifecycleListener.initializeSSL OpenSSL successfully initialized [OpenSSL 3.0.9 30 May 2023]
+14-Sep-2023 03:52:53.008 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+14-Sep-2023 03:52:53.038 SEVERE [main] org.apache.catalina.util.LifecycleBase.handleSubClassException Failed to initialize component [Connector[HTTP/1.1-8080]]
+	org.apache.catalina.LifecycleException: Protocol handler initialization failed
+		at org.apache.catalina.connector.Connector.initInternal(Connector.java:1015)
+		at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:136)
+		at org.apache.catalina.core.StandardService.initInternal(StandardService.java:549)
+		at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:136)
+		at org.apache.catalina.core.StandardServer.initInternal(StandardServer.java:1011)
+		at org.apache.catalina.util.LifecycleBase.init(LifecycleBase.java:136)
+		at org.apache.catalina.startup.Catalina.load(Catalina.java:747)
+		at org.apache.catalina.startup.Catalina.load(Catalina.java:769)
+		at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+		at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+		at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+		at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+		at org.apache.catalina.startup.Bootstrap.load(Bootstrap.java:307)
+		at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:477)
+	Caused by: java.net.BindException: Address already in use: bind
+		at java.base/sun.nio.ch.Net.bind0(Native Method)
+		at java.base/sun.nio.ch.Net.bind(Net.java:555)
+		at java.base/sun.nio.ch.ServerSocketChannelImpl.netBind(ServerSocketChannelImpl.java:337)
+		at java.base/sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:294)
+		at org.apache.tomcat.util.net.NioEndpoint.initServerSocket(NioEndpoint.java:247)
+		at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:202)
+		at org.apache.tomcat.util.net.AbstractEndpoint.bindWithCleanup(AbstractEndpoint.java:1278)
+		at org.apache.tomcat.util.net.AbstractEndpoint.init(AbstractEndpoint.java:1291)
+		at org.apache.coyote.AbstractProtocol.init(AbstractProtocol.java:622)
+		at org.apache.coyote.http11.AbstractHttp11Protocol.init(AbstractHttp11Protocol.java:77)
+		at org.apache.catalina.connector.Connector.initInternal(Connector.java:1013)
+		... 13 more
+14-Sep-2023 03:52:53.040 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [816] milliseconds
+14-Sep-2023 03:52:53.135 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+14-Sep-2023 03:52:53.136 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/10.1.11]
+14-Sep-2023 03:52:53.183 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [E:\JAVASCRIPPPTTTT\Fuse-React-v8.2.1-demo\apache-tomcat-10.1.11\webapps\server-1.0-SNAPSHOT.war]
+14-Sep-2023 03:52:55.540 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+14-Sep-2023 03:52:55.725 WARNING [main] org.apache.catalina.util.SessionIdGeneratorBase.createSecureRandom Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [147] milliseconds.
+14-Sep-2023 03:52:55.778 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [E:\JAVASCRIPPPTTTT\Fuse-React-v8.2.1-demo\apache-tomcat-10.1.11\webapps\server-1.0-SNAPSHOT.war] has finished in [2,595] ms
+14-Sep-2023 03:52:55.779 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [E:\JAVASCRIPPPTTTT\Fuse-React-v8.2.1-demo\apache-tomcat-10.1.11\webapps\docs]
+14-Sep-2023 03:52:55.854 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [E:\JAVASCRIPPPTTTT\Fuse-React-v8.2.1-demo\apache-tomcat-10.1.11\webapps\docs] has finished in [74] ms
+14-Sep-2023 03:52:55.855 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [E:\JAVASCRIPPPTTTT\Fuse-React-v8.2.1-demo\apache-tomcat-10.1.11\webapps\examples]
+14-Sep-2023 03:53:07.894 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/10.1.11
+14-Sep-2023 03:53:07.900 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Jul 6 2023 13:45:39 UTC
+14-Sep-2023 03:53:07.901 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 10.1.11.0
+14-Sep-2023 03:53:07.901 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Windows 10
+14-Sep-2023 03:53:07.902 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            10.0
+14-Sep-2023 03:53:07.902 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+14-Sep-2023 03:53:07.902 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             C:\Program Files\Java\jdk-17.0.2
+14-Sep-2023 03:53:07.903 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           17.0.2+8-LTS-86
+14-Sep-2023 03:53:07.903 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Oracle Corporation
+14-Sep-2023 03:53:07.904 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         E:\JAVASCRIPPPTTTT\Fuse-React-v8.2.1-demo\apache-tomcat-10.1.11
+14-Sep-2023 03:53:07.904 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         E:\JAVASCRIPPPTTTT\Fuse-React-v8.2.1-demo\apache-tomcat-10.1.11
+14-Sep-2023 03:53:07.917 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=E:\JAVASCRIPPPTTTT\Fuse-React-v8.2.1-demo\apache-tomcat-10.1.11\conf\logging.properties
+14-Sep-2023 03:53:07.918 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+14-Sep-2023 03:53:07.918 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+14-Sep-2023 03:53:07.918 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
+14-Sep-2023 03:53:07.919 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+14-Sep-2023 03:53:07.919 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+14-Sep-2023 03:53:07.920 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+14-Sep-2023 03:53:07.921 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+14-Sep-2023 03:53:07.921 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+14-Sep-2023 03:53:07.922 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=E:\JAVASCRIPPPTTTT\Fuse-React-v8.2.1-demo\apache-tomcat-10.1.11
+14-Sep-2023 03:53:07.923 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=E:\JAVASCRIPPPTTTT\Fuse-React-v8.2.1-demo\apache-tomcat-10.1.11
+14-Sep-2023 03:53:07.923 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=E:\JAVASCRIPPPTTTT\Fuse-React-v8.2.1-demo\apache-tomcat-10.1.11\temp
+14-Sep-2023 03:53:07.928 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent Loaded Apache Tomcat Native library [2.0.4] using APR version [1.7.4].
+14-Sep-2023 03:53:07.938 INFO [main] org.apache.catalina.core.AprLifecycleListener.initializeSSL OpenSSL successfully initialized [OpenSSL 3.0.9 30 May 2023]
+14-Sep-2023 03:53:08.329 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+14-Sep-2023 03:53:08.373 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [789] milliseconds
+14-Sep-2023 03:53:08.461 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+14-Sep-2023 03:53:08.461 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/10.1.11]
+14-Sep-2023 03:53:08.498 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [E:\JAVASCRIPPPTTTT\Fuse-React-v8.2.1-demo\apache-tomcat-10.1.11\webapps\server-1.0-SNAPSHOT.war]
+14-Sep-2023 03:53:09.871 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+14-Sep-2023 03:53:10.037 WARNING [main] org.apache.catalina.util.SessionIdGeneratorBase.createSecureRandom Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [128] milliseconds.
+14-Sep-2023 03:53:10.072 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [E:\JAVASCRIPPPTTTT\Fuse-React-v8.2.1-demo\apache-tomcat-10.1.11\webapps\server-1.0-SNAPSHOT.war] has finished in [1,574] ms
+14-Sep-2023 03:53:10.074 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [E:\JAVASCRIPPPTTTT\Fuse-React-v8.2.1-demo\apache-tomcat-10.1.11\webapps\docs]
+14-Sep-2023 03:53:10.132 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [E:\JAVASCRIPPPTTTT\Fuse-React-v8.2.1-demo\apache-tomcat-10.1.11\webapps\docs] has finished in [58] ms
+14-Sep-2023 03:53:10.133 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [E:\JAVASCRIPPPTTTT\Fuse-React-v8.2.1-demo\apache-tomcat-10.1.11\webapps\examples]
+14-Sep-2023 03:53:10.779 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [E:\JAVASCRIPPPTTTT\Fuse-React-v8.2.1-demo\apache-tomcat-10.1.11\webapps\examples] has finished in [645] ms
+14-Sep-2023 03:53:10.780 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [E:\JAVASCRIPPPTTTT\Fuse-React-v8.2.1-demo\apache-tomcat-10.1.11\webapps\host-manager]
+14-Sep-2023 03:53:10.872 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [E:\JAVASCRIPPPTTTT\Fuse-React-v8.2.1-demo\apache-tomcat-10.1.11\webapps\host-manager] has finished in [92] ms
+14-Sep-2023 03:53:10.873 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [E:\JAVASCRIPPPTTTT\Fuse-React-v8.2.1-demo\apache-tomcat-10.1.11\webapps\manager]
+14-Sep-2023 03:53:10.956 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [E:\JAVASCRIPPPTTTT\Fuse-React-v8.2.1-demo\apache-tomcat-10.1.11\webapps\manager] has finished in [82] ms
+14-Sep-2023 03:53:10.957 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [E:\JAVASCRIPPPTTTT\Fuse-React-v8.2.1-demo\apache-tomcat-10.1.11\webapps\ROOT]
+14-Sep-2023 03:53:11.000 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [E:\JAVASCRIPPPTTTT\Fuse-React-v8.2.1-demo\apache-tomcat-10.1.11\webapps\ROOT] has finished in [44] ms
+14-Sep-2023 03:53:11.001 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [E:\JAVASCRIPPPTTTT\Fuse-React-v8.2.1-demo\apache-tomcat-10.1.11\webapps\server]
+14-Sep-2023 03:53:11.606 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+14-Sep-2023 03:53:11.615 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [E:\JAVASCRIPPPTTTT\Fuse-React-v8.2.1-demo\apache-tomcat-10.1.11\webapps\server] has finished in [613] ms
+14-Sep-2023 03:53:11.620 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+14-Sep-2023 03:53:11.776 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [3401] milliseconds
