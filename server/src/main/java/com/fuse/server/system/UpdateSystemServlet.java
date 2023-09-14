@@ -31,16 +31,7 @@ public class UpdateSystemServlet extends HttpServlet {
 
     public void init() {
         databaseManager = new DatabaseManager();
-        query = "UPDATE s\n" +
-                "SET s.systemName = ?,\n" +
-                "s.systemLatinName = ?,\n" +
-                "s.systemNumber = ?,\n" +
-                "s.systemPort = ?,\n" +
-                "s.systemUpdateDate = ?\n" +
-                "FROM tbl_system AS s\n" +
-                "LEFT JOIN tbl_log AS l ON s.systemNumber = l.systemNumber\n" +
-                "LEFT JOIN tbl_acception AS a ON s.systemNumber = a.systemNumber\n" +
-                "WHERE s.systemNumber = ?;";
+        query = "UPDATE tbl_system SET systemName = ?,systemLatinName = ?,systemNumber = ?,systemPort = ?,systemUpdateDate = ? WHERE systemNumber = ?";
 
         Date currentDate = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
