@@ -21,7 +21,7 @@ public class DatabaseManager {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             return DriverManager.getConnection(jdbcUrl, dbUser, dbPassword);
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException("خطا در اتصال به پایگاه داده: " + e.getMessage(), e);
+            throw new RuntimeException("There is a problem with connection: " + e.getMessage(), e);
         }
     }
 
@@ -30,7 +30,7 @@ public class DatabaseManager {
             try {
                 connection.close();
             } catch (SQLException e) {
-                // مدیریت خطا
+                e.printStackTrace();
             }
         }
     }
