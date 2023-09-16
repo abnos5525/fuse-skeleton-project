@@ -1,7 +1,7 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import Button from '@mui/material/Button';
-import { Hidden, Paper, TextField, Typography } from '@mui/material';
-import { toast, ToastContainer } from 'react-toastify';
+import { Hidden, TextField, Typography } from '@mui/material';
+import { toast } from 'react-toastify';
 import qs from 'qs';
 import axios from 'axios';
 import AppContext from 'app/AppContext';
@@ -50,14 +50,9 @@ const UpdateForm = ()=>{
           return item !== formData.oldSystemNumber;
         });
 
-        console.log(filteredSystem)
-        console.log(formData.systemNumber.toString())
-
-        console.log(filteredSystem.includes(formData.systemNumber.toString()))
-
         try {
           
-          if(filteredSystem.includes(formData.systemNumber)){
+          if(filteredSystem.includes(formData.systemNumber.toString())){
             toast.error('!شماره سامانه تکراری است', {
               position: 'bottom-left',
               autoClose: 5000,
@@ -131,7 +126,7 @@ const UpdateForm = ()=>{
     return(
         <>
 
-            <form method="post" name="systemUpdateForm" noValidate onSubmit={handleSubmit(onSubmit)}>
+            <form method="post" name="systemUpdateForm" onSubmit={handleSubmit(onSubmit)}>
               <Controller
                 name="systemName"
                 className="position-relative"

@@ -101,7 +101,7 @@ function UserMenu(props) {
               <ListItemIcon className="min-w-40">
                 <FuseSvgIcon>heroicons-outline:logout</FuseSvgIcon>
               </ListItemIcon>
-              <ListItemText secondary="Sign out" />
+              <ListItemText secondary="خروج" />
             </MenuItem>
           </>
         )}

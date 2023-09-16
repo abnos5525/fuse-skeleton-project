@@ -13,7 +13,7 @@ const AppContext = createContext({
     systemNumbers: [],
 
     // ----------------Log--------------------
-    logFormSwitch: [],
+    logFormSwitch: true,
     setLogFormSwitch: ()=>[],
 
     logFormValues: {},

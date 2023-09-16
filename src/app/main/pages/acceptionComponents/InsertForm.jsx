@@ -109,7 +109,6 @@ const InsertForm = ()=>{
         <>
             <form 
                 name="acceptionForm"
-                noValidate
                 onSubmit={handleSubmit(onSubmit)}>
 
             <Controller

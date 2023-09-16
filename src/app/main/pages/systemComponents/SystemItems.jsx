@@ -80,8 +80,6 @@ const SystemItems = ({sys}) =>{
               data,
               config
             );
-
-            console.log(status)
   
             if (status === 201) {
               toast.success('با موفقیت حذف شد!', {

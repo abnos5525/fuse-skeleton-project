@@ -108,7 +108,6 @@ const InsertForm = ()=>{
         <>
             <form 
                 name="logForm"
-                noValidate
                 onSubmit={handleSubmit(onSubmit)}>
 
             <Controller

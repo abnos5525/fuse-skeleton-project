@@ -1,5 +1,3 @@
-import SkeletonSpinner from '../SkeletonSpinner';
-
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
@@ -17,6 +15,8 @@ import AppContext from 'app/AppContext';
 
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
+import SkeletonSpinner from '../SkeletonSpinner';
+
 import SystemItems from './SystemItems';
 
 import InsertForm from './InsertForm';
@@ -211,7 +211,7 @@ useEffect(() => {
           <Stack spacing={2} className="pagination" style={{ width: '450px' }}>
             <Pagination className="pagination_items"
               color="secondary"
-              count={totalPages ? totalPages : 10}
+              count={totalPages || 10}
               page={currentPage}
               onChange={(event, page) => setCurrentPage(page)}
               renderItem={(item) => (

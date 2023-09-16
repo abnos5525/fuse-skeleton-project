@@ -110,7 +110,6 @@ const UpdateForm = ()=>{
 
               <form 
                 name="acceptForm"
-                noValidate
                 onSubmit={handleSubmit(onSubmit)}>
 
             <Controller

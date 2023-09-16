@@ -1,7 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import { Paper} from "@mui/material";
 import axios from "axios";
-import SkeletonSpinner from "../SkeletonSpinner";
 
 import {ToastContainer } from 'react-toastify';
 import _ from 'lodash';
@@ -14,6 +13,7 @@ import PaginationItem from '@mui/material/PaginationItem';
 import Stack from '@mui/material/Stack';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
+import SkeletonSpinner from "../SkeletonSpinner";
 
 import InsertForm from "./InsertForm";
 import UpdateForm from "./UpdateForm";
@@ -92,7 +92,7 @@ const getCurrentPageItems = () => {
   return filteredAccept.slice(startIndex, endIndex);
 };
 
-const handleSearchDebounced = _.debounce(()=>{
+const handleSearch = ()=>{
 
   const filtered = acceptInfo.filter((item) =>
   item.organName.includes(searchByOrganName) &&
@@ -105,7 +105,11 @@ const handleSearchDebounced = _.debounce(()=>{
 );
 setFilteredAccept(filtered);
 
-}, 1000);
+setCurrentPage(1)
+
+}
+
+const handleSearchDebounced = _.debounce(handleSearch, 500);
 
 const handlePageChange = (event, value) => {
   setCurrentPage(value);
@@ -232,7 +236,7 @@ useEffect(() => {
                         <Stack spacing={2} className="pagination" style={{ width: '450px' }}>
                             <Pagination className="pagination_items"
                             color="secondary"
-                            count={totalPages ? totalPages : 10}
+                            count={totalPages || 10}
                             page={currentPage}
                             onChange={handlePageChange}
                             renderItem={(item) => (
