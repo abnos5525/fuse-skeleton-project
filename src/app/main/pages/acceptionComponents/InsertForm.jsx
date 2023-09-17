@@ -187,7 +187,7 @@ const InsertForm = ()=>{
                             <div>
                             <Typography className='position-absolute bg-white'
                              color="error" variant="body2"
-                                style={{zIndex:'2',top:'18%',right:'26%'}}>
+                                style={{zIndex:'2',top:'10%',right:'76%'}}>
                                 {errors?.systemAddress?.message}
                             </Typography>
                             <TextField
@@ -237,7 +237,7 @@ const InsertForm = ()=>{
                             <div>
                             <Typography className='position-absolute bg-white'
                              color="error" variant="body2"
-                                style={{zIndex:'2',top:'18%',right:'26%'}}>
+                                style={{zIndex:'2',top:'18%',right:'45%'}}>
                                 {errors?.systemMainAddress?.message}
                             </Typography>
                             <TextField
